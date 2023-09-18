@@ -1,5 +1,13 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
+contextBridge.exposeInMainWorld('fileOperations', {
+  exportSite: () => ipcRenderer.invoke('file:exportSite'),
+  getDirectories: () => ipcRenderer.invoke('file:getDirectories'),
+  createDirectory: (name: string) => ipcRenderer.invoke('file:createDirectory', name),
+  getPages: (dir: string) => ipcRenderer.invoke('file:getPages', dir),
+  createPage: (dir: string, name: string) => ipcRenderer.invoke('file:createPage', dir, name)
+})
+
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', withPrototype(ipcRenderer))
 

@@ -1,5 +1,7 @@
-import { app, BrowserWindow } from 'electron'
-import path from 'node:path'
+import { app, BrowserWindow, ipcMain } from 'electron';
+import path from 'node:path';
+import fs from 'fs';
+import FileOperations from './utils/FileOperations'
 
 // The built directory structure
 //
@@ -20,7 +22,7 @@ const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
 
 function createWindow() {
   win = new BrowserWindow({
-    icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
+    icon: __dirname + '/images/favicon.ico',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -37,6 +39,18 @@ function createWindow() {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(process.env.DIST, 'index.html'))
   }
+
+  win.setMenu(null);
+  win.setTitle('Test');
+  win.webContents.openDevTools();
+}
+
+function createHandlers() {
+  ipcMain.handle('file:exportSite', () => FileOperations.exportSite());
+  ipcMain.handle('file:getDirectories', () => FileOperations.getDirectories());
+  ipcMain.handle('file:createDirectory', (_, name: string) => FileOperations.createDirectory(name));
+  ipcMain.handle('file:getPages', (_, dir: string) => FileOperations.getPages(dir));
+  ipcMain.handle('file:createPage', (_, dir: string, name: string) => FileOperations.createPage(dir, name));
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -57,4 +71,10 @@ app.on('activate', () => {
   }
 })
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  if (!fs.existsSync(__dirname + '/projects_data')) {
+    fs.mkdirSync(path.join(__dirname, 'projects_data'));
+  }
+  createWindow();
+  createHandlers();
+})

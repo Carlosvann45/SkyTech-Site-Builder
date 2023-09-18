@@ -1,0 +1,54 @@
+.title {
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+    color: #212121;
+    font-size: 2.5em;
+    margin-top: 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 50%;
+}
+
+.label {
+    font-weight: 400;
+    color: #212121;
+    font-size: 1.5em;
+}
+
+.input {
+    font-size: 1em;
+    height: 2em;
+    border-radius: 5px;
+    border: 1px solid #212121;
+    margin-bottom: 2.5em;
+}
+
+.input:focus {
+    outline: 1px solid #212121;
+}
+.confirmbtn {
+    background-color: #212121;
+    color: #8C8C8C;
+    border: none;
+    font-size: 1em;
+    padding: 5px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 5px 5px 8px black;
+}
+
+.confirmbtn:active {
+    box-shadow: none;
+}

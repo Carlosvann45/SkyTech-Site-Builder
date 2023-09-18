@@ -1,0 +1,38 @@
+{
+    "name": "SkyTech Heading",
+    "tag": "skytech-heading",
+    "properties": [
+        {
+            "name": "content",
+            "type": "text",
+            "info": "Text for inside heading.",
+            "limit": 255
+        },
+        {
+            "name": "color",
+            "type": "text",
+            "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+            "info": "Color of heading text."
+        },
+        {
+            "name": "size",
+            "type": "text",
+            "regex": "^\\d+[p][x]$",
+            "info": "Size of heading text in pixels.",
+            "example": "10px"
+        },
+        {
+            "name": "heading",
+            "type": "number",
+            "info": "Semantic heading size for accesibility.",
+            "values": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ]
+        }
+    ]
+}
