@@ -1,29 +1,62 @@
 {
-    "name": "SkyTech Heading",
-    "tag": "skytech-heading",
+    "title": "SkyTech Heading",
+    "name": "skytech-heading",
+    "group": "SkyTech Components",
+    "type": "component",
     "properties": [
         {
+            "title": "Content",
             "name": "content",
             "type": "text",
             "info": "Text for inside heading.",
             "limit": 255
         },
         {
+            "title": "Color",
             "name": "color",
             "type": "text",
             "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
             "info": "Color of heading text."
         },
         {
-            "name": "size",
+            "title": "Font Size",
+            "name": "fontSize",
             "type": "text",
-            "regex": "^\\d+[p][x]$",
-            "info": "Size of heading text in pixels.",
+            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$",
+            "info": "Size of heading text in pixels, em, or rem.",
             "example": "10px"
         },
         {
+            "title": "Padding",
+            "name": "padding",
+            "type": "text",
+            "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
+            "info": "Internal space around text in pixels, em, or rem. Goes in order of top, right, bottom, left or top and bottom, left and right.",
+            "example": "10rem 10rem 10rem 10rem"
+        },
+        {
+            "title": "Margin",
+            "name": "margin",
+            "type": "text",
+            "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
+            "info": "External space around text in pixels, ems, or rems. Goes in order of top, right, bottom, left or top and bottom, left and right.",
+            "example": "10em"
+        },
+        {
+            "title": "Text Align",
+            "name": "textAlign",
+            "type": "option",
+            "info": "Aligns text left, right, or center",
+            "values": [
+                "left",
+                "center",
+                "right"
+            ]
+        },
+        {
+            "title": "Heading",
             "name": "heading",
-            "type": "number",
+            "type": "option",
             "info": "Semantic heading size for accesibility.",
             "values": [
                 1,
@@ -33,6 +66,37 @@
                 5,
                 6
             ]
+        },
+        {
+            "title": "Font Weight",
+            "name": "fontWeight",
+            "type": "number",
+            "info": "Adjusts the thickness of the characters",
+            "example": "400"
+        },
+        {
+            "title": "Width",
+            "name": "width",
+            "type": "text",
+            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
+            "info": "Width of heading text in percentages, pixels, em, or rem.",
+            "example": "10px"
+        },
+        {
+            "title": "Height",
+            "name": "height",
+            "type": "text",
+            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
+            "info": "Height of heading text in percentages, pixels, em, or rem.",
+            "example": "10px"
+        },
+        {
+            "title": "Line Height",
+            "name": "lineHeight",
+            "type": "text",
+            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$",
+            "info": "Line height of heading text in pixels, em, or rem.",
+            "example": "10px"
         }
     ]
 }

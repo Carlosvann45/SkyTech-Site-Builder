@@ -6,9 +6,22 @@
     <title>SkyTech Web Components</title>
     <link rel="stylesheet" href="./src/index.css" />
     <script type="module" src="/src/app.ts"></script>
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+      }
+    </style>
   </head>
   <body>
-    <skytech-text content="test content" size="50px" color="#fff"></skytech-text>
-    <skytech-heading heading=1 content="test content" size="25px" color="#fff"></skytech-heading>
+    <skytech-one-column width="50%" margin="0px auto" color="#fff">
+      <skytech-text slot="skytech-column-one" content="test content" fontSize="50px" color="#ae456b" textAlign="right" margin="25px"></skytech-text>
+      <skytech-heading slot="skytech-column-one" heading=2 content="test content" fontSize="50px" color="#ae456b" textAlign="left" margin="25px" fontWeight="600"></skytech-heading>
+    </skytech-one-column>
+    <skytech-two-column width="75%" margin="0px auto" color="#fff" colorOne="black" marginOne="5px" colorTwo="blue" marginTwo="5px">
+      <skytech-text slot="skytech-column-one" content="test content" fontSize="50px" color="#ae456b" textAlign="right" margin="25px"></skytech-text>
+      <skytech-heading slot="skytech-column-two" heading=2 content="test content" fontSize="50px" color="#ae456b" textAlign="left" margin="25px" fontWeight="600"></skytech-heading>
+    </skytech-two-column>
   </body>
 </html>
