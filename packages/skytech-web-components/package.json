@@ -26,5 +26,6 @@
       "import": "./dist/skytech-web-components.js",
       "require": "./dist/skytech-web-components.cjs"
     }
-  }
+  },
+  "gitHead": "f9d828c50c91282cb7bc26619ad9895a47717dc3"
 }
