@@ -24,7 +24,7 @@ export class SkyTechOneColumn extends LitElement {
 
   generateStyles() {
     return css`
-    .skytech-one-column {
+    slot.skytech-one-column {
       display: flex;
       flex-direction: column;  
     

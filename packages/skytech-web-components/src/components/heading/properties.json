@@ -30,7 +30,6 @@
             "title": "Padding",
             "name": "padding",
             "type": "text",
-            "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
             "info": "Internal space around text in pixels, em, or rem. Goes in order of top, right, bottom, left or top and bottom, left and right.",
             "example": "10rem 10rem 10rem 10rem"
         },
@@ -38,7 +37,6 @@
             "title": "Margin",
             "name": "margin",
             "type": "text",
-            "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
             "info": "External space around text in pixels, ems, or rems. Goes in order of top, right, bottom, left or top and bottom, left and right.",
             "example": "10em"
         },
@@ -78,7 +76,6 @@
             "title": "Width",
             "name": "width",
             "type": "text",
-            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
             "info": "Width of heading text in percentages, pixels, em, or rem.",
             "example": "10px"
         },
@@ -86,7 +83,6 @@
             "title": "Height",
             "name": "height",
             "type": "text",
-            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
             "info": "Height of heading text in percentages, pixels, em, or rem.",
             "example": "10px"
         },
@@ -94,7 +90,6 @@
             "title": "Line Height",
             "name": "lineHeight",
             "type": "text",
-            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$",
             "info": "Line height of heading text in pixels, em, or rem.",
             "example": "10px"
         }

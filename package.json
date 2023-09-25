@@ -4,6 +4,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build": "lerna run build --scope=skytech-web-components",
+    "publish": "npm run build && lerna publish"
+  },
   "dependencies": {},
   "devDependencies": {
     "lerna": "^7.3.0"

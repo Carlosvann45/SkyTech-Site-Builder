@@ -47,7 +47,7 @@ export class SkyTechTwoColumn extends LitElement {
 
   generateStyles() {
     return css`
-    .skytech-two-column {
+    div.skytech-two-column {
       display: flex;
       flex-direction: row;  
     
@@ -58,7 +58,7 @@ export class SkyTechTwoColumn extends LitElement {
       height: ${unsafeCSS(this.height)};
     }
 
-    .skytech-column-one {
+    slot.skytech-column-one {
         display: flex;
         flex-direction: column;  
 
@@ -69,7 +69,7 @@ export class SkyTechTwoColumn extends LitElement {
         height: ${unsafeCSS(this.heightOne)};
     }
 
-    .skytech-column-two {
+    slot.skytech-column-two {
         display: flex;
         flex-direction: column;
         

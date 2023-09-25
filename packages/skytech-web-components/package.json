@@ -1,11 +1,15 @@
 {
   "name": "skytech-web-components",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "main": "dist/index.js",
+  "files": ["dist"],
+  "publishConfig": {
+    "directory": "dist"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "node script/moveProperties.js && tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,5 +18,11 @@
   "devDependencies": {
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/skytech-web-components.js",
+      "require": "./dist/skytech-web-components.cjs"
+    }
   }
 }

@@ -1,0 +1,63 @@
+{
+    "title": "SkyTech Image",
+    "name": "skytech-image",
+    "group": "SkyTech Components",
+    "type": "component",
+    "properties": [
+        {
+            "title": "Source",
+            "name": "source",
+            "type": "text",
+            "info": "Source for image to load."
+        },
+        {
+            "title": "Alternate Text",
+            "name": "alt",
+            "type": "text",
+            "info": "Alternate text for image for accessibility",
+            "limit": 255
+        },
+        {
+            "title": "Padding",
+            "name": "padding",
+            "type": "text",
+            "info": "Internal space around image container in pixels, em, or rem. Goes in order of top, right, bottom, left or top and bottom, left and right.",
+            "example": "10px 10px 10px 10px"
+        },
+        {
+            "title": "Margin",
+            "name": "margin",
+            "type": "text",
+            "info": "External space around image text. Goes in order of top, right, bottom, left or top and bottom, left and right.",
+            "example": "10px"
+        },
+        {
+            "title": "Width",
+            "name": "width",
+            "type": "text",
+            "info": "Width of image container in percentages, pixels, em, or rem.",
+            "example": "10px"
+        },
+        {
+            "title": "Height",
+            "name": "height",
+            "type": "text",
+            "info": "Height of heading text in percentages, pixels, em, or rem.",
+            "example": "10px"
+        },
+        {
+            "title": "Image Width",
+            "name": "width",
+            "type": "text",
+            "info": "Width of image in percentages, pixels, em, or rem.",
+            "example": "10px"
+        },
+        {
+            "title": "Image Height",
+            "name": "imgHeight",
+            "type": "text",
+            "info": "Height of image in percentages, pixels, em, or rem.",
+            "example": "10px"
+        }
+    ]
+}
