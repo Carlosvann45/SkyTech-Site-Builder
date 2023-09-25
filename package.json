@@ -8,6 +8,7 @@
     "build": "lerna run build --scope=skytech-web-components",
     "publish": "npm run build && lerna publish --no-private"
   },
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "lerna": "^7.3.0"

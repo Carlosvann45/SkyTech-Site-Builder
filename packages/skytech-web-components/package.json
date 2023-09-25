@@ -1,8 +1,8 @@
 {
   "name": "skytech-web-components",
-  "version": "1.0.2",
+  "version": "0.0.0",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/skytech-web-components.js",
   "files": [
     "dist"
   ],
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "node script/moveProperties.js && tsc && vite build",
+    "build": "node script/moveProperties.js && tsc && vite build && node script/copyPackage.js",
     "preview": "vite preview"
   },
   "dependencies": {
