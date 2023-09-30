@@ -5,7 +5,7 @@
   "main": "skytech-web-components.js",
   "scripts": {
     "dev": "vite",
-    "build": "node script/moveProperties.js && tsc && vite build && node script/copyPackage.js",
+    "build": "tsc && vite build && node script/moveProperties.js",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -16,11 +16,9 @@
     "vite": "^4.4.5"
   },
   "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "import": "./skytech-web-components.js",
-      "require": "./skytech-web-components.cjs"
-    }
+    "style": "./index.css",
+    "script": "./index.js",
+    "properties": "./properties.json"
   },
   "gitHead": "8b026636e5cb78416c624a4fdb1153c094539b85"
 }

@@ -25,4 +25,6 @@ for (const file of containerFiles) {
 
 console.log(allProperties);
 
-fs.writeFileSync('lib/properties.json', JSON.stringify(allProperties));
+fs.writeFileSync('./dist/properties.json', JSON.stringify(allProperties));
+fs.copyFileSync('./package.json', './dist/package.json');
+fs.unlinkSync('./dist/index.html');

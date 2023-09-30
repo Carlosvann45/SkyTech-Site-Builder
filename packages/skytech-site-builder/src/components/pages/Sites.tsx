@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import classes from '../../styles/Sites.module.css';
 import Folder from '../../assets/icons8-folder-30.png';
 import Common from '../../utils/common';
+import { SkyTechProperties } from 'skytech-web-components6';
 
 function Sites() {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ function Sites() {
     window.fileOperations.getDirectories().then((dir: any) => {
       setProjects(dir)
     });
+    console.log(SkyTechProperties);
+    //console.log(SkyTechWebComponents);
   }, []);
 
   return (

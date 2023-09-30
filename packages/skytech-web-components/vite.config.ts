@@ -7,12 +7,19 @@ export default defineConfig({
   plugins: [],
   build: {
     outDir: 'dist',
-    lib: {
-      // Could also be a dictionary or array of multiple entry points
-      entry: resolve(__dirname, 'lib/main.js'),
-      name: 'SkyTechWebComponents',
-      // the proper extensions will be added
-      fileName: 'skytech-web-components',
-    }
+    rollupOptions: {
+      output: {
+        dir: './dist/',
+        entryFileNames: 'index.js',
+        assetFileNames: 'index.css'
+      }
+    },
+    // lib: {
+    //   // Could also be a dictionary or array of multiple entry points
+    //   entry: resolve(__dirname, 'lib/main.js'),
+    //   name: 'SkyTechWebComponents',
+    //   // the proper extensions will be added
+    //   fileName: 'skytech-web-components',
+    // }
   }
 });
