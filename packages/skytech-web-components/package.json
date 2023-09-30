@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "main": "skytech-web-components.js",
+  "types": "./index.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "node script/moveProperties.js && tsc && vite build && node script/copyPackage.js",
