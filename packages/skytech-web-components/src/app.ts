@@ -9,6 +9,9 @@ import './components/image/SkyTechImage';
 import './containers/one-column/SkyTechOneColumn';
 import './containers/two-column/SkyTechTwoColumn';
 
+/**
+ * Global declare for componenets
+ */
 declare global {
   interface HTMLElementTagNameMap {
     'skytech-text': SkyTechText,

@@ -2,9 +2,9 @@
   "name": "skytech-web-components",
   "version": "1.0.4",
   "type": "module",
-  "main": "skytech-web-components.js",
+  "main": "./skytech-web-components.js",
   "files": [
-    "./"
+    "./*"
   ],
   "scripts": {
     "dev": "vite",
@@ -20,8 +20,8 @@
   },
   "exports": {
     ".": {
-      "import": ".skytech-web-components.js",
-      "require": ".skytech-web-components.cjs"
+      "import": "./skytech-web-components.js",
+      "require": "./skytech-web-components.cjs"
     }
   },
   "gitHead": "f9d828c50c91282cb7bc26619ad9895a47717dc3"

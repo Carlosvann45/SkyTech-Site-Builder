@@ -1,7 +1,9 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js'
 
-
+/**
+ * Class for one column container
+ */
 @customElement('skytech-one-column')
 export class SkyTechOneColumn extends LitElement {
   @property({ type: String, attribute: true })

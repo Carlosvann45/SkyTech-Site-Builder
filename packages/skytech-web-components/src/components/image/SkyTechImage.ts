@@ -1,7 +1,9 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js'
 
-
+/**
+ * Class for image web component
+ */
 @customElement('skytech-image')
 export class SkyTechImage extends LitElement {
   @property({ type: String, attribute: true })

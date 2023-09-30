@@ -1,7 +1,9 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js'
 
-
+/**
+ * Class for text web component
+ */
 @customElement('skytech-text')
 export class SkyTechText extends LitElement {
   @property({ type: String, attribute: true })
