@@ -1,5 +1,6 @@
-export declare let SkyTechWebComponents: globalThis;
-export declare let SkyTechProperties: {
+export declare let styles: any;
+export declare let script: any;
+export declare let properties: {
     components: {
         title: string,
         name: string,

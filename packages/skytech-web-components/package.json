@@ -17,6 +17,7 @@
   },
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "style": "./index.css",
       "script": "./index.js",
       "properties": "./properties.json"
