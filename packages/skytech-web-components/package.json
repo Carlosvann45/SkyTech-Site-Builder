@@ -2,13 +2,10 @@
   "name": "skytech-web-components",
   "version": "1.0.4",
   "type": "module",
-  "main": "dist/skytech-web-components.js",
+  "main": "skytech-web-components.js",
   "files": [
-    "dist"
+    "./"
   ],
-  "publishConfig": {
-    "directory": "dist"
-  },
   "scripts": {
     "dev": "vite",
     "build": "node script/moveProperties.js && tsc && vite build && node script/copyPackage.js",
@@ -23,8 +20,8 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/skytech-web-components.js",
-      "require": "./dist/skytech-web-components.cjs"
+      "import": ".skytech-web-components.js",
+      "require": ".skytech-web-components.cjs"
     }
   },
   "gitHead": "f9d828c50c91282cb7bc26619ad9895a47717dc3"
