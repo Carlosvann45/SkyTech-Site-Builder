@@ -1,6 +1,6 @@
 {
   "name": "skytech-web-components6",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "skytech-web-components.js",
   "types": "./index.d.ts",
