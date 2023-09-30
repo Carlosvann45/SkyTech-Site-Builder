@@ -1,5 +1,5 @@
 {
-  "name": "skytech-web-components",
+  "name": "skytech-web-components2",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/skytech-web-components.js",
@@ -27,5 +27,5 @@
       "require": "./dist/skytech-web-components.cjs"
     }
   },
-  "gitHead": "f9d828c50c91282cb7bc26619ad9895a47717dc3"
+  "gitHead": "9c3ec0de8be10da66d8804363034a2168b642075"
 }
