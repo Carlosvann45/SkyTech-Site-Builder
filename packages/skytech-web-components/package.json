@@ -1,6 +1,6 @@
 {
   "name": "skytech-web-components",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "main": "dist/skytech-web-components.js",
   "files": [

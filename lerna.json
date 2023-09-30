@@ -1,6 +1,7 @@
 {
   "packages": [
-    "packages/*"
+    "packages/skytech-web-components",
+    "packages/skytech-web-components/dist"
   ],
   "version": "1.0.4"
 }
