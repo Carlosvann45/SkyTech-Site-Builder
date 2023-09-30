@@ -5,8 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build --scope=skytech-web-components3",
-    "publish": "npm run build && lerna publish from-package --no-private --contents dist"
+    "build": "lerna run build --scope=skytech-web-components4",
+    "publish": "npm run build && lerna publish --no-private --contents dist --yes"
   },
   "license": "MIT",
   "dependencies": {},
