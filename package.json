@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "build": "lerna run build --scope=skytech-web-components",
-    "publish": "npm run build && lerna publish from-package --no-private --contents ./packages/skytech-web-components/dist"
+    "publish": "npm run build && lerna publish from-package --no-private --directory ./packages/skytech-web-components/dist"
   },
   "license": "MIT",
   "dependencies": {},
