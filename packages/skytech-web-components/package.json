@@ -1,6 +1,6 @@
 {
   "name": "skytech-web-components6",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "main": "skytech-web-components.js",
   "scripts": {
@@ -16,9 +16,11 @@
     "vite": "^4.4.5"
   },
   "exports": {
-    "style": "./index.css",
-    "script": "./index.js",
-    "properties": "./properties.json"
+    ".": {
+      "style": "./index.css",
+      "script": "./index.js",
+      "properties": "./properties.json"
+    }
   },
   "gitHead": "8b026636e5cb78416c624a4fdb1153c094539b85"
 }
