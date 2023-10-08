@@ -1,5 +1,5 @@
-export declare let styles: any;
-export declare let script: any;
+export declare function getWebComponentsJs(): string;
+export declare function getWebComponentsJs(): string;
 export declare let properties: {
     components: {
         title: string,

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import classes from '../../styles/Sites.module.css';
 import Folder from '../../assets/icons8-folder-30.png';
 import Common from '../../utils/common';
-// import { properties } from 'skytech-web-components6';
+import { properties } from 'skytech-web-components6';
 
 function Sites() {
   const navigate = useNavigate();

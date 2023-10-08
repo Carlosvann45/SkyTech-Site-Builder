@@ -23,5 +23,4 @@ declare global {
     'skytech-button': SkyTechButton
   }
 }
-
 export default global;
