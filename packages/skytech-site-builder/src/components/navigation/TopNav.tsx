@@ -39,7 +39,7 @@ function TopNav() {
     useEffect(() => {
       const option = window.location.pathname.split('/');
       const dir = location.state?.project;
-      console.log(option);
+      
       setButtonText(`Create ${option.includes('pages') ? 'Page' : 'Project'}`);
       setSelected(dir ? Common.formatTitle(dir, true) : option[1]);
     }, [location]);

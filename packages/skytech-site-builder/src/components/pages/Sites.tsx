@@ -20,20 +20,6 @@ function Sites() {
     window.fileOperations.getProjects().then((dir: any) => {
       setProjects(dir)
     });
-    window.fileOperations.getWebComponentFiles().then((files: any) => {
-      console.log('js:');
-      console.log(files.js);
-      console.log('css:');
-      console.log(files.css);
-
-    })
-    window.fileOperations.getWebComponentProperties().then((properties: any) => {
-      console.log('properties:')
-      console.log(properties);
-    })
-    // console.log(getWebComponentsJs());
-    // console.log(getWebComponentsCss());
-    // console.log(webComponentProperties);
   }, []);
 
   return (
