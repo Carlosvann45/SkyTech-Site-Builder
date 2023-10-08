@@ -1,6 +1,6 @@
 {
   "name": "skytech-web-components",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "type": "module",
   "main": "skytech-web-components.js",
   "module": "skytech-web-components.umd.cjs",
