@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
-// import fs from 'fs';
-// import packageJson from '../package.json' assert { type: "json" };
+import fs from 'fs';
+import packageJson from './package.json' assert { type: "json" };
 
 // check branch name
 exec('git rev-parse --abbrev-ref HEAD', (err, stdout) => {
@@ -27,30 +27,30 @@ exec('git ls-files -m', (err, stdout) => {
     }
 });
 
-// // what part of version to update
-// const majorRelease = false;
-// const minorRelease = false;
-// const patchRelease = true;
+// what part of version to update
+const majorRelease = false;
+const minorRelease = false;
+const patchRelease = true;
 
-// // update version for package.json
-// const versionArr = packageJson.version.split('.');
-// let majorVersion = parseInt(versionArr[0]);
-// let minorVersion = parseInt(versionArr[1]);
-// let patchVersion = parseInt(versionArr[2]);
+// update version for package.json
+const versionArr = packageJson.version.split('.');
+let majorVersion = parseInt(versionArr[0]);
+let minorVersion = parseInt(versionArr[1]);
+let patchVersion = parseInt(versionArr[2]);
 
 
-// if (majorRelease) {
-//     majorVersion++;
-// }
+if (majorRelease) {
+    majorVersion++;
+}
 
-// if (minorRelease) {
-//     minorVersion++;
-// }
+if (minorRelease) {
+    minorVersion++;
+}
 
-// if (patchRelease) {
-//     patchVersion++
-// }
+if (patchRelease) {
+    patchVersion++
+}
 
-// packageJson.version = `${majorVersion}.${minorVersion}.${patchVersion}`;
+packageJson.version = `${majorVersion}.${minorVersion}.${patchVersion}`;
 
-// fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
+fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
