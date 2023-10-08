@@ -1,6 +1,6 @@
 {
   "name": "skytech-web-components",
-  "version": "1.0.4",
+  "version": "1.0.2",
   "type": "module",
   "main": "./skytech-web-components.js",
   "module": "./skytech-web-components.umd.cjs",
@@ -28,5 +28,5 @@
       "require": "./skytech-web-componenets.umd.cjs"
     }
   },
-  "gitHead": "751e7aba25ecf5faf2e7df4cbc097e53a15abb11"
+  "gitHead": "2504724b6bd2003f5d3a5219e4cf049921a528fa"
 }

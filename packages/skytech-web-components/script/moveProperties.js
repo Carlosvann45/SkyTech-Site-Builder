@@ -29,4 +29,5 @@ console.log(allProperties);
 // create/move appropriate files for npm release
 fs.writeFileSync('./lib/properties.json', JSON.stringify(allProperties, null, 2));
 fs.copyFileSync('./package.json', './dist/package.json');
+fs.copyFileSync('./index.d.ts', './dist/index.d.ts');
 fs.unlinkSync('./dist/index.html');

@@ -1,17 +1,16 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
-import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   appType: 'custom',
-  plugins: [nodePolyfills(), dts()],
+  plugins: [nodePolyfills({ include: null })],
   build: {
     outDir: 'dist',
     emptyOutDir: false,
     rollupOptions: {
-      external: ['fs', 'node:path'],
+      external: ['fs', 'path'],
       output: {
         globals: {
           fs: 'fs',
