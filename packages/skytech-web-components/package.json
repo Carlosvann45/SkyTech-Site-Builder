@@ -24,6 +24,7 @@
   },
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./skytech-web-components.js",
       "require": "./skytech-web-components.umd.cjs"
     },
