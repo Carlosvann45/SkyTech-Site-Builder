@@ -5,7 +5,7 @@ import packageJson from '../package.json' assert { type: "json" };;
 // what part of version to update
 const majorRelease = false;
 const minorRelease = false;
-const patchRelease = false;
+const patchRelease = true;
 
 // gather all proerties
 const allProperties = {
