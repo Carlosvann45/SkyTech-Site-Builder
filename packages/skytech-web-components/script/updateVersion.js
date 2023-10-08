@@ -20,11 +20,11 @@ exec('git ls-files -m', (err, stdout) => {
        console.log(err);
     }
 
-    if (typeof stdout === 'string' && stdout.trim() !== '') {
+    if (stdout?.trim() !== '') {
         throw new Error('You must save or stash your changes before trying to publish package.');
-    } else {
-        console.log('Running Version Update.')
     }
+    
+    console.log('Running Version Update.');
 });
 
 // what part of version to update
