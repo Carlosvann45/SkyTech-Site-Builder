@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
 import fs from 'fs';
-import packageJson from './package.json' assert { type: "json" };
+import packageJson from '../package.json' assert { type: "json" };
 
 // check branch name
 exec('git rev-parse --abbrev-ref HEAD', (err, stdout) => {
