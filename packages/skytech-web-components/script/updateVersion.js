@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
-import fs from 'fs';
-import packageJson from '../package.json' assert { type: "json" };
+// import fs from 'fs';
+// import packageJson from '../package.json' assert { type: "json" };
 
 // check branch name
 exec('git rev-parse --abbrev-ref HEAD', (err, stdout, stderr) => {
@@ -13,6 +13,14 @@ exec('git rev-parse --abbrev-ref HEAD', (err, stdout, stderr) => {
     } else {
         throw new Error('You must be on main to publish web components')
     }
+});
+
+exec('git status', (err, stdout, stderr) => {
+    if (err) {
+       console.log(err);
+    }
+
+    // console.log(stdout);
 });
 
 // // what part of version to update
