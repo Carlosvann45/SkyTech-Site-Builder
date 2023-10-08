@@ -1,16 +1,17 @@
 import fs from 'fs';
-import path from 'path';
 
 const currentDirectory = __dirname;
 
 function getWebComponentsJs(): string {
-    console.log(currentDirectory);
-    return fs.readFileSync(path.join(currentDirectory, 'index.js')).toString();
+    const path = require.resolve('skytech-web-components/index.js');
+    console.log(path);
+    return fs.readFileSync(path).toString();
 }
 
 function getWebComponentsCss(): string {
-    console.log(currentDirectory);
-    return fs.readFileSync(path.join(currentDirectory, 'index.css')).toString();
+    const path = require.resolve('skytech-web-components/index.css');
+    console.log(path);
+    return fs.readFileSync(path).toString();
 }
 
 export { 
