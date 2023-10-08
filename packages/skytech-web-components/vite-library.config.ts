@@ -10,11 +10,10 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: false,
     rollupOptions: {
-      external: ['fs', 'path'],
+      external: ['fs'],
       output: {
         globals: {
-          fs: 'fs',
-          path: 'path'
+          fs: 'fs'
         }
       }
     },
