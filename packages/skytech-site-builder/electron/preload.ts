@@ -2,8 +2,8 @@ import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('fileOperations', {
   exportSite: () => ipcRenderer.invoke('file:exportSite'),
-  getDirectories: () => ipcRenderer.invoke('file:getDirectories'),
-  createDirectory: (name: string) => ipcRenderer.invoke('file:createDirectory', name),
+  getProjects: () => ipcRenderer.invoke('file:getProjects'),
+  createProject: (name: string) => ipcRenderer.invoke('file:createProject', name),
   getPages: (dir: string) => ipcRenderer.invoke('file:getPages', dir),
   createPage: (dir: string, name: string) => ipcRenderer.invoke('file:createPage', dir, name),
   getWebComponentFiles: () => ipcRenderer.invoke('file:getWebComponentFiles'),

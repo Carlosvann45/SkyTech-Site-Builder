@@ -10,7 +10,7 @@ function Export() {
     }
 
     useEffect(() => {
-      window.fileOperations.getDirectories().then((dir: any) => {
+      window.fileOperations.getProjects().then((dir: any) => {
         setProjects(dir)
       });
     }, []);

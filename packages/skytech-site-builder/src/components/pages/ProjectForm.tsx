@@ -15,7 +15,7 @@ function ProjectForm() {
     if (result.valid) {
       let newTitle = Common.formatTitle(project.title, false);
 
-      window.fileOperations.createDirectory(newTitle).then((created: any) => {
+      window.fileOperations.createProject(newTitle).then((created: any) => {
         if (!created) {
           Common.toast('error', ERROR.TITLE_EXISTS);
         } else {
@@ -40,13 +40,13 @@ function ProjectForm() {
 
   return (
     <div className={classes.wrapper}>
-        <h2 className={classes.title}>Create Folder</h2>
+        <h2 className={classes.title}>Create Project</h2>
         <div className={classes.form}>
             <p className={classes.inputcontainer}>
                 <label className={classes.label} htmlFor="title">Title*</label>
                 <input className={classes.input} onChange={onChange} type="text" name="title" id="title" />
             </p>
-            <button className={classes.confirmbtn} onClick={handleClick} type="button">Create Folder</button>
+            <button className={classes.confirmbtn} onClick={handleClick} type="button">Create Project</button>
         </div>
     </div>
   );

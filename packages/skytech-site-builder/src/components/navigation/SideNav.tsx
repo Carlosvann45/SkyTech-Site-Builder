@@ -23,14 +23,10 @@ function SideNav() {
   return (
     <div className={classes.sidebar}>
         <div className={classes.icons}>
-          {/*@ts-ignore*/}
           <button 
-            data-tooltip-id="website-tool-tip" 
-            data-tooltip-content="Website"
-            data-tooltip-place="right-end"
             className={`${classes.icon} ${selected === 'websites' ? classes.iconselected : ''}`} 
             onClick={() => handleClick('')} >
-            <span className={classes.tooltip}>Website</span>
+            <span className={classes.tooltip}>Websites</span>
             <img style={{ width: '25px', height: '25px' }} src={Website} />
           </button>
           <button className={`${classes.icon} ${selected === 'templates' ? classes.iconselected : ''}`}  onClick={() => handleClick('templates')}>

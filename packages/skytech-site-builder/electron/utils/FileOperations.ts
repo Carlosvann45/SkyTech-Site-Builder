@@ -27,7 +27,7 @@ export default class FileOperations {
         })
     }
 
-    public static async getDirectories() {
+    public static async getProjects() {
 
         const directories = (await readdir(this.path, {withFileTypes: true}))
         .filter((dirent: any) => dirent.isDirectory())
@@ -36,7 +36,7 @@ export default class FileOperations {
         return directories;
     }
 
-    public static async createDirectory(name: string) {
+    public static async createProject(name: string) {
         if (!fs.existsSync(path.join(this.path, name))) {
             await mkdir(path.join(this.path, name));
             return true;

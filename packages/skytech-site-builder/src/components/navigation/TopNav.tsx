@@ -8,6 +8,7 @@ function TopNav() {
     const navigate = useNavigate();
     const location = useLocation();
     const [selected, setSelected] = useState('');
+    const [buttonText, setButtonText] = useState('Create');
 
     function handleCreateClick() {
         const place = window.location.pathname.split('/')
@@ -38,7 +39,8 @@ function TopNav() {
     useEffect(() => {
       const option = window.location.pathname.split('/');
       const dir = location.state?.project;
-
+      console.log(option);
+      setButtonText(`Create ${option.includes('pages') ? 'Page' : 'Project'}`);
       setSelected(dir ? Common.formatTitle(dir, true) : option[1]);
     }, [location]);
   
@@ -55,7 +57,7 @@ function TopNav() {
             <button 
                 type="button" 
                 className={`${classes.topbtn} ${showCreateButton() && classes.hide}`}
-                onClick={handleCreateClick}>Create</button>
+                onClick={handleCreateClick}>{buttonText}</button>
             <button type="button" className={`${classes.topbtn} ${selected !== 'pages' && classes.hide}`}>Edit Project</button>
         </div>
       </div>
