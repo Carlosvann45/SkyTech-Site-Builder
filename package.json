@@ -5,7 +5,8 @@
     "packages/skytech-web-components"
   ],
   "scripts": {
-    "build": "lerna run build --scope=skytech-web-components",
+    "update-version": "node packages/skytech-web-components/script/updateVersion.js",
+    "build": "npm run update-version && lerna run build --scope=skytech-web-components",
     "publish": "npm run build && lerna publish from-package --contents dist --yes --no-verify-access --loglevel verbose"
   },
   "license": "MIT",
