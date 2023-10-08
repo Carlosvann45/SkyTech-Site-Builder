@@ -31,7 +31,7 @@ exec('git rev-parse --abbrev-ref HEAD', (err, stdout) => {
         const patchRelease = true;
 
         // package to update
-        const packageLocation = './packages/skytech-web-components/package.json';
+        const packageLocation = './package.json';
 
         // update version for package.json
         const version = packageJson.version;

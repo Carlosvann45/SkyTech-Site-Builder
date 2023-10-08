@@ -5,7 +5,7 @@
     "packages/skytech-web-components"
   ],
   "scripts": {
-    "update-version": "node packages/skytech-web-components/script/updateVersion.js",
+    "update-version": "lerna run update-version --scope=skytech-web-components",
     "build": "npm run update-version && lerna run build --scope=skytech-web-components",
     "publish": "npm run build && lerna publish from-package --contents dist --yes --no-verify-access --loglevel verbose"
   },

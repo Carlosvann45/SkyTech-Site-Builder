@@ -5,6 +5,7 @@
   "main": "skytech-web-components.js",
   "scripts": {
     "dev": "vite",
+    "update-version": "node script/updateVersion.js",
     "build": "tsc && vite build --config vite-components.config.ts && node script/moveProperties.js && vite build --config vite-library.config.ts",
     "preview": "vite preview"
   },
