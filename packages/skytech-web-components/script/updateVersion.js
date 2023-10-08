@@ -53,4 +53,4 @@ if (patchRelease) {
 
 packageJson.version = `${majorVersion}.${minorVersion}.${patchVersion}`;
 
-fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
+fs.writeFileSync('./packages/skytech-web-componenets/package.json', JSON.stringify(packageJson, null, 2));
