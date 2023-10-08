@@ -2,7 +2,6 @@ import { dialog } from 'electron';
 import path from 'node:path';
 import fs from 'fs';
 import { readdir, mkdir, writeFile } from 'fs/promises';
-// @ts-ignore
 import { getWebComponentsJs, getWebComponentsCss,  webComponentProperties } from 'skytech-web-components';
 
 export default class FileOperations {
