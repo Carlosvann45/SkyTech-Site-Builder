@@ -2,7 +2,9 @@
   "name": "skytech-web-components",
   "version": "1.0.2",
   "type": "module",
-  "main": "skytech-web-components.js",
+  "main": "./skytech-web-components.js",
+  "module": "./skytech-web-components.umd.cjs",
+  "types": "./index.d.ts",
   "scripts": {
     "dev": "vite",
     "update-version": "node script/updateVersion.js",
@@ -14,13 +16,14 @@
     "node": "^20.7.0"
   },
   "devDependencies": {
+    "@types/node": "^20.8.3",
     "rollup-plugin-polyfill-node": "^0.12.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.6.0"
   },
   "exports": {
     ".": {
-      "types": "./index.d.ts",
       "import": "./skytech-web-componenets.js",
       "require": "./skytech-web-componenets.umd.cjs"
     }
