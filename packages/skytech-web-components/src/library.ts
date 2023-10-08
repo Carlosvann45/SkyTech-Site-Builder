@@ -1,7 +1,5 @@
 import fs from 'fs';
 
-const currentDirectory = __dirname;
-
 function getWebComponentsJs(): string {
     const path = require.resolve('skytech-web-components/index.js');
     console.log(path);
