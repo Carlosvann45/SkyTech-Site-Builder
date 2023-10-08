@@ -2,9 +2,9 @@
   "name": "skytech-web-components",
   "version": "1.0.9",
   "type": "module",
-  "main": "./skytech-web-components.js",
-  "module": "./skytech-web-components.umd.cjs",
-  "types": "./index.d.ts",
+  "main": "skytech-web-components.js",
+  "module": "skytech-web-components.umd.cjs",
+  "types": "index.d.ts",
   "scripts": {
     "dev": "vite",
     "update-version": "node script/updateVersion.js",
