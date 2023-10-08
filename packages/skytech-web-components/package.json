@@ -24,8 +24,8 @@
   },
   "exports": {
     ".": {
-      "import": "./skytech-web-componenets.js",
-      "require": "./skytech-web-componenets.umd.cjs"
+      "import": "./skytech-web-components.js",
+      "require": "./skytech-web-components.umd.cjs"
     }
   },
   "gitHead": "2504724b6bd2003f5d3a5219e4cf049921a528fa"
