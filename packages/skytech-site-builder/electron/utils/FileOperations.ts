@@ -2,9 +2,22 @@ import { dialog } from 'electron';
 import path from 'node:path';
 import fs from 'fs';
 import { readdir, mkdir, writeFile } from 'fs/promises';
+import { getWebComponentsJs, getWebComponentsCss,  webComponentProperties} from 'skytech-web-components';
 
 export default class FileOperations {
     private static path = path.join(__dirname,'projects_data');
+
+    public static getWebComponentProperties() {
+        return webComponentProperties;
+    }
+
+    public static getWebComponentFiles() {
+        return {
+            js: getWebComponentsJs(),
+            css: getWebComponentsCss()
+            
+        }
+    }
 
     public static exportSite() {
         return dialog.showOpenDialog({

@@ -15,6 +15,6 @@ postMessage({ payload: 'removeLoading' }, '*');
 
 declare global {
   interface Window {
-    fileOperations: any;
+    fileOperations: any
   }
 }
