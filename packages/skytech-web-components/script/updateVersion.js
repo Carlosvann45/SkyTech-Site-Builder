@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 // import packageJson from '../package.json' assert { type: "json" };
 
 // check branch name
-exec('git rev-parse --abbrev-ref HEAD', (err, stdout, stderr) => {
+exec('git rev-parse --abbrev-ref HEAD', (err, stdout) => {
     if (err) {
        console.log(err);
     }
@@ -11,16 +11,18 @@ exec('git rev-parse --abbrev-ref HEAD', (err, stdout, stderr) => {
     if (typeof stdout === 'string' && (stdout.trim() === 'main')) {
       console.log(`Running Version Update`);
     } else {
-        throw new Error('You must be on main to publish web components')
+        throw new Error('You must be on main to publish web components.');
     }
 });
 
-exec('git ls-files -m', (err, stdout, stderr) => {
+exec('git ls-files -m', (err, stdout) => {
     if (err) {
        console.log(err);
     }
 
-    console.log(stdout);
+    if (typeof stdout === 'string' && stdout.trim() !== '') {
+        throw new Error('You must save or stash your changes before trying to publish package.');
+    }
 });
 
 // // what part of version to update
