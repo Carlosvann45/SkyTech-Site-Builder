@@ -14,7 +14,7 @@ export default defineConfig({
       output: {
         globals: {
           fs: 'fs',
-          'node:path': 'path'
+          path: 'path'
         }
       }
     },
