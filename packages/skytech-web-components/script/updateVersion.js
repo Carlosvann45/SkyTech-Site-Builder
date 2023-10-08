@@ -9,7 +9,7 @@ exec('git rev-parse --abbrev-ref HEAD', (err, stdout) => {
     }
 
     if (typeof stdout === 'string' && (stdout.trim() === 'main')) {
-      console.log(`Running Version Update`);
+      console.log('Valid branch.');
     } else {
         throw new Error('You must be on main to publish web components.');
     }
@@ -22,6 +22,8 @@ exec('git ls-files -m', (err, stdout) => {
 
     if (typeof stdout === 'string' && stdout.trim() !== '') {
         throw new Error('You must save or stash your changes before trying to publish package.');
+    } else {
+        console.log('Running Version Update.')
     }
 });
 
