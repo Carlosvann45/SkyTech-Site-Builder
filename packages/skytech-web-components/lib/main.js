@@ -2,10 +2,10 @@ import {
     getWebComponentsJs,
     getWebComponentsCss 
 } from '../src/library';
-import webComponenetProperties from './properties.json';
+import webComponentProperties from './properties.json';
 
 export { 
     getWebComponentsJs, 
     getWebComponentsCss,
-    webComponenetProperties 
+    webComponentProperties 
 };
