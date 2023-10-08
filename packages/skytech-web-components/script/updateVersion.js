@@ -15,12 +15,12 @@ exec('git rev-parse --abbrev-ref HEAD', (err, stdout, stderr) => {
     }
 });
 
-exec('git status', (err, stdout, stderr) => {
+exec('git ls-files -m', (err, stdout, stderr) => {
     if (err) {
        console.log(err);
     }
 
-    // console.log(stdout);
+    console.log(stdout);
 });
 
 // // what part of version to update
