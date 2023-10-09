@@ -1,26 +1,28 @@
+import { useEffect, useState } from 'react';
 import classes from '../../styles/Templates.module.css';
 import Template from '../../assets/icons8-template-100.png';
+import Common from '../../utils/common';
 
 function Templates() {
+  const [templates, setTemplates] = useState([] as any);
+
+  useEffect(() => {
+    window.fileOperations.getTemplates().then((templateArr: any) => {
+      setTemplates(templateArr);
+    })
+  }, [])
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.templates}>
-        <div className={classes.card}>
-          <img className={classes.cardicon} src={Template} />
-          <h4 className={classes.cardtitle}>Base Template</h4>
-        </div>
-        <div className={classes.card}>
-          <img className={classes.cardicon} src={Template} />
-          <h4 className={classes.cardtitle}>Header Template</h4>
-        </div>
-        <div className={classes.card}>
-          <img className={classes.cardicon} src={Template} />
-          <h4 className={classes.cardtitle}>Footer Template</h4>
-        </div>
-        <div className={classes.card}>
-          <img className={classes.cardicon} src={Template} />
-          <h4 className={classes.cardtitle}>Header/Footer Template</h4>
-        </div>
+        {
+          templates.length > 0 && templates.map((name: any) => (
+            <div key={name} className={classes.card}>
+              <img className={classes.cardicon} src={Template} />
+              <h4 className={classes.cardtitle}>{Common.formatTitle(name, true)}</h4>
+            </div>
+          ))
+        }
       </div>
     </div>
   );
