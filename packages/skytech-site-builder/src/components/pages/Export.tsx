@@ -20,7 +20,7 @@ function Export() {
       <div className={classes.exports}>
         {
           projects.length !== 0 && projects.map((project) => (
-            <div className={classes.card} onClick={openDialog}>
+            <div key={project} className={classes.card} onClick={openDialog}>
               <img className={classes.cardicon} src={Website} />
               <h4 className={classes.cardtitle}>{Common.formatTitle(project, true)}</h4>
             </div>

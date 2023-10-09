@@ -46,7 +46,7 @@ function createWindow() {
 }
 
 function createHandlers() {
-  ipcMain.handle('file:exportSite', () => FileOperations.exportSite());
+  ipcMain.handle('file:exportSite', () => FileOperations.exportSite(win));
   ipcMain.handle('file:getProjects', () => FileOperations.getProjects());
   ipcMain.handle('file:createProject', (_, name: string) => FileOperations.createProject(name));
   ipcMain.handle('file:getPages', (_, dir: string) => FileOperations.getPages(dir));

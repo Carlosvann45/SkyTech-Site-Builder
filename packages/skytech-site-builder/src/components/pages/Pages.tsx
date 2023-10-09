@@ -13,7 +13,6 @@ function Sites() {
     const currentDirectory = location.state.project;
 
     window.fileOperations.getPages(currentDirectory).then((p: any) => {
-      console.log(p);
       setPages(p);
       setDirectory(currentDirectory);
     });

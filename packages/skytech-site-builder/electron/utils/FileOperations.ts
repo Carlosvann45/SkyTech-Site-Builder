@@ -1,4 +1,4 @@
-import { dialog } from 'electron';
+import { BrowserWindow, dialog } from 'electron';
 import path from 'node:path';
 import fs from 'fs';
 import { readdir, mkdir, writeFile } from 'fs/promises';
@@ -19,8 +19,10 @@ export default class FileOperations {
         }
     }
 
-    public static exportSite() {
-        return dialog.showOpenDialog({
+    public static exportSite(win: BrowserWindow | null) {
+        const window: BrowserWindow = win || new BrowserWindow();
+
+        return dialog.showOpenDialog(window, {
             title: 'Save Project In',
             buttonLabel: 'Save',
             properties: ['openDirectory']

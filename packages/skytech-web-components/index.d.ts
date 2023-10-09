@@ -2,7 +2,7 @@ declare module 'skytech-web-components' {
     export function getWebComponentsJs(): string;
     export function getWebComponentsCss(): string;
     export let webComponentProperties: {
-        components: {
+        components: [{
             title: string,
             name: string,
             group: string,
@@ -19,8 +19,8 @@ declare module 'skytech-web-components' {
                     values?: [any] 
                 }
             ]
-        },
-        containers: {
+        }],
+        containers: [{
             title: string,
             name: string,
             group: string,
@@ -55,7 +55,7 @@ declare module 'skytech-web-components' {
                     values?: [any] 
                 }
             ]
-        }
+        }]
     };
     
 }
