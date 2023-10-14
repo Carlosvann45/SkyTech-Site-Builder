@@ -24,10 +24,10 @@ function Sites() {
     <div className={classes.wrapper}>
       <div className={classes.websites}>
         {
-          pages.length !== 0 && pages.map((page) => (
-            <div key={page} className={classes.card}>
+          pages.length !== 0 && pages.map((page: any) => (
+            <div key={page.name} className={classes.card}>
               <img className={classes.cardicon} src={Page} />
-              <h4 className={classes.cardtitle}>{Common.formatTitle(page, true)}</h4>
+              <h4 className={classes.cardtitle}>{Common.formatTitle(page.name, true)}</h4>
             </div>
           ))
         }

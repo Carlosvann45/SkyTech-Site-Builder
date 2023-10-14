@@ -1,7 +1,7 @@
 import { BrowserWindow, dialog } from 'electron';
 import path from 'node:path';
 import fs from 'fs';
-import { readdir, mkdir, writeFile } from 'fs/promises';
+import { readdir, mkdir, writeFile, readFile } from 'fs/promises';
 import { getWebComponentsJs, getWebComponentsCss,  webComponentProperties } from 'skytech-web-components';
 
 export default class FileOperations {
@@ -44,46 +44,71 @@ export default class FileOperations {
     }
 
     public static async getProjects() {
-        const directories = (await readdir(this.projectPath, {withFileTypes: true}))
-        .filter((dirent: any) => dirent.isDirectory())
-        .map((dir: any) => dir.name);
+        const projects = (await readdir(this.projectPath, {withFileTypes: false}))
+                        .map((project) => project.split('.')[0]);
             
-        return directories;
+        return projects;
     }
 
     public static async createProject(name: string) {
-        if (!fs.existsSync(path.join(this.projectPath, name))) {
-            await mkdir(path.join(this.projectPath, name));
-            return true;
-        }
-        return false;
-    }
-
-    public static async getPages(dir: string) {
-        const files = (await readdir(path.join(this.projectPath, dir), {withFileTypes: false}))
-        .map((file: any) => file.split('.')[0]);
-        return files;
-    }
-
-    public static async createPage(dir: string, name: string) {
         let created = false;
         const baseObjct = JSON.stringify({
-            components: []
-        });
+            name,
+            type: 'folder',
+            projects: []
+        }, null, 2);
 
-        console.log('path: ' + path.join(this.projectPath, dir, name));
-        console.log('exists: ' + fs.existsSync(path.join(this.projectPath, dir, name) + '.json'));
-
-        if (!fs.existsSync(path.join(this.projectPath, dir, name) + '.json')) {
-            console.log('in if');
-            created = await writeFile(`${path.join(this.projectPath, dir, name)}.json`, baseObjct)
+        if (!fs.existsSync(path.join(this.projectPath, name) + '.json')) {
+            created = await writeFile(`${path.join(this.projectPath, name)}.json`, baseObjct)
                         .then(() => true).catch((err) => {
                             console.log('err: ' + err);
                             return false;
                         });
         }
-
-        console.log(created);
         return created;
+    }
+
+    public static async getPages(project: string) {
+        let files: any = [];
+
+        if (fs.existsSync(path.join(this.projectPath, project) + '.json')) {
+            let projectJson = await readFile(`${path.join(this.projectPath, project)}.json`)
+                            .then((p) => JSON.parse(p.toString()));
+
+            files = projectJson.projects;
+        }
+
+        return files;
+    }
+
+    public static async createPage(project: string, name: string) {
+        let updated = false;
+        const baseObjct = {
+            name,
+            type: 'file',
+            components: []
+        };
+
+        if (fs.existsSync(path.join(this.projectPath, project) + '.json')) {
+            let projectJson = await readFile(`${path.join(this.projectPath, project)}.json`)
+                            .then((p) => JSON.parse(p.toString()));
+            console.log(projectJson);
+            const existingProject = projectJson.projects.find((p: any) => {
+                return p.name === name;
+            })
+
+            if (!existingProject) {
+                projectJson.projects.push(baseObjct);
+
+                updated = await writeFile(`${path.join(this.projectPath, project)}.json`, JSON.stringify(projectJson, null, 2))
+                            .then(() => true).catch((err) => {
+                                console.log('err: ' + err);
+                                return false;
+                            });
+
+            }
+        }
+
+        return updated;
     }
 }
