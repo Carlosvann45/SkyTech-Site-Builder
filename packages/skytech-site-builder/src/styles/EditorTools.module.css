@@ -1,0 +1,40 @@
+.wrapper {
+    margin: 0;
+    border: 2px solid #0085FF
+}
+
+.iconBtn {
+    padding: 4px 6px 2px 6px;
+    align-items: center;
+    margin: 0;
+    border: 1px solid #0085FF;
+    background-color: #0085FF;
+}
+
+.iconBtnFirst:hover,
+.iconBtn:hover,
+.iconBtnLast:hover {
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.iconBtnFirst {
+    border-top-left-radius: 5px;
+}
+
+.iconBtnLast {
+    border-top-right-radius: 5px;
+}
+
+.iconBtnFirst,
+.iconBtnLast {
+    padding: 4px 6px 2px 6px;
+    align-items: center;
+    margin: 0;
+    border: 1px solid #0085FF;
+    background-color: #0085FF;
+}
+
+.hideIconBtn {
+    display: none;
+}

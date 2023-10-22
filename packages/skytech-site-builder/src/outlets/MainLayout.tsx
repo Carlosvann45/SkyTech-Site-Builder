@@ -5,9 +5,9 @@ import TopNav from '../components/navigation/TopNav';
 import SideNav from '../components/navigation/SideNav';
 
 /**
- * @name PageLayout
+ * @name MainLayout
  * @description
- * @returns PageLayout Page
+ * @returns MainLayout Page
  */
 const MainLayout = () => (
     <div className={classes.container}>

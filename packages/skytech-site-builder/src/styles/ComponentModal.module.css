@@ -1,0 +1,87 @@
+.showModal {
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.2); /* Black w/ opacity */
+    cursor: default;
+}
+
+.modalContent {
+    z-index: 101;
+    background-color: #BFBFBF;
+    margin: 15% auto; /* 15% from the top and centered */
+    width: 25%; /* Could be more or less, depending on screen size */
+    height: 50%;
+    
+    overflow: auto; /* Enable scroll if needed */
+    border-radius: 5px;
+}
+
+.modalHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 20px;
+}
+
+.modalTitle {
+    margin: 0;
+    color: #212121;
+    font-size: 25px;
+}
+
+.modalBtn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalBtn:hover {
+    cursor: pointer;
+}
+
+.headerSpacer {
+    margin: 0 10px 8px 10px;
+    width: calc(100% - 20px);
+    height: 2px;
+    background-color: #212121;
+}
+
+.groups {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.group {
+    font-size: 20px;
+    padding: 0 20px;
+    background-color: #212121;
+    color: #BFBFBF;
+}
+
+.component {
+    margin: 0;
+    padding: 10px 0 10px 20px;
+}
+
+.component:hover {
+    background-color: #212121;
+    color: #BFBFBF;
+    cursor: pointer;
+}
+
+.components .component:first-child {
+    border-bottom: none;
+}
+
+.components .component:nth-child(n+3):last-child {
+    border-top: none;
+}
