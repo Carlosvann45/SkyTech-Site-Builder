@@ -4,7 +4,7 @@ import Done from '../../assets/icons8-done-26.png';
 import classes from '../../styles/Modal.module.css';
 
 function PropertiesModal(props: any) {
-  const [component, setComponent] = useState({} as any);
+  const [component, setComponent] = useState({ title: '', properties: []} as any);
 
   function loadInput(property: any) {
     
@@ -22,8 +22,6 @@ function PropertiesModal(props: any) {
             }
             </select>
         );
-    } else if (property.type === 'number') {
-        return (<input type={property.type} name={property.name} className={classes.modalInput} />);
     } else {
         return (<input type={property.type} name={property.name} className={classes.modalInput} />);
     }
@@ -40,7 +38,9 @@ function PropertiesModal(props: any) {
 
         const actualComponent = allComponents.find((x: any) => x.name === name);
 
-        setComponent(actualComponent); 
+        if (actualComponent) {
+            setComponent(actualComponent); 
+        }
     });
   }, [props.componentName]);
 
