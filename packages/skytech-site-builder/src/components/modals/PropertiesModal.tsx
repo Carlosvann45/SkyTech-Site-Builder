@@ -17,13 +17,13 @@ function PropertiesModal(props: any) {
             <select name={property.name} className={classes.modalInput}>
             {
                 property.values.map((value: any) => (
-                    <option value={value}>{value}</option>
+                    <option key={value} value={value}>{value}</option>
                 ))
             }
             </select>
         );
     } else if (property.type === 'number') {
-        return (<input type={property.type} name={property.name} className={classes.modalInput} min={0} />);
+        return (<input type={property.type} name={property.name} className={classes.modalInput} />);
     } else {
         return (<input type={property.type} name={property.name} className={classes.modalInput} />);
     }
