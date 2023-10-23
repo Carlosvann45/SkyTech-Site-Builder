@@ -55,7 +55,7 @@ export default class FileOperations {
         const baseObjct = JSON.stringify({
             name,
             type: 'folder',
-            projects: []
+            pages: []
         }, null, 2);
 
         if (!fs.existsSync(path.join(this.projectPath, name) + '.json')) {
@@ -75,7 +75,7 @@ export default class FileOperations {
             let projectJson = await readFile(`${path.join(this.projectPath, project)}.json`)
                             .then((p) => JSON.parse(p.toString()));
 
-            files = projectJson.projects;
+            files = projectJson.pages;
         }
 
         return files;
@@ -93,12 +93,12 @@ export default class FileOperations {
             let projectJson = await readFile(`${path.join(this.projectPath, project)}.json`)
                             .then((p) => JSON.parse(p.toString()));
             console.log(projectJson);
-            const existingProject = projectJson.projects.find((p: any) => {
+            const existingProject = projectJson.pages.find((p: any) => {
                 return p.name === name;
             })
 
             if (!existingProject) {
-                projectJson.projects.push(baseObjct);
+                projectJson.pages.push(baseObjct);
 
                 updated = await writeFile(`${path.join(this.projectPath, project)}.json`, JSON.stringify(projectJson, null, 2))
                             .then(() => true).catch((err) => {

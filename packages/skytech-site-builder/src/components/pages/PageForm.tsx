@@ -45,7 +45,10 @@ function PageForm() {
   }
 
   useEffect(() => {
-    setDirectory(location.state.project ?? '');
+    const pathArr = window.location.pathname.split('/');
+    const project = pathArr[pathArr.length - 1];
+
+    setDirectory(project);
   }, [location])
 
   return (

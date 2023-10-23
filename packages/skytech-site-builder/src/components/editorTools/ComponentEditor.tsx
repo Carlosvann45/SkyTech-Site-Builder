@@ -148,7 +148,7 @@ function ComponentEditor(props: any) {
   }, []);
 
   const handleClickListener = (event: any) => {
-    let clickedInside = wrapperRef?.current?.contains(event.target);
+    const clickedInside = wrapperRef?.current?.contains(event.target);
 
     if (clickedInside) {
         setClicked(true);
@@ -162,8 +162,8 @@ function ComponentEditor(props: any) {
         <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => {}}>
             <img src={Edit} width="15px" height="15px" />
         </button>
-        <button type="button" className={clicked ? classes.iconBtn : classes.hideIconBtn} >
-            <img src={Plus} width="15px" height="15px" onClick={() => setOpen(true)} />
+        <button type="button" className={clicked ? classes.iconBtn : classes.hideIconBtn} onClick={() => setOpen(true)} >
+            <img src={Plus} width="15px" height="15px" />
         </button>
         <button className={clicked ? classes.iconBtnLast : classes.hideIconBtn} onClick={() => deleteCallback()}>
             <img src={Trash} width="15px" height="15px" />

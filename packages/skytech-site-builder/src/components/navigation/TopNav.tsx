@@ -15,11 +15,10 @@ function TopNav() {
 
         if (place.length > 2) {
           if (place[2] === 'pages') {
-            navigate(`/${place[1]}/page_form`, {
-              state: {
-                project: location.state?.project
-              }
-            });
+            const pathArr = window.location.pathname.split('/');
+            const project = pathArr[pathArr.length - 1];
+
+            navigate(`/${place[1]}/page_form/${project}`);
           }
         } else {
             navigate(`/${place[1]}/folder_form`);

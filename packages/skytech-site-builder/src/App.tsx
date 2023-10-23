@@ -15,14 +15,14 @@ function App() {
     <Router>
       <Routes>
         <Route path="editor" element={<EditorLayout />}>
-          <Route path="page" element={<Editor />} />
-          <Route path="*" element={<Navigate to="/editor/page" />} />
+          <Route path="page/:project/:page" element={<Editor />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
         <Route path="*" element={<MainLayout />}>
           <Route path="websites" element={<Sites />} />
           <Route path="websites/folder_form" element={<ProjectForm />} />
-          <Route path="websites/pages" element={<Pages />} />
-          <Route path="websites/page_form" element={<PageForm />} />
+          <Route path="websites/pages/:project" element={<Pages />} />
+          <Route path="websites/page_form/:project" element={<PageForm />} />
           <Route path="templates" element={<Templates />} />
           <Route path="components" element={<Components />} />
           <Route path="export" element={<Export />} />

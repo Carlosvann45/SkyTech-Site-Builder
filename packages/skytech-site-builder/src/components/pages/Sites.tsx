@@ -9,11 +9,7 @@ function Sites() {
   const [projects, setProjects] = useState([]);
 
   function goToPages(project: string) {
-    navigate('/websites/pages', {
-      state: {
-        project
-      }
-    })
+    navigate(`/websites/pages/${project}`)
   }
 
   useEffect(() => {

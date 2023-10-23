@@ -3,6 +3,11 @@
     border: 2px solid #0085FF
 }
 
+.columnWrapper,
+.containerWrapper {
+    padding: 15px;
+}
+
 .iconBtn {
     padding: 4px 6px 2px 6px;
     align-items: center;
@@ -37,4 +42,37 @@
 
 .hideIconBtn {
     display: none;
+}
+
+.editHover:hover {
+    cursor: pointer;
+}
+
+.containerBtnContainer,
+.columnBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.containerBtn,
+.columnBtn {
+    cursor: pointer;
+    width: 100%;
+    font-size: 25px;
+    padding: 5px;
+    color: #212121;
+    background-color: #BFBFBF;
+    border: none;
+    box-shadow: 1px 2px 4px 0.6px black;
+}
+
+.containerBtn:active,
+.columnBtn:active {
+    box-shadow: none;
+}
+
+.containerBtnContainer {
+    padding: 0
 }

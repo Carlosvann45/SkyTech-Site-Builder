@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ComponentEditor from '../editorTools/ComponentEditor';
 import ContainerEditor from '../editorTools/ContainerEditor';
 import Logo from '../../assets/logo_grey_transparent.png';
 import navClasses from '../../styles/Navigation.module.css';
 import classes from '../../styles/Editor.module.css';
 import Common from '../../utils/common';
+import ContainerPreview from '../preview/ContainerPreview';
 
 function Editor() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [edit, setEdit] = useState(true);
   const [pageData, setPageData] = useState({ name: 'Editor', components: [] });
   const [components, setComponents] = useState([]);
 
-  function formatTag(component: any) {
+  function formatComponentTag(component: any) {
     let nameArr = component.name.split('-');
-    let tags = {
-        class: classes.editHover
-    };
+    let tags = {};
+    if (edit) {
+        tags = {
+            class: classes.editHover
+        };
+
+    }
 
     for (const property of component.properties) {
         tags = {
@@ -32,13 +36,48 @@ function Editor() {
     return React.createElement(`${nameArr.join('-')}`, tags);
   }
 
-  useEffect(() => {
-    const page = location.state.page;
+  function formatContainerTag(component: any) {
+    let nameArr = component.name.split('-');
+    let tags = {};
+    if (edit) {
+        tags = {
+            class: classes.editHover
+        };
 
-    if (page) {
-        setPageData(page);
-        setComponents(page.components);
     }
+
+    for (const property of component.properties) {
+        tags = {
+            ...tags,
+            [property.name]: property.value
+        };
+    }
+
+    for (const column of component.columns) {
+        for (const property of column.properties) {
+            tags = {
+                ...tags,
+                [property.name]: property.value
+            };
+        }
+    }
+
+    nameArr.pop();
+
+    return `${nameArr.join('-')}`;
+  }
+
+  useEffect(() => {
+    const pathArr = window.location.pathname.split('/');
+    const page = pathArr[pathArr.length - 1];
+    const project = pathArr[pathArr.length - 2];
+    
+    window.fileOperations.getPages(project).then((p: any) => {
+        const newPageData = p.find((p: any) => p.name === page);
+
+        setPageData(newPageData);
+        setComponents(newPageData.components);
+    });
   }, []);
 
   return (
@@ -61,29 +100,35 @@ function Editor() {
           {/* add side bar later*/}
           <div className={classes.pagecontainer}>
             {
-                components.length > 0 && components.map((component: any, index: number) => {
+                components.length > 0 && components.map((c: any) => {
                 if (edit) {
-                    if (component.type === 'component') {
+                    if (c.type === 'component') {
                         return (
-                        <div className={classes.editHover} key={component.name}>
+                        <div className={classes.editHover} key={c.name}>
                             <ComponentEditor 
-                                componentName={component.name}
-                                component={formatTag(component)} 
+                                componentName={c.name}
+                                component={formatComponentTag(c)} 
                                 components={components}
                                 setComponents={setComponents} />
                         </ div>);
                     } else {
                         return (
                             <ContainerEditor 
-                                key={component.name}
-                                component={formatTag(component)} 
-                                editCallback={() => console.log(`edit: ${component.name} index: ${index}`)} 
-                                addCallback={() => console.log(`add: ${component.name} index: ${index}`)}
-                                trashCallback={() => console.log(`trash: ${component.name} index: ${index}`)} />
+                                key={c.name}
+                                tag={formatContainerTag(c)}
+                                componentName={c.name}
+                                component={c} 
+                                components={components}
+                                setComponents={setComponents} />
                         );
                     }
+                } else if (c.type === 'component') {
+                    return formatComponentTag(c);
                 } else {
-                    return formatTag(component);
+                    return <ContainerPreview
+                                key={c.name}
+                                tag={formatContainerTag(c)}
+                                component={c} />
                 }})
             }
           </ div>
