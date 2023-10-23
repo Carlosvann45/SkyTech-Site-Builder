@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Close from '../../assets/icons8-close-30.png';
-import classes from '../../styles/ComponentModal.module.css';
+import classes from '../../styles/Modal.module.css';
 
 function ComponentModal(props: any) {
   const [groups, setGroups] = useState({} as any);

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import ComponentModal from '../modals/ComponentModal';
+import PropertiesModal from '../modals/PropertiesModal';
 import Edit from '../../assets/icons8-edit-24.png';
 import Plus from '../../assets/icons8-plus-24.png';
 import Trash from '../../assets/icons8-trash-30.png';
@@ -8,6 +9,7 @@ import classes from '../../styles/EditorTools.module.css';
 function ComponentEditor(props: any) {
   const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openProperties, setOpenProperties] = useState(false);
   const wrapperRef = useRef() as any;
 
   function addComponent(name: string) {
@@ -159,7 +161,7 @@ function ComponentEditor(props: any) {
 
   return (
     <div ref={wrapperRef}>
-        <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => {}}>
+        <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => setOpenProperties(true)}>
             <img src={Edit} width="15px" height="15px" />
         </button>
         <button type="button" className={clicked ? classes.iconBtn : classes.hideIconBtn} onClick={() => setOpen(true)} >
@@ -175,6 +177,11 @@ function ComponentEditor(props: any) {
             open={open} 
             setOpen={setOpen}
             callback={addComponent} />
+        <PropertiesModal 
+            open={openProperties}
+            setOpen={setOpenProperties}
+            componentName={props.componentName}
+            />
     </ div>
   );
 }

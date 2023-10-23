@@ -10,11 +10,12 @@
     cursor: default;
 }
 
+.properitesModal,
 .modalContent {
     z-index: 101;
     background-color: #BFBFBF;
-    margin: 15% auto; /* 15% from the top and centered */
-    width: 25%; /* Could be more or less, depending on screen size */
+    margin: 10% auto; /* 15% from the top and centered */
+    width: 30%; /* Could be more or less, depending on screen size */
     height: 50%;
     
     overflow: auto; /* Enable scroll if needed */
@@ -34,6 +35,13 @@
     font-size: 25px;
 }
 
+.modalBtnContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .modalBtn {
     background-color: transparent;
     border: none;
@@ -45,6 +53,14 @@
 
 .modalBtn:hover {
     cursor: pointer;
+}
+
+.modalBtnContainer .modalBtn {
+    margin: 0 5px
+}
+
+.modalBtnContainer .modalBtn:last-child {
+    margin-right: 0;
 }
 
 .headerSpacer {
@@ -70,6 +86,7 @@
 .component {
     margin: 0;
     padding: 10px 0 10px 20px;
+    text-align: center;
 }
 
 .component:hover {
@@ -84,4 +101,32 @@
 
 .components .component:nth-child(n+3):last-child {
     border-top: none;
+}
+
+.properties {
+    width: calc(100% - 50px);
+    margin: 0 25px
+}
+
+.modalField {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.modalInput,
+.modalLabel {
+    font-size: 20px;
+    padding: 0;
+    color: #212121;
+}
+
+.modalInput {
+    padding: 2px;
+    border: 1px solid #212121;
+}
+
+.modalInput:focus {
+    outline: 1px solid #212121;
 }
