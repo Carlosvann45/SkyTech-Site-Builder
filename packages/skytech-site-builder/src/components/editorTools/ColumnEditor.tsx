@@ -174,9 +174,6 @@ function ColumnEditor(props: any) {
 
   return (
     <div slot={props.column.name} ref={wrapperRef}>
-        <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => {}}>
-            <img src={Edit} width="15px" height="15px" />
-        </button>
         <button type="button" className={clicked ? classes.iconBtnLast : classes.hideIconBtn} onClick={() => setOpen(true)} >
             <img src={Plus} width="15px" height="15px" />
         </button>

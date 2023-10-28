@@ -15,7 +15,7 @@
     z-index: 101;
     background-color: #BFBFBF;
     margin: 10% auto; /* 15% from the top and centered */
-    width: 30%; /* Could be more or less, depending on screen size */
+    width: fit-content; /* Could be more or less, depending on screen size */
     height: 50%;
     
     overflow: auto; /* Enable scroll if needed */
@@ -31,6 +31,7 @@
 
 .modalTitle {
     margin: 0;
+    margin-right: 100px;
     color: #212121;
     font-size: 25px;
 }
@@ -78,14 +79,15 @@
 
 .group {
     font-size: 20px;
-    padding: 0 20px;
+    padding: 5px 40px;
+    padding-left: 20px;
     background-color: #212121;
     color: #BFBFBF;
 }
 
 .component {
     margin: 0;
-    padding: 10px 0 10px 20px;
+    padding: 10px 20px;
     text-align: center;
 }
 
@@ -101,6 +103,25 @@
 
 .components .component:nth-child(n+3):last-child {
     border-top: none;
+}
+
+.tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 0 25px;
+}
+
+.tabOption {
+    margin-right: 15px;
+}
+
+.tabSelected {
+    border-bottom: 2px solid #212121;
+}
+
+.tabOption:hover {
+    cursor: pointer;
 }
 
 .properties {

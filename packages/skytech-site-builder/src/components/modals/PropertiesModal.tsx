@@ -4,17 +4,26 @@ import Done from '../../assets/icons8-done-26.png';
 import classes from '../../styles/Modal.module.css';
 
 function PropertiesModal(props: any) {
+  const [selected, setSelected] = useState('properties');
+  const [changedProperties, setChangedProperties] = useState({} as any);
   const [component, setComponent] = useState({ title: '', properties: []} as any);
 
   function loadInput(property: any) {
     
     if (property.type === 'textarea') {
         return (
-            <textarea name={property.name} className={classes.modalInput} rows={4} cols={50}></textarea>
+            <textarea name={property.name} 
+                      className={classes.modalInput} 
+                      onChange={(e: any) => handleOnChange(e, property)}
+                      value={changedProperties[property.name]}
+                      rows={4} cols={50}></textarea>
         );
     } else if (property.type === 'option') {
         return (
-            <select name={property.name} className={classes.modalInput}>
+            <select name={property.name} 
+                    className={classes.modalInput}
+                    onChange={(e: any) => handleOnChange(e, property)}
+                    value={changedProperties[property.name]}>
             {
                 property.values.map((value: any) => (
                     <option key={value} value={value}>{value}</option>
@@ -23,8 +32,53 @@ function PropertiesModal(props: any) {
             </select>
         );
     } else {
-        return (<input type={property.type} name={property.name} className={classes.modalInput} />);
+        return (<input type={property.type} 
+                       name={property.name} 
+                       className={classes.modalInput}
+                       onChange={(e: any) => handleOnChange(e, property)}
+                       value={changedProperties[property.name]} />);
     }
+  }
+
+  function loadTab() {
+    if (selected === 'properties') {
+        return (
+            component.properties.map((property: any) => {
+                return (
+                    <div key={property.name} className={classes.modalField}>
+                        <label className={classes.modalLabel} htmlFor={property.name}>{property.title}</label>
+                        {loadInput(property)}
+                    </div>)
+            })
+        );
+    } else {
+        return (
+            component.columns.map((column: any) => {
+                if (column.name === selected) {
+                    return (
+                        column.properties.map((property: any) => {
+                            return (
+                                <div key={property.name} className={classes.modalField}>
+                                    <label className={classes.modalLabel} htmlFor={property.name}>{property.title}</label>
+                                    {loadInput(property)}
+                                </div>)
+                        }))
+                }
+            })
+        )
+    }
+  }
+
+  function handleOnChange(e: any, property: any) {
+    const target = e.target;
+    const newProperties = {
+        ...changedProperties,
+        [property.name]: target.value
+    }
+
+    console.log(newProperties);
+
+    setChangedProperties(newProperties);
   }
 
   useEffect(() => {
@@ -59,16 +113,20 @@ function PropertiesModal(props: any) {
                 </div>
             </header>
             <div className={classes.headerSpacer}></div>
-            <div className={classes.properties}>
+            <div className={classes.tabs}>
+                <div className={`${classes.tabOption} ${selected === 'properties' ? classes.tabSelected : ''}`}
+                     onClick={() => setSelected('properties')}>Properties</div>
                 {
-                    component.properties.map((property: any) => {
-                        return (
-                            <div key={property.name} className={classes.modalField}>
-                                <label className={classes.modalLabel} htmlFor={property.name}>{property.title}</label>
-                                {loadInput(property)}
-                            </div>)
-                    })
+                    component?.columns?.length > 0 && component.columns.map((column: any) => (
+                        column.properties.length > 0 && (
+                        <div key={column.name} 
+                             onClick={() => setSelected(column.name)}
+                             className={`${classes.tabOption} ${selected === column.name ? classes.tabSelected : ''}`}>{column.title}</div>)
+                    ))
                 }
+            </div>
+            <div className={classes.properties}>
+                {loadTab()}
             </div>
         </div>
     </dialog>
