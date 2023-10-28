@@ -5,9 +5,9 @@ import classes from '../../styles/Modal.module.css';
 function ComponentModal(props: any) {
   const [groups, setGroups] = useState({} as any);
 
-  function handleAndClose(name: string) {
+  async function handleAndClose(name: string) {
     props.setOpen(false);
-    props.callback(name);
+    await props.callback(name);
   }
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function ComponentModal(props: any) {
                             <div className={classes.components}>
                                 {
                                     groups[group].values.map((component: string) => (
-                                        <p key={component} className={classes.component} onClick={() => handleAndClose(component)}>{component}</p>
+                                        <p key={component} className={classes.component} onClick={async () => await handleAndClose(component)}>{component}</p>
                                     ))
                                 }
                             </div>

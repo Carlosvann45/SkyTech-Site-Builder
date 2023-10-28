@@ -47,7 +47,7 @@
         },
         {
             "title": "Image Width",
-            "name": "width",
+            "name": "imgWidth",
             "type": "text",
             "info": "Width of image in percentages, pixels, em, or rem.",
             "example": "10px"

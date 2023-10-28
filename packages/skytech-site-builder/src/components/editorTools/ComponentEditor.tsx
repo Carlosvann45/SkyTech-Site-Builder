@@ -9,78 +9,20 @@ import classes from '../../styles/EditorTools.module.css';
 function ComponentEditor(props: any) {
   const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
   const [openProperties, setOpenProperties] = useState(false);
-  const [newComponent, setNewComponent] = useState({});
+  const [propertiesComponent, setPropertiesComponent] = useState({});
   const wrapperRef = useRef() as any;
 
-  function addComponent(name: string) {
+  function addComponent(newComponent: string) {
+    
+    if (edit) {
+      setEdit(false);
+      return;
+    }
+
     const length = props.componentName.split('-').length - 1;
     const newIndex = Number(props.componentName.split('-')[length]);
-    let newComponent = {} as any;
-
-    switch(name) {
-        case 'SkyTech Heading':
-            newComponent = {
-                "name": `skytech-heading-${newIndex}`,
-                "type": "component",
-                "properties": [
-                  {
-                    "name": "content",
-                    "value": "Test Title"
-                  },
-                  {
-                    "name": "color",
-                    "value": "#fff"
-                  },
-                  {
-                    "name": "textAlign",
-                    "value": "center"
-                  },
-                  {
-                    "name": "heading",
-                    "value": 1
-                  },
-                  {
-                    "name": "fontSize",
-                     "value": "25px"
-                  },
-                  {
-                    "name": "fontWeight",
-                     "value": "500"
-                  }
-                ]
-              }
-            break;
-        case 'SkyTech Text':
-        default:
-            newComponent = {
-                "name": `skytech-text-${newIndex}`,
-                "type": "component",
-                "properties": [
-                  {
-                    "name": "content",
-                    "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu est nec ipsum porttitor bibendum ut ut ipsum. Sed risus nunc, rutrum mattis arcu id, imperdiet elementum lacus. Vestibulum at volutpat quam, nec sodales mi. Fusce eu magna sed neque faucibus fermentum id et nisi. Sed id condimentum libero. Nunc hendrerit mi nisi, tempus blandit velit ultrices ut. Phasellus finibus vel velit sodales facilisis. Maecenas tempor elit in pharetra euismod."
-                  },
-                  {
-                    "name": "color",
-                    "value": "#fff"
-                  },
-                  {
-                    "name": "textAlign",
-                    "value": "left"
-                  },
-                  {
-                    "name": "margin",
-                    "value": "25px auto 0 auto"
-                  },
-                  {
-                    "name": "width",
-                    "value": "75%"
-                  }
-                ]
-              }
-            break;
-    }
 
     const newArray = [] as any;
 
@@ -142,10 +84,11 @@ function ComponentEditor(props: any) {
     props.setComponents(newArray)
   }
 
-  async function setComponent(name: string) {
+  async function setNewComponent(name: string) {
     const length = props.componentName.split('-').length - 1;
     const newIndex = Number(props.componentName.split('-')[length]);
-    let newComponent = await window.fileOperations.getWebComponentProperties().then((properties: any) => {
+
+    window.fileOperations.getWebComponentProperties().then((properties: any) => {
         const allComponents = [...properties.components, ...properties.containers];
         let actualComponent: any = {};
         
@@ -164,12 +107,12 @@ function ComponentEditor(props: any) {
           })
         });
 
-        newComponent.properties = newProperties;
+        actualComponent.properties = newProperties;
 
-        if (newComponent.type === 'container') {
+        if (actualComponent.type === 'container') {
           const newColumns = [] as any;
 
-          newComponent.columns.forEach((column: any) => {
+          actualComponent.columns.forEach((column: any) => {
             const newColumnProps = [] as any;
 
             column.properties.forEach((property: any) => {
@@ -184,12 +127,31 @@ function ComponentEditor(props: any) {
             newColumns.push(column);
           });
 
-          
+          actualComponent.columns = newColumns;
         }
+        return actualComponent;
+    }).then((createdComponent: any) => {
+      createdComponent.name = [createdComponent.name, newIndex].join('-');
+
+      setPropertiesComponent(createdComponent);
+      setOpenProperties(true);
     });
   }
 
-  function setProperties() {
+  function editComponent() {
+    let found = false;
+    let component = null as any;
+
+    props.components.forEach((c: any) => {
+      if ((c.name === props.componentName) && !found) {
+        component = c;
+        found = true;
+      }
+    })
+    console.log(component)
+    setPropertiesComponent(component);
+    setOpenProperties(true);
+    setEdit(true);
   }
 
   useEffect(() => {
@@ -212,7 +174,7 @@ function ComponentEditor(props: any) {
 
   return (
     <div ref={wrapperRef}>
-        <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => setOpenProperties(true)}>
+        <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => editComponent()}>
             <img src={Edit} width="15px" height="15px" />
         </button>
         <button type="button" className={clicked ? classes.iconBtn : classes.hideIconBtn} onClick={() => setOpen(true)} >
@@ -227,13 +189,12 @@ function ComponentEditor(props: any) {
         <ComponentModal 
             open={open} 
             setOpen={setOpen}
-            callback={setComponent} />
+            callback={setNewComponent} />
         <PropertiesModal 
             open={openProperties}
             setOpen={setOpenProperties}
-            componentName={props.componentName}
-            component={newComponent}
-            setComponent={setNewComponent}
+            component={propertiesComponent}
+            callback={addComponent}
             />
     </ div>
   );

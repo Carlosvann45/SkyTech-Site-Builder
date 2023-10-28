@@ -49,7 +49,9 @@ function ColumnPreview(props: any) {
         {
             props.column.components.map((c: any) => {
                 if (c.type === 'component') {
-                    return formatComponentTag(c);
+                    return <div key={c.name}>
+                    {formatComponentTag(c)}
+                    </ div>
                 } else {
                     return <ContainerPreview
                                 key={c.name}

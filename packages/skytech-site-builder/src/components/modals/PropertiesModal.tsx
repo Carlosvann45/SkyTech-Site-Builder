@@ -81,22 +81,39 @@ function PropertiesModal(props: any) {
     setChangedProperties(newProperties);
   }
 
-  useEffect(() => {
-    window.fileOperations.getWebComponentProperties().then((properties: any) => {
-        const nameArr = props.componentName.split('-');
-        const allComponents = [...properties.components, ...properties.containers];
+  function submitChanges() {
+    const newProperties = [] as any;
 
-        nameArr.pop();
-
-        const name = nameArr.join('-');
-
-        const actualComponent = allComponents.find((x: any) => x.name === name);
-
-        if (actualComponent) {
-            setComponent(actualComponent); 
-        }
+    component.properties.forEach((property: any) => {
+        newProperties.push({
+            ...property,
+            value: changedProperties[property.name]
+        });
     });
-  }, [props.componentName]);
+
+    const finalComponent = component;
+
+    finalComponent.properties = newProperties;
+
+    props.callback(finalComponent);
+    props.setOpen(false)
+  }
+
+  useEffect(() => {
+        if (props?.component?.title) {
+            let newProperties = {};
+
+            props.component.properties.forEach((property: any) => {
+                newProperties = {
+                    ...newProperties,
+                    [property.name]: property?.value ?? ''
+                }
+            })
+            
+            setChangedProperties(newProperties);
+            setComponent(props.component);
+        }
+  }, [props.component]);
 
   return (
     <dialog className={classes.showModal} open={props.open}>
@@ -104,11 +121,11 @@ function PropertiesModal(props: any) {
             <header className={classes.modalHeader}>
                 <h3 className={classes.modalTitle}>{component.title}</h3>
                 <div className={classes.modalBtnContainer}>
-                    <button type="button" className={classes.modalBtn}>
-                        <img src={Close} width="20px" height="20px" onClick={() => props.setOpen(false)} />
+                    <button type="button" className={classes.modalBtn}  onClick={() => props.setOpen(false)}>
+                        <img src={Close} width="20px" height="20px" />
                     </button>
                     <button type="button" className={classes.modalBtn}>
-                        <img src={Done} width="22px" height="22px" onClick={() => props.setOpen(false)} />
+                        <img src={Done} width="22px" height="22px" onClick={() => submitChanges()} />
                     </button>
                 </div>
             </header>
