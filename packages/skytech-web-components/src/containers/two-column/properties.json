@@ -51,14 +51,14 @@
             "properties": [
                 {
                     "title": "Color",
-                    "name": "color",
+                    "name": "colorTwo",
                     "type": "text",
                     "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
                     "info": "Background color of container."
                 },
                 {
                     "title": "Padding",
-                    "name": "padding",
+                    "name": "paddingTwo",
                     "type": "text",
                     "info": "Internal space around container in pixels, em, or rem. Goes in order of top, right, bottom, left or top and bottom, left and right.",
                     "example": "10rem 10rem 10rem 10rem"
