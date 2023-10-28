@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import ComponentModal from '../modals/ComponentModal';
 import ContainerEditor from './ContainerEditor';
 import ComponentEditor from './ComponentEditor';
-import Edit from '../../assets/icons8-edit-24.png';
 import Plus from '../../assets/icons8-plus-24.png';
 import classes from '../../styles/EditorTools.module.css';
 

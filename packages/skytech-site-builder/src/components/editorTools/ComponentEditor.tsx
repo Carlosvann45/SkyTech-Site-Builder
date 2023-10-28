@@ -14,19 +14,23 @@ function ComponentEditor(props: any) {
   const [propertiesComponent, setPropertiesComponent] = useState({});
   const wrapperRef = useRef() as any;
 
-  function addComponent(newComponent: string) {
-    
-    if (edit) {
-      setEdit(false);
-      return;
-    }
-
+  function addComponent(newComponent: any) {
     const length = props.componentName.split('-').length - 1;
     const newIndex = Number(props.componentName.split('-')[length]);
 
     const newArray = [] as any;
 
     props.components.forEach((component: any, index: number) => {
+        if (edit) {
+
+          if (component.name === newComponent.name) {
+            newArray.push(newComponent);
+          } else {
+            newArray.push(component);
+          }
+          return;
+        }
+
         const nameArr = component.name.split('-');
         const length = nameArr.length - 1;
         
@@ -54,6 +58,7 @@ function ComponentEditor(props: any) {
         }
     });
 
+    setEdit(false);
     props.setComponents(newArray);
   }
 
