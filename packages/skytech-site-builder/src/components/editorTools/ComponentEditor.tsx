@@ -10,6 +10,7 @@ function ComponentEditor(props: any) {
   const [clicked, setClicked] = useState(false);
   const [open, setOpen] = useState(false);
   const [openProperties, setOpenProperties] = useState(false);
+  const [newComponent, setNewComponent] = useState({});
   const wrapperRef = useRef() as any;
 
   function addComponent(name: string) {
@@ -141,6 +142,56 @@ function ComponentEditor(props: any) {
     props.setComponents(newArray)
   }
 
+  async function setComponent(name: string) {
+    const length = props.componentName.split('-').length - 1;
+    const newIndex = Number(props.componentName.split('-')[length]);
+    let newComponent = await window.fileOperations.getWebComponentProperties().then((properties: any) => {
+        const allComponents = [...properties.components, ...properties.containers];
+        let actualComponent: any = {};
+        
+        allComponents.forEach((item) => {
+            if(item.title === name){
+              actualComponent = item
+            }
+        });
+
+        const newProperties = [] as any;
+
+        actualComponent.properties.forEach((property: any) => {
+          newProperties.push({
+            ...property,
+            value: ''
+          })
+        });
+
+        newComponent.properties = newProperties;
+
+        if (newComponent.type === 'container') {
+          const newColumns = [] as any;
+
+          newComponent.columns.forEach((column: any) => {
+            const newColumnProps = [] as any;
+
+            column.properties.forEach((property: any) => {
+              newColumnProps.push({
+                ...property,
+                value: ''
+              });
+            });
+
+            column.properties = newColumnProps;
+
+            newColumns.push(column);
+          });
+
+          
+        }
+    });
+  }
+
+  function setProperties() {
+  }
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickListener);
     
@@ -176,11 +227,13 @@ function ComponentEditor(props: any) {
         <ComponentModal 
             open={open} 
             setOpen={setOpen}
-            callback={addComponent} />
+            callback={setComponent} />
         <PropertiesModal 
             open={openProperties}
             setOpen={setOpenProperties}
             componentName={props.componentName}
+            component={newComponent}
+            setComponent={setNewComponent}
             />
     </ div>
   );
