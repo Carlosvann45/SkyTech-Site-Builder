@@ -136,7 +136,7 @@ function PropertiesModal(props: any) {
             setChangedProperties(newProperties);
             setComponent(props.component);
         }
-  }, [props.component]);
+  }, [props.component, props.open]);
 
   return (
     <dialog className={classes.showModal} open={props.open}>
