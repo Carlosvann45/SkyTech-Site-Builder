@@ -6,6 +6,7 @@ import Logo from '../../assets/logo_grey_transparent.png';
 import navClasses from '../../styles/Navigation.module.css';
 import classes from '../../styles/Editor.module.css';
 import Common from '../../utils/common';
+import { ERROR } from '../../utils/constants';
 import ContainerPreview from '../preview/ContainerPreview';
 
 function Editor() {
@@ -68,7 +69,17 @@ function Editor() {
   }
 
   function updateComponents(componentArr: any) {
-    setComponents(componentArr);
+    const pathArr = window.location.pathname.split('/');
+    const page = pathArr[pathArr.length - 1];
+    const project = pathArr[pathArr.length - 2];
+
+    window.fileOperations.updatePageComponents(project, page, componentArr).then((updated: boolean) => {
+        if (updated) {
+            setComponents(componentArr);
+        } else {
+            Common.toast('error', ERROR.COMPONENT_UPDATE_ERROR);
+        }
+    })
   }
 
   useEffect(() => {

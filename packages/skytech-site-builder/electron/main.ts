@@ -54,6 +54,7 @@ function createHandlers() {
   ipcMain.handle('file:createPage', (_, project: string, name: string) => FileOperations.createPage(project, name));
   ipcMain.handle('file:getWebComponentFiles', () => FileOperations.getWebComponentFiles());
   ipcMain.handle('file:getWebComponentProperties', () => FileOperations.getWebComponentProperties());
+  ipcMain.handle('file:updatePageComponents', (_, project: string, page: string, components: any) => FileOperations.updatePageComponents(project, page, components));
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common

@@ -8,7 +8,8 @@ contextBridge.exposeInMainWorld('fileOperations', {
   getPages: (project: string) => ipcRenderer.invoke('file:getPages', project),
   createPage: (project: string, name: string) => ipcRenderer.invoke('file:createPage', project, name),
   getWebComponentFiles: () => ipcRenderer.invoke('file:getWebComponentFiles'),
-  getWebComponentProperties: () => ipcRenderer.invoke('file:getWebComponentProperties')
+  getWebComponentProperties: () => ipcRenderer.invoke('file:getWebComponentProperties'),
+  updatePageComponents: (project: string, page: string, components: any) => ipcRenderer.invoke('file:updatePageComponents', project, page, components)
 })
 
 // --------- Expose some API to the Renderer process ---------

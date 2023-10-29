@@ -111,4 +111,37 @@ export default class FileOperations {
 
         return updated;
     }
+
+    public static async updatePageComponents(project: string, page: string, components: any) {
+        let updated = false;
+
+        if (fs.existsSync(path.join(this.projectPath, project) + '.json')) {
+            let projectJson = await readFile(`${path.join(this.projectPath, project)}.json`)
+                            .then((p) => JSON.parse(p.toString()));
+            console.log(projectJson);
+            const existingPage = projectJson.pages.find((p: any) => {
+                return p.name === page;
+            })
+
+            if (existingPage) {
+                existingPage.components = components;
+
+                projectJson.pages = projectJson.pages.map((p: any) => {
+                    if (p.name === page) {
+                        return existingPage;
+                    } 
+
+                    return p;
+                });
+
+                updated = await writeFile(`${path.join(this.projectPath, project)}.json`, JSON.stringify(projectJson, null, 2))
+                            .then(() => true).catch((err) => {
+                                console.log('err: ' + err);
+                                return false;
+                            });
+            }
+        }
+
+        return updated;
+    }
 }
