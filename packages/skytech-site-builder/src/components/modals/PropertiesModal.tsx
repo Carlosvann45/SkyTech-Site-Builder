@@ -95,6 +95,29 @@ function PropertiesModal(props: any) {
 
     finalComponent.properties = newProperties;
 
+    if (component?.columns) {
+        const newColumns = [] as any;
+
+        component.columns.forEach((column: any) => {
+            const newColumnProperties = [] as any;
+
+            column.properties.forEach((property: any) => {
+                newColumnProperties.push({
+                    ...property,
+                    value: changedProperties[property.name]
+                });
+            });
+            
+            column.properties = newColumnProperties;
+
+            newColumns.push(column);
+        });
+
+        console.log(newColumns)
+
+        finalComponent.columns = newColumns;
+    }
+
     props.callback(finalComponent);
     props.setOpen(false)
   }

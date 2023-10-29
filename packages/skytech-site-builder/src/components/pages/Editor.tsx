@@ -67,6 +67,10 @@ function Editor() {
     return `${nameArr.join('-')}`;
   }
 
+  function updateComponents(componentArr: any) {
+    setComponents(componentArr);
+  }
+
   useEffect(() => {
     const pathArr = window.location.pathname.split('/');
     const page = pathArr[pathArr.length - 1];
@@ -109,7 +113,7 @@ function Editor() {
                                 componentName={c.name}
                                 component={formatComponentTag(c)} 
                                 components={components}
-                                setComponents={setComponents} />
+                                setComponents={updateComponents} />
                         </ div>);
                     } else {
                         return (
@@ -119,7 +123,7 @@ function Editor() {
                                 componentName={c.name}
                                 component={c} 
                                 components={components}
-                                setComponents={setComponents} />
+                                setComponents={updateComponents} />
                         );
                     }
                 } else if (c.type === 'component') {

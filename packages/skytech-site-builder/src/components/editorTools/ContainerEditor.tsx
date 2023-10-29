@@ -10,82 +10,30 @@ import classes from '../../styles/EditorTools.module.css';
 function ContainerEditor(props: any) {
     const [clicked, setClicked] = useState(false);
     const [open, setOpen] = useState(false);
+    const [edit, setEdit] = useState(false);
     const [openProperties, setOpenProperties] = useState(false);
+    const [propertiesComponent, setPropertiesComponent] = useState({});
     const wrapperRef = useRef() as any;
     const insideRef = useRef() as any;
 
-    function addComponent(name: string) {
+    function addComponent(newComponent: any) {
         const length = props.componentName.split('-').length - 1;
         const newIndex = Number(props.componentName.split('-')[length]);
-        let newComponent = {} as any;
-    
-        switch(name) {
-            case 'SkyTech Heading':
-                newComponent = {
-                    "name": `skytech-heading-${newIndex}`,
-                    "type": "component",
-                    "properties": [
-                      {
-                        "name": "content",
-                        "value": "Test Title"
-                      },
-                      {
-                        "name": "color",
-                        "value": "#fff"
-                      },
-                      {
-                        "name": "textAlign",
-                        "value": "center"
-                      },
-                      {
-                        "name": "heading",
-                        "value": 1
-                      },
-                      {
-                        "name": "fontSize",
-                         "value": "25px"
-                      },
-                      {
-                        "name": "fontWeight",
-                         "value": "500"
-                      }
-                    ]
-                  }
-                break;
-            case 'SkyTech Text':
-            default:
-                newComponent = {
-                    "name": `skytech-text-${newIndex}`,
-                    "type": "component",
-                    "properties": [
-                      {
-                        "name": "content",
-                        "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu est nec ipsum porttitor bibendum ut ut ipsum. Sed risus nunc, rutrum mattis arcu id, imperdiet elementum lacus. Vestibulum at volutpat quam, nec sodales mi. Fusce eu magna sed neque faucibus fermentum id et nisi. Sed id condimentum libero. Nunc hendrerit mi nisi, tempus blandit velit ultrices ut. Phasellus finibus vel velit sodales facilisis. Maecenas tempor elit in pharetra euismod."
-                      },
-                      {
-                        "name": "color",
-                        "value": "#fff"
-                      },
-                      {
-                        "name": "textAlign",
-                        "value": "left"
-                      },
-                      {
-                        "name": "margin",
-                        "value": "25px auto 0 auto"
-                      },
-                      {
-                        "name": "width",
-                        "value": "75%"
-                      }
-                    ]
-                  }
-                break;
-        }
     
         const newArray = [] as any;
     
         props.components.forEach((component: any, index: number) => {
+            if (edit) {
+  
+              if (component.name === newComponent.name) {
+                newArray.push(newComponent);
+              } else {
+                newArray.push(component);
+              }
+
+              return;
+            }
+
             const nameArr = component.name.split('-');
             const length = nameArr.length - 1;
             
@@ -169,6 +117,88 @@ function ContainerEditor(props: any) {
 
         props.setComponents(newArr);
       }
+
+      async function setNewComponent(name: string) {
+        const length = props.componentName.split('-').length - 1;
+        const newIndex = Number(props.componentName.split('-')[length]);
+    
+        window.fileOperations.getWebComponentProperties().then((properties: any) => {
+            const allComponents = [...properties.components, ...properties.containers];
+            let actualComponent: any = {};
+            
+            allComponents.forEach((item) => {
+                if(item.title === name){
+                  actualComponent = item
+                }
+            });
+    
+            const newProperties = [] as any;
+    
+            actualComponent.properties.forEach((property: any) => {
+              newProperties.push({
+                ...property,
+                value: ''
+              })
+            });
+    
+            actualComponent.properties = newProperties;
+    
+            if (actualComponent.type === 'container') {
+              const newColumns = [] as any;
+    
+              actualComponent.columns.forEach((column: any) => {
+                const newColumnProps = [] as any;
+    
+                column.properties.forEach((property: any) => {
+                  newColumnProps.push({
+                    ...property,
+                    value: ''
+                  });
+                });
+    
+                column.properties = newColumnProps;
+    
+                newColumns.push(column);
+              });
+    
+              actualComponent.columns = newColumns;
+            }
+            return actualComponent;
+        }).then((createdComponent: any) => {
+          createdComponent.name = [createdComponent.name, newIndex].join('-');
+    
+          setPropertiesComponent(createdComponent);
+          setOpenProperties(true);
+        });
+      }
+
+      function editContainer() {
+        setPropertiesComponent(props.component);
+        setOpenProperties(true);
+        setEdit(true);
+      }
+
+      function addTags() {
+        let containerProperties = {};
+
+        props.component.properties.forEach((property: any) => {
+          containerProperties = {
+            ...containerProperties,
+            [property.name]: property?.value ?? ''
+          }
+        })
+
+        props.component.columns.forEach((column: any) => {
+          column.properties.forEach((property: any) => {
+            containerProperties = {
+              ...containerProperties,
+              [property.name]: property?.value ?? ''
+            }
+          })
+        })
+
+        return containerProperties;
+      }
     
       useEffect(() => {
         document.addEventListener('mousedown', handleClickListener);
@@ -191,7 +221,7 @@ function ContainerEditor(props: any) {
 
     return (    
     <div ref={wrapperRef}>
-        <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => setOpenProperties(true)}>
+        <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => editContainer()}>
             <img src={Edit} width="15px" height="15px" />
         </button>
         <button type="button" className={clicked ? classes.iconBtn : classes.hideIconBtn} onClick={() => setOpen(true)}>
@@ -201,7 +231,7 @@ function ContainerEditor(props: any) {
             <img src={Trash} width="15px" height="15px" />
         </button>
         <div className={`${classes.containerWrapper} ${clicked ? classes.wrapper : ''}`}>
-            <props.tag ref={insideRef}>
+            <props.tag ref={insideRef} {...addTags()}>
                 {
                     props.component.columns.map((c: any, i: any) => (
                         <ColumnEditor 
@@ -220,11 +250,12 @@ function ContainerEditor(props: any) {
         <ComponentModal 
             open={open} 
             setOpen={setOpen}
-            callback={addComponent} />
+            callback={setNewComponent} />
         <PropertiesModal 
             open={openProperties}
             setOpen={setOpenProperties}
-            componentName={props.componentName}
+            component={propertiesComponent}
+            callback={addComponent}
             />
     </ div>
     )

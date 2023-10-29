@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ComponentModal from '../modals/ComponentModal';
+import PropertiesModal from '../modals/PropertiesModal';
 import ContainerEditor from './ContainerEditor';
 import ComponentEditor from './ComponentEditor';
 import Plus from '../../assets/icons8-plus-24.png';
@@ -8,78 +9,14 @@ import classes from '../../styles/EditorTools.module.css';
 function ColumnEditor(props: any) {
     const [clicked, setClicked] = useState(false);
     const [open, setOpen] = useState(false);
+    const [openProperties, setOpenProperties] = useState(false);
+    const [propertiesComponent, setPropertiesComponent] = useState({});
     const wrapperRef = useRef() as any;
     const insideRef = useRef() as any;
   
-    function addComponent(name: string) {
-      let newComponent: any;
-  
-      switch(name) {
-          case 'SkyTech Heading':
-              newComponent = {
-                  "name": `skytech-heading-0`,
-                  "type": "component",
-                  "properties": [
-                    {
-                      "name": "content",
-                      "value": "Test Title"
-                    },
-                    {
-                      "name": "color",
-                      "value": "#fff"
-                    },
-                    {
-                      "name": "textAlign",
-                      "value": "center"
-                    },
-                    {
-                      "name": "heading",
-                      "value": 1
-                    },
-                    {
-                      "name": "fontSize",
-                       "value": "25px"
-                    },
-                    {
-                      "name": "fontWeight",
-                       "value": "500"
-                    }
-                  ]
-                }
-              break;
-          case 'SkyTech Text':
-          default:
-              newComponent = {
-                  "name": `skytech-text-0`,
-                  "type": "component",
-                  "properties": [
-                    {
-                      "name": "content",
-                      "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu est nec ipsum porttitor bibendum ut ut ipsum. Sed risus nunc, rutrum mattis arcu id, imperdiet elementum lacus. Vestibulum at volutpat quam, nec sodales mi. Fusce eu magna sed neque faucibus fermentum id et nisi. Sed id condimentum libero. Nunc hendrerit mi nisi, tempus blandit velit ultrices ut. Phasellus finibus vel velit sodales facilisis. Maecenas tempor elit in pharetra euismod."
-                    },
-                    {
-                      "name": "color",
-                      "value": "#fff"
-                    },
-                    {
-                      "name": "textAlign",
-                      "value": "left"
-                    },
-                    {
-                      "name": "margin",
-                      "value": "25px auto 0 auto"
-                    },
-                    {
-                      "name": "width",
-                      "value": "75%"
-                    }
-                  ]
-                }
-              break;
-      }
-  
+    function addComponent(newComponent: any) {
       const newArray = [] as any;
-      
+
       newArray.push(newComponent);
   
       props.column.components.forEach((c: any) => {
@@ -151,6 +88,57 @@ function ColumnEditor(props: any) {
 
         props.setColumn(newColumn);
     }
+
+    async function setNewComponent(name: string) {
+      window.fileOperations.getWebComponentProperties().then((properties: any) => {
+          const allComponents = [...properties.components, ...properties.containers];
+          let actualComponent: any = {};
+          
+          allComponents.forEach((item) => {
+              if(item.title === name){
+                actualComponent = item
+              }
+          });
+  
+          const newProperties = [] as any;
+  
+          actualComponent.properties.forEach((property: any) => {
+            newProperties.push({
+              ...property,
+              value: ''
+            })
+          });
+  
+          actualComponent.properties = newProperties;
+  
+          if (actualComponent.type === 'container') {
+            const newColumns = [] as any;
+  
+            actualComponent.columns.forEach((column: any) => {
+              const newColumnProps = [] as any;
+  
+              column.properties.forEach((property: any) => {
+                newColumnProps.push({
+                  ...property,
+                  value: ''
+                });
+              });
+  
+              column.properties = newColumnProps;
+  
+              newColumns.push(column);
+            });
+  
+            actualComponent.columns = newColumns;
+          }
+          return actualComponent;
+      }).then((createdComponent: any) => {
+        createdComponent.name = [createdComponent.name, 0].join('-');
+  
+        setPropertiesComponent(createdComponent);
+        setOpenProperties(true);
+      });
+    }
   
     useEffect(() => {
       document.addEventListener('mousedown', handleClickListener);
@@ -208,7 +196,13 @@ function ColumnEditor(props: any) {
         <ComponentModal 
             open={open} 
             setOpen={setOpen}
-            callback={addComponent} />
+            callback={setNewComponent} />
+        <PropertiesModal 
+            open={openProperties}
+            setOpen={setOpenProperties}
+            component={propertiesComponent}
+            callback={addComponent}
+            />
     </ div>
   );
   }
