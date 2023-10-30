@@ -11,9 +11,10 @@ function SideNav() {
   const [selected, setSelected] = useState('');
 
   useEffect(() => {
-    const option = window.location.pathname.split('/');
-
-    setSelected(option[1]);
+    const options = window.location.pathname.split('/');
+    const option = options[2] ? [options[1], options[2]].join('/') : options[1];
+    
+    setSelected(option);
   }, [window.location.pathname]);
 
   function handleClick(path: string) {
@@ -25,19 +26,19 @@ function SideNav() {
         <div className={classes.icons}>
           <button 
             className={`${classes.icon} ${selected === 'websites' ? classes.iconselected : ''}`} 
-            onClick={() => handleClick('')} >
+            onClick={() => handleClick('wesbites')} >
             <span className={classes.tooltip}>Websites</span>
             <img style={{ width: '25px', height: '25px' }} src={Website} />
           </button>
-          <button className={`${classes.icon} ${selected === 'templates' ? classes.iconselected : ''}`}  onClick={() => handleClick('templates')}>
+          <button className={`${classes.icon} ${selected === 'websites/templates' ? classes.iconselected : ''}`}  onClick={() => handleClick('websites/templates')}>
             <span className={classes.tooltip}>Templates</span>
             <img style={{ width: '35px', height: '35px' }} src={Pages}/>
           </button>
-          <button className={`${classes.icon} ${selected === 'components' ? classes.iconselected : ''}`} onClick={() => handleClick('components')}>
+          <button className={`${classes.icon} ${selected === 'websites/components' ? classes.iconselected : ''}`} onClick={() => handleClick('websites/components')}>
             <span className={classes.tooltip}>Components</span>
             <img style={{ width: '28px', height: '28px' }} src={Components} />
           </button>
-          <button className={`${classes.icon} ${selected === 'export' ? classes.iconselected : ''}`} onClick={() => handleClick('export')}>
+          <button className={`${classes.icon} ${selected === 'websites/export' ? classes.iconselected : ''}`} onClick={() => handleClick('websites/export')}>
             <span className={classes.tooltip}>Export</span>
             <img style={{ width: '35px', height: '35px' }} src={Export} />
           </button>

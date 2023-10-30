@@ -5,10 +5,11 @@ import MainLayout from './outlets/MainLayout';
 import EditorLayout from './outlets/EditorLayout';
 import Components from './components/pages/Components';
 import Export from './components/pages/Export';
-import ProjectForm from './components/pages/ProjectForm';
+import ProjectForm from './components/forms/ProjectForm';
 import Pages from './components/pages/Pages';
-import PageForm from './components/pages/PageForm';
+import PageForm from './components/forms/PageForm';
 import Editor from './components/pages/Editor';
+import TemplateForm from './components/forms/TemplateForm';
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
           <Route path="websites/folder_form" element={<ProjectForm />} />
           <Route path="websites/pages/:project" element={<Pages />} />
           <Route path="websites/page_form/:project" element={<PageForm />} />
-          <Route path="templates" element={<Templates />} />
-          <Route path="components" element={<Components />} />
-          <Route path="export" element={<Export />} />
+          <Route path="websites/templates" element={<Templates />} />
+          <Route path="websites/template_form" element={<TemplateForm />} />
+          <Route path="websites/components" element={<Components />} />
+          <Route path="websites/export" element={<Export />} />
           <Route path="*" element={<Navigate to="/websites" />} />
         </Route>
       </Routes>

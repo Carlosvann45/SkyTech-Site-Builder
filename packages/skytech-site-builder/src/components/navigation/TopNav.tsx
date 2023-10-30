@@ -19,6 +19,8 @@ function TopNav() {
             const project = pathArr[pathArr.length - 1];
 
             navigate(`/${place[1]}/page_form/${project}`);
+          } else if (place[2] === 'templates') {
+            navigate(`/${place[1]}/template_form`);
           }
         } else {
             navigate(`/${place[1]}/folder_form`);
@@ -27,20 +29,39 @@ function TopNav() {
 
     function showCreateButton(): boolean {
       const path = window.location.pathname;
+      let cond1 = false;
       let cond2 = false;
-
+      let cond3 = false;
+      
+      cond1 = path.split('/')[1] !== 'websites'
+      
       if (path.split('/').length > 2) {
-        cond2 = path.split('/')[2] !== 'pages';
+        cond2 = path.split('/')[3] === 'pages';
+        cond3 = path.split('/')[3] === 'templates';
+        console.log(path.split('/')[2])
       }
-      return path.split('/')[1] !== 'websites' || cond2;
+      return cond1 || cond2 || cond3;
     }
   
     useEffect(() => {
-      const option = window.location.pathname.split('/');
-      const dir = location.state?.project;
+      const options = window.location.pathname.split('/');
+      let txt = 'Project';
+      let dir = options[1];
+
+      if (options[3]) {
+        dir = options[3];
+      } else if (options[2]) {
+        dir = options[2];
+      }
+
+      if (options.includes('pages')) {
+        txt = 'Page';
+      } else if (options.includes('templates')) {
+        txt = 'Template';
+      }
       
-      setButtonText(`Create ${option.includes('pages') ? 'Page' : 'Project'}`);
-      setSelected(dir ? Common.formatTitle(dir, true) : option[1]);
+      setButtonText(`Create ${txt}`);
+      setSelected(Common.formatTitle(dir, true));
     }, [location]);
   
     return (
@@ -57,7 +78,6 @@ function TopNav() {
                 type="button" 
                 className={`${classes.topbtn} ${showCreateButton() && classes.hide}`}
                 onClick={handleCreateClick}>{buttonText}</button>
-            <button type="button" className={`${classes.topbtn} ${selected !== 'pages' && classes.hide}`}>Edit Project</button>
         </div>
       </div>
     );
