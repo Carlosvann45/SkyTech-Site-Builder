@@ -76,8 +76,6 @@ function PropertiesModal(props: any) {
         [property.name]: target.value
     }
 
-    console.log(newProperties);
-
     setChangedProperties(newProperties);
   }
 
@@ -112,8 +110,6 @@ function PropertiesModal(props: any) {
 
             newColumns.push(column);
         });
-
-        console.log(newColumns)
 
         finalComponent.columns = newColumns;
     }

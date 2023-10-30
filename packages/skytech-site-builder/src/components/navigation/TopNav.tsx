@@ -38,7 +38,6 @@ function TopNav() {
       if (path.split('/').length > 2) {
         cond2 = path.split('/')[3] === 'pages';
         cond3 = path.split('/')[3] === 'templates';
-        console.log(path.split('/')[2])
       }
       return cond1 || cond2 || cond3;
     }

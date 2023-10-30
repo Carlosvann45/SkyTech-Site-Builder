@@ -153,7 +153,7 @@ function ComponentEditor(props: any) {
         found = true;
       }
     })
-    console.log(component)
+    
     setPropertiesComponent(component);
     setOpenProperties(true);
     setEdit(true);

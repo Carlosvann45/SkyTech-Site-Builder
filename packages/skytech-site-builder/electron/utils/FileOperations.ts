@@ -68,6 +68,24 @@ export default class FileOperations {
         return created;
     }
 
+    public static async createTemplate(name: string) {
+        let created = false;
+        const baseObjct = JSON.stringify({
+            name,
+            type: 'template',
+            components: []
+        }, null, 2);
+
+        if (!fs.existsSync(path.join(this.templatePath, name) + '.json')) {
+            created = await writeFile(`${path.join(this.templatePath, name)}.json`, baseObjct)
+                        .then(() => true).catch((err) => {
+                            console.log('err: ' + err);
+                            return false;
+                        });
+        }
+        return created;
+    }
+
     public static async getPages(project: string) {
         let files: any = [];
 

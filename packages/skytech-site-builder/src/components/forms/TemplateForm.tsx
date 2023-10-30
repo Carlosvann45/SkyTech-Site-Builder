@@ -13,15 +13,15 @@ function TemplateForm() {
     const result = Validation.verifyTitle(template);
 
     if (result.valid) {
-    //   let newTitle = Common.formatTitle(template.title, false);
+      let newTitle = Common.formatTitle(template.title, false);
 
-    //   window.fileOperations.createProject(newTitle).then((created: any) => {
-    //     if (!created) {
-    //       Common.toast('error', ERROR.TITLE_EXISTS);
-    //     } else {
-    //       navigate('/websites/templates');
-    //     }
-    //   });
+      window.fileOperations.createTemplate(newTitle).then((created: any) => {
+        if (!created) {
+          Common.toast('error', ERROR.TITLE_EXISTS);
+        } else {
+          navigate('/websites/templates');
+        }
+      });
     } else {
       result.messages.forEach(message => {
         Common.toast('error', message);

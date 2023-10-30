@@ -24,7 +24,7 @@ function ColumnEditor(props: any) {
           const nameArr = component.name.split('-');
           const length = nameArr.length - 1;
           const newIndex = Number(nameArr[length]) + 1;
-          console.log(nameArr)
+          
           nameArr.pop();
           nameArr.push(newIndex);
 
