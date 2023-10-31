@@ -125,6 +125,7 @@ function ColumnEditor(props: any) {
               });
   
               column.properties = newColumnProps;
+              column.components = [];
   
               newColumns.push(column);
             });
@@ -166,7 +167,7 @@ function ColumnEditor(props: any) {
         </button>
         <div ref={insideRef} className={`${classes.containerWrapper} ${clicked ? classes.wrapper : ''}`}>
             {
-                props.column.components.map((c: any) => {
+                props.column.components.length > 0 && props.column.components.map((c: any) => {
                     if (c.type === 'component') {
                         return (
                             <ComponentEditor 

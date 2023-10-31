@@ -157,6 +157,7 @@ function ContainerEditor(props: any) {
                 });
     
                 column.properties = newColumnProps;
+                column.components = [];
     
                 newColumns.push(column);
               });
