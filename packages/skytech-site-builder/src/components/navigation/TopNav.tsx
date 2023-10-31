@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import classes from '../../styles/Navigation.module.css';
 import Logo from '../../assets/logo_grey_transparent.png';
 import Common from '../../utils/common';
 
 function TopNav() {
     const navigate = useNavigate();
-    const location = useLocation();
     const [selected, setSelected] = useState('');
     const [buttonText, setButtonText] = useState('Create');
 
@@ -29,17 +28,12 @@ function TopNav() {
 
     function showCreateButton(): boolean {
       const path = window.location.pathname;
-      let cond1 = false;
-      let cond2 = false;
-      let cond3 = false;
-      
-      cond1 = path.split('/')[1] !== 'websites'
-      
-      if (path.split('/').length > 2) {
-        cond2 = path.split('/')[3] === 'pages';
-        cond3 = path.split('/')[3] === 'templates';
-      }
-      return cond1 || cond2 || cond3;
+      const whitelist = [
+        '/websites',
+        '/websites/templates'
+      ];
+
+      return !whitelist.includes(path.trim()) && path.split('/')[2] !== 'pages';
     }
   
     useEffect(() => {
@@ -50,7 +44,11 @@ function TopNav() {
       if (options[3]) {
         dir = options[3];
       } else if (options[2]) {
-        dir = options[2];
+        if (options[2] === 'template_form') {
+          dir = 'Templates';
+        } else if (!options[2]){
+          dir = options[2];
+        }
       }
 
       if (options.includes('pages')) {
@@ -61,7 +59,7 @@ function TopNav() {
       
       setButtonText(`Create ${txt}`);
       setSelected(Common.formatTitle(dir, true));
-    }, [location]);
+    }, [window.location.pathname]);
   
     return (
       <div className={classes.topbar}>
