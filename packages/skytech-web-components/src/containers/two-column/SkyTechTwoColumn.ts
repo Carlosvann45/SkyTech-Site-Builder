@@ -67,8 +67,8 @@ export class SkyTechTwoColumn extends LitElement {
         background-color: ${unsafeCSS(this.colorOne)};
         margin: ${unsafeCSS(this.marginOne)};
         padding: ${unsafeCSS(this.paddingOne)};
-        width: ${unsafeCSS(this.widthOne ?? 'inherit')};
-        height: ${unsafeCSS(this.heightOne ?? 'inherit')};
+        width: ${unsafeCSS(this.widthOne || '50%')};
+        height: ${unsafeCSS(this.heightOne || 'inherit')};
     }
 
     slot.skytech-column-two {
@@ -78,8 +78,8 @@ export class SkyTechTwoColumn extends LitElement {
         background-color: ${unsafeCSS(this.colorTwo)};
         margin: ${unsafeCSS(this.marginTwo)};
         padding: ${unsafeCSS(this.paddingTwo)};
-        width: ${unsafeCSS(this.widthTwo ?? 'inherit')};
-        height: ${unsafeCSS(this.heightTwo ?? 'inherit')};
+        width: ${unsafeCSS(this.widthTwo || '50%')};
+        height: ${unsafeCSS(this.heightTwo || 'inherit')};
     }
     `;
   }
