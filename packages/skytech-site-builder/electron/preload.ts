@@ -5,7 +5,7 @@ contextBridge.exposeInMainWorld('fileOperations', {
   getTemplates: () => ipcRenderer.invoke('file:getTemplates'),
   getProjects: () => ipcRenderer.invoke('file:getProjects'),
   createProject: (name: string) => ipcRenderer.invoke('file:createProject', name),
-  createTemplate: (name: string) => ipcRenderer.invoke('file:createTemplate', name),
+  createTemplate: (template: any, container: any) => ipcRenderer.invoke('file:createTemplate', template, container),
   getPages: (project: string) => ipcRenderer.invoke('file:getPages', project),
   createPage: (project: string, name: string) => ipcRenderer.invoke('file:createPage', project, name),
   getWebComponentFiles: () => ipcRenderer.invoke('file:getWebComponentFiles'),

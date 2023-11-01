@@ -16,10 +16,10 @@ function Templates() {
     <div className={classes.wrapper}>
       <div className={classes.templates}>
         {
-          templates.length > 0 && templates.map((name: any) => (
-            <div key={name} className={classes.card}>
+          templates.length > 0 && templates.map((template: any) => (
+            <div key={template.name} className={classes.card}>
               <img className={classes.cardicon} src={Template} />
-              <h4 className={classes.cardtitle}>{Common.formatTitle(name, true)}</h4>
+              <h4 className={classes.cardtitle}>{Common.formatTitle(template.title, true)}</h4>
             </div>
           ))
         }

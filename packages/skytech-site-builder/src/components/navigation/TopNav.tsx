@@ -39,17 +39,23 @@ function TopNav() {
     useEffect(() => {
       const options = window.location.pathname.split('/');
       let txt = 'Project';
-      let dir = options[1];
+      let dir = 'Websites';
 
-      if (options[3]) {
-        dir = options[3];
-      } else if (options[2]) {
+      if (options[2]) {
         if (options[2] === 'template_form') {
-          dir = 'Templates';
-        } else if (!options[2]){
+          dir = 'Creating Template';
+        } else if (options[2] === 'page_form') {
+          dir = 'Creating page: ' + options[3];
+        } else if (options[2] === 'folder_form') {
+          dir = 'Creating Project';
+        } else if (options[3]) {
+          dir = options[3];
+        } else {
           dir = options[2];
         }
-      }
+      } else if (options[3]) {
+        dir = options[3];
+      } 
 
       if (options.includes('pages')) {
         txt = 'Page';

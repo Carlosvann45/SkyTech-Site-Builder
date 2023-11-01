@@ -3,6 +3,7 @@ import path from 'node:path';
 import fs from 'fs';
 import { readdir, mkdir, writeFile, readFile } from 'fs/promises';
 import { getWebComponentsJs, getWebComponentsCss,  webComponentProperties } from 'skytech-web-components';
+import Common from './Common';
 
 export default class FileOperations {
     private static projectPath = path.join(__dirname,'projects_data');
@@ -21,7 +22,7 @@ export default class FileOperations {
     }
 
     public static exportSite(win: BrowserWindow | null) {
-        const window: BrowserWindow = win || new BrowserWindow();
+        const window: BrowserWindow = win ?? new BrowserWindow();
 
         return dialog.showOpenDialog(window, {
             title: 'Save Project In',
@@ -33,13 +34,18 @@ export default class FileOperations {
     public static async getTemplates() {
         if (!fs.existsSync(this.templatePath)) {
             await mkdir(this.templatePath);
-            await writeFile(path.join(this.templatePath, 'base_template.json'), JSON.stringify({componenets: []}));
-            await writeFile(path.join(this.templatePath, 'base_template2.json'), JSON.stringify({componenets: []}));
         }
 
-        const templates = (await readdir(this.templatePath, {withFileTypes: false}))
-        .map((file: any) => file.split('.')[0]);
+        const templateFiles = await readdir(this.templatePath, {withFileTypes: false});
+        const templates = [] as any;
 
+        for (const file of templateFiles) {
+            const json = await readFile(path.join(this.templatePath, file))
+            .then((p: any) => JSON.parse(p.toString()));
+
+            templates.push(json);
+        }
+        
         return templates;
     }
 
@@ -68,15 +74,19 @@ export default class FileOperations {
         return created;
     }
 
-    public static async createTemplate(name: string) {
+    public static async createTemplate(template: any, container: any) {
+        const name = template.name ? template.name : template.title;
         let created = false;
-        const baseObjct = JSON.stringify({
-            name,
-            type: 'template',
-            components: []
-        }, null, 2);
 
-        if (!fs.existsSync(path.join(this.templatePath, name) + '.json')) {
+        if (!fs.existsSync(path.join(this.templatePath, name) + '.json')) {  
+            const baseObjct = JSON.stringify({
+                title: template.title,
+                name,
+                type: 'template',
+                disableComponents: template.disabled,
+                components: [Common.disableComponent(container, template.disabled)]
+            }, null, 2);
+
             created = await writeFile(`${path.join(this.templatePath, name)}.json`, baseObjct)
                         .then(() => true).catch((err) => {
                             console.log('err: ' + err);
