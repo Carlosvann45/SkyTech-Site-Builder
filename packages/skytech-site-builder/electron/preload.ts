@@ -3,6 +3,7 @@ import { contextBridge, ipcRenderer } from 'electron'
 contextBridge.exposeInMainWorld('fileOperations', {
   exportSite: () => ipcRenderer.invoke('file:exportSite'),
   getTemplates: () => ipcRenderer.invoke('file:getTemplates'),
+  getTemplate: (name: string) => ipcRenderer.invoke('file:getTemplate', name),
   getProjects: () => ipcRenderer.invoke('file:getProjects'),
   createProject: (name: string) => ipcRenderer.invoke('file:createProject', name),
   createTemplate: (template: any, container: any) => ipcRenderer.invoke('file:createTemplate', template, container),
@@ -10,7 +11,8 @@ contextBridge.exposeInMainWorld('fileOperations', {
   createPage: (project: string, name: string) => ipcRenderer.invoke('file:createPage', project, name),
   getWebComponentFiles: () => ipcRenderer.invoke('file:getWebComponentFiles'),
   getWebComponentProperties: () => ipcRenderer.invoke('file:getWebComponentProperties'),
-  updatePageComponents: (project: string, page: string, components: any) => ipcRenderer.invoke('file:updatePageComponents', project, page, components)
+  updatePageComponents: (project: string, page: string, components: any) => ipcRenderer.invoke('file:updatePageComponents', project, page, components),
+  updateTemplateComponents: (template: string, components: any) => ipcRenderer.invoke('file:updateTemplateComponents', template, components)
 })
 
 // --------- Expose some API to the Renderer process ---------

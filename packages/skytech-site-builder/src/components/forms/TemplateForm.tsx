@@ -33,7 +33,7 @@ function TemplateForm() {
         if (!created) {
           Common.toast('error', finalTemplate.name ? ERROR.NAME_EXISTS : ERROR.TITLE_EXISTS);
         } else {
-          navigate('/websites/templates');
+          navigate(`/editor/template/${finalTemplate.name}`);
         }
       });
     } else {
@@ -66,6 +66,8 @@ function TemplateForm() {
   function handleContainerClick(item: any) {
     const container = item;
 
+    container.name = [container.name, 0].join('-');
+    
     container.properties = container.properties.map((property: any) => {
       return {
         ...property,
@@ -81,7 +83,7 @@ function TemplateForm() {
           value: ''
         }
       });
-      console.log(column);
+      
       return column;
     });
 

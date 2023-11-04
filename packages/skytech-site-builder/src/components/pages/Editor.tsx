@@ -12,7 +12,7 @@ import ContainerPreview from '../preview/ContainerPreview';
 function Editor() {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
-  const [pageData, setPageData] = useState({ name: 'Editor', components: [] });
+  const [pageData, setPageData] = useState({ name: 'Editor', type: 'page', components: [] });
   const [components, setComponents] = useState([]);
 
   function formatComponentTag(component: any) {
@@ -70,29 +70,55 @@ function Editor() {
 
   function updateComponents(componentArr: any) {
     const pathArr = window.location.pathname.split('/');
-    const page = pathArr[pathArr.length - 1];
-    const project = pathArr[pathArr.length - 2];
+    
+    if (pathArr[2] === 'template') {
+        const template = pathArr[pathArr.length - 1];
+    
+        window.fileOperations.updateTemplateComponents(template, componentArr).then((updated: boolean) => {
+            if (updated) {
+                setComponents(componentArr);
+            } else {
+                Common.toast('error', ERROR.COMPONENT_UPDATE_ERROR);
+            }
+        });
 
-    window.fileOperations.updatePageComponents(project, page, componentArr).then((updated: boolean) => {
-        if (updated) {
-            setComponents(componentArr);
-        } else {
-            Common.toast('error', ERROR.COMPONENT_UPDATE_ERROR);
-        }
-    })
+    } else {
+        const page = pathArr[pathArr.length - 1];
+        const project = pathArr[pathArr.length - 2];
+    
+        window.fileOperations.updatePageComponents(project, page, componentArr).then((updated: boolean) => {
+            if (updated) {
+                setComponents(componentArr);
+            } else {
+                Common.toast('error', ERROR.COMPONENT_UPDATE_ERROR);
+            }
+        });
+    }
   }
 
   useEffect(() => {
     const pathArr = window.location.pathname.split('/');
-    const page = pathArr[pathArr.length - 1];
-    const project = pathArr[pathArr.length - 2];
-    
-    window.fileOperations.getPages(project).then((p: any) => {
-        const newPageData = p.find((p: any) => p.name === page);
 
-        setPageData(newPageData);
-        setComponents(newPageData.components);
-    });
+    if (pathArr[2] === 'template') {
+        const template = pathArr[pathArr.length - 1];
+
+        window.fileOperations.getTemplate(template).then((json: any) => {
+            setPageData(json);
+            setComponents(json.components);
+        });
+        
+    } else {
+        const page = pathArr[pathArr.length - 1];
+        const project = pathArr[pathArr.length - 2];
+        
+        window.fileOperations.getPages(project).then((p: any) => {
+            const newPageData = p.find((p: any) => p.name === page);
+    
+            setPageData(newPageData);
+            setComponents(newPageData.components);
+        });
+
+    }
   }, []);
 
   return (
@@ -102,7 +128,9 @@ function Editor() {
                 <img style={{ width: '35px', height: '28px', marginLeft: '4px' }} className={navClasses.hover} src={Logo} onClick={() => navigate('/websites')}/>
             </div>
             <div className={navClasses.topcontainer}>
-                <p className={navClasses.title}>{Common.formatTitle(pageData.name, true)}</p>
+                <p className={navClasses.title}>
+                    { `${pageData?.type === 'template' ? 'Template: ' : 'Page: '}` + Common.formatTitle(pageData.name, true)}
+                </p>
             </div>
             <div className={navClasses.topcontainer}>
                 <p className={navClasses.switchText}>Edit</p>

@@ -49,6 +49,17 @@ export default class FileOperations {
         return templates;
     }
 
+    public static async getTemplate(name: string) {
+        let template: any = {};
+
+        if (fs.existsSync(path.join(this.templatePath, name) + '.json')) {
+            template = await readFile(`${path.join(this.templatePath, name)}.json`)
+                            .then((p) => JSON.parse(p.toString()));
+        }
+
+        return template;
+    }
+
     public static async getProjects() {
         const projects = (await readdir(this.projectPath, {withFileTypes: false}))
                         .map((project) => project.split('.')[0]);
@@ -71,6 +82,7 @@ export default class FileOperations {
                             return false;
                         });
         }
+
         return created;
     }
 
@@ -146,7 +158,7 @@ export default class FileOperations {
         if (fs.existsSync(path.join(this.projectPath, project) + '.json')) {
             let projectJson = await readFile(`${path.join(this.projectPath, project)}.json`)
                             .then((p) => JSON.parse(p.toString()));
-            console.log(projectJson);
+            
             const existingPage = projectJson.pages.find((p: any) => {
                 return p.name === page;
             })
@@ -168,6 +180,25 @@ export default class FileOperations {
                                 return false;
                             });
             }
+        }
+
+        return updated;
+    }
+
+    public static async updateTemplateComponents(template: string, components: any) {
+        let updated = false;
+
+        if (fs.existsSync(path.join(this.templatePath, template) + '.json')) {
+            let templateJson = await readFile(`${path.join(this.templatePath, template)}.json`)
+                            .then((p) => JSON.parse(p.toString()));
+
+            templateJson.components = components.map((component: any) => Common.disableComponent(component, templateJson?.disableComponents));
+
+            updated = await writeFile(`${path.join(this.templatePath, template)}.json`, JSON.stringify(templateJson, null, 2))
+                        .then(() => true).catch((err) => {
+                            console.log('err: ' + err);
+                            return false;
+                        });
         }
 
         return updated;

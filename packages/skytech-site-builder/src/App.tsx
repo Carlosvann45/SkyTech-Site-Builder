@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sites from './components/pages/Sites';
-import Templates from './components/pages/Template';
+import Templates from './components/pages/Templates';
 import MainLayout from './outlets/MainLayout';
 import EditorLayout from './outlets/EditorLayout';
 import Components from './components/pages/Components';
@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route path="editor" element={<EditorLayout />}>
           <Route path="page/:project/:page" element={<Editor />} />
+          <Route path="template/:name" element={<Editor />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
         <Route path="*" element={<MainLayout />}>

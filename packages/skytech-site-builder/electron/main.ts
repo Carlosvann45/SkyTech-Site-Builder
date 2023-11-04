@@ -48,6 +48,7 @@ function createWindow() {
 function createHandlers() {
   ipcMain.handle('file:exportSite', () => FileOperations.exportSite(win));
   ipcMain.handle('file:getTemplates', () => FileOperations.getTemplates());
+  ipcMain.handle('file:getTemplate', (_, name: string) => FileOperations.getTemplate(name));
   ipcMain.handle('file:getProjects', () => FileOperations.getProjects());
   ipcMain.handle('file:createProject', (_, name: string) => FileOperations.createProject(name));
   ipcMain.handle('file:createTemplate', (_, template: any, container: any) => FileOperations.createTemplate(template, container));
@@ -56,6 +57,7 @@ function createHandlers() {
   ipcMain.handle('file:getWebComponentFiles', () => FileOperations.getWebComponentFiles());
   ipcMain.handle('file:getWebComponentProperties', () => FileOperations.getWebComponentProperties());
   ipcMain.handle('file:updatePageComponents', (_, project: string, page: string, components: any) => FileOperations.updatePageComponents(project, page, components));
+  ipcMain.handle('file:updateTemplateComponents', (_, template: string, components: any) => FileOperations.updateTemplateComponents(template, components));
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
