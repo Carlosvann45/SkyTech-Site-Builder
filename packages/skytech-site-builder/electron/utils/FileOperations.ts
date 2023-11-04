@@ -121,20 +121,20 @@ export default class FileOperations {
         return files;
     }
 
-    public static async createPage(project: string, name: string) {
+    public static async createPage(project: string, page: any, template: any) {
         let updated = false;
         const baseObjct = {
-            name,
+            ...page,
             type: 'file',
-            components: []
+            components: template.components ?? [] 
         };
 
         if (fs.existsSync(path.join(this.projectPath, project) + '.json')) {
             let projectJson = await readFile(`${path.join(this.projectPath, project)}.json`)
                             .then((p) => JSON.parse(p.toString()));
-            console.log(projectJson);
+            
             const existingProject = projectJson.pages.find((p: any) => {
-                return p.name === name;
+                return p.name === baseObjct.name;
             })
 
             if (!existingProject) {
@@ -145,7 +145,6 @@ export default class FileOperations {
                                 console.log('err: ' + err);
                                 return false;
                             });
-
             }
         }
 

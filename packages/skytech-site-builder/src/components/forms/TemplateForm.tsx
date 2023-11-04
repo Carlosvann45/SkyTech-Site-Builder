@@ -18,7 +18,7 @@ function TemplateForm() {
 
   function handleClick() {
     const finalTemplate = template;
-    const result = Validation.verifyTemplateForm(finalTemplate) ;
+    const result = Validation.verifyForm(finalTemplate) ;
     
     if (result.valid) {
       setErrors({ titleError: false, nameError: false });

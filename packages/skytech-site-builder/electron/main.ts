@@ -53,7 +53,7 @@ function createHandlers() {
   ipcMain.handle('file:createProject', (_, name: string) => FileOperations.createProject(name));
   ipcMain.handle('file:createTemplate', (_, template: any, container: any) => FileOperations.createTemplate(template, container));
   ipcMain.handle('file:getPages', (_, project: string) => FileOperations.getPages(project));
-  ipcMain.handle('file:createPage', (_, project: string, name: string) => FileOperations.createPage(project, name));
+  ipcMain.handle('file:createPage', (_, project: string, page: any, template: any) => FileOperations.createPage(project, page, template));
   ipcMain.handle('file:getWebComponentFiles', () => FileOperations.getWebComponentFiles());
   ipcMain.handle('file:getWebComponentProperties', () => FileOperations.getWebComponentProperties());
   ipcMain.handle('file:updatePageComponents', (_, project: string, page: string, components: any) => FileOperations.updatePageComponents(project, page, components));

@@ -31,7 +31,7 @@ function Pages() {
           pages.length !== 0 && pages.map((page: any) => (
             <div key={page.name} className={classes.card} onClick={() => navigateToEditor(page.name)}>
               <img className={classes.cardicon} src={Page} />
-              <h4 className={classes.cardtitle}>{Common.formatTitle(page.name, true)}</h4>
+              <h4 className={classes.cardtitle}>{Common.formatTitle(page.title, true)}</h4>
             </div>
           ))
         }

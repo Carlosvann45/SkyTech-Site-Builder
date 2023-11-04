@@ -1,7 +1,7 @@
 import { ERROR, REGEX } from "./constants";
 
 export default class Validation {
-    public static verifyTemplateForm(data: { title: string, name: string }) {
+    public static verifyForm(data: { title: string, name: string }) {
         const validTitle = Validation.verifyTitle(data);
         const validName = Validation.verifyName(data.name);
 
