@@ -150,7 +150,8 @@ function Editor() {
                         <div className={classes.editHover} key={c.name}>
                             <ComponentEditor 
                                 componentName={c.name}
-                                component={formatComponentTag(c)} 
+                                tag={formatComponentTag(c)} 
+                                component={c}
                                 components={components}
                                 setComponents={updateComponents} />
                         </ div>);

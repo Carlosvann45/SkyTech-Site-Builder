@@ -200,6 +200,14 @@ function ContainerEditor(props: any) {
 
         return containerProperties;
       }
+
+      function notDisabled() {
+        const pathArr = window.location.pathname.split('/');
+
+        if (pathArr[2] !== 'template') {
+          return !props.component.disabled
+        } else return true
+      }
     
       useEffect(() => {
         document.addEventListener('mousedown', handleClickListener);
@@ -222,13 +230,13 @@ function ContainerEditor(props: any) {
 
     return (    
     <div ref={wrapperRef}>
-        <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => editContainer()}>
+        <button className={clicked && notDisabled() ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => editContainer()}>
             <img src={Edit} width="15px" height="15px" />
         </button>
         <button type="button" className={clicked ? classes.iconBtn : classes.hideIconBtn} onClick={() => setOpen(true)}>
             <img src={Plus} width="15px" height="15px"  />
         </button>
-        <button className={clicked ? classes.iconBtnLast : classes.hideIconBtn} onClick={() => deleteCallback()}>
+        <button className={clicked && notDisabled() ? classes.iconBtnLast : classes.hideIconBtn} onClick={() => deleteCallback()}>
             <img src={Trash} width="15px" height="15px" />
         </button>
         <div className={`${classes.containerWrapper} ${clicked ? classes.wrapper : ''}`}>

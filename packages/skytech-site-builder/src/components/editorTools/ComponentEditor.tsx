@@ -160,6 +160,14 @@ function ComponentEditor(props: any) {
     setEdit(true);
   }
 
+  function notDisabled() {
+    const pathArr = window.location.pathname.split('/');
+
+    if (pathArr[2] !== 'template') {
+      return !props.component.disabled
+    } else return true
+  }
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickListener);
     
@@ -180,17 +188,17 @@ function ComponentEditor(props: any) {
 
   return (
     <div ref={wrapperRef}>
-        <button className={clicked ? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => editComponent()}>
+        <button className={clicked && notDisabled()? classes.iconBtnFirst : classes.hideIconBtn} onClick={() => editComponent()}>
             <img src={Edit} width="15px" height="15px" />
         </button>
         <button type="button" className={clicked ? classes.iconBtn : classes.hideIconBtn} onClick={() => setOpen(true)} >
             <img src={Plus} width="15px" height="15px" />
         </button>
-        <button className={clicked ? classes.iconBtnLast : classes.hideIconBtn} onClick={() => deleteCallback()}>
+        <button className={clicked && notDisabled() ? classes.iconBtnLast : classes.hideIconBtn} onClick={() => deleteCallback()}>
             <img src={Trash} width="15px" height="15px" />
         </button>
         <div className={clicked ? classes.wrapper : ''}>
-            {props.component}
+            {props.tag}
         </div>
         <ComponentModal 
             open={open} 

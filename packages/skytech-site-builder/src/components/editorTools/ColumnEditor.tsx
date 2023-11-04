@@ -15,23 +15,17 @@ function ColumnEditor(props: any) {
     const insideRef = useRef() as any;
   
     function addComponent(newComponent: any) {
-      const newArray = [] as any;
+      const newArray = props.column.components;
+      const newNameArr = newComponent.name.split('-');
+      const newIndex = newArray.length;
+
+      if (newIndex !== 0) {
+        newNameArr[newNameArr.length - 1] = newIndex;
+      }
+
+      newComponent.name = newNameArr.join('-');
 
       newArray.push(newComponent);
-  
-      props.column.components.forEach((c: any) => {
-          const component = c;
-          const nameArr = component.name.split('-');
-          const length = nameArr.length - 1;
-          const newIndex = Number(nameArr[length]) + 1;
-          
-          nameArr.pop();
-          nameArr.push(newIndex);
-
-          component.name = nameArr.join('-');
-
-          newArray.push(component);
-      });
 
       setComponents(newArray);
     }
@@ -79,7 +73,7 @@ function ColumnEditor(props: any) {
         nameArr.pop();
     
         return `${nameArr.join('-')}`;
-      }
+    }
 
     function setComponents(c: any) {
         const newColumn = props.column;
@@ -173,7 +167,8 @@ function ColumnEditor(props: any) {
                             <ComponentEditor 
                                 key={c.name}
                                 componentName={c.name}
-                                component={formatComponentTag(c)}
+                                tag={formatComponentTag(c)} 
+                                component={c}
                                 components={props.column.components}
                                 setComponents={setComponents} />
                         )
