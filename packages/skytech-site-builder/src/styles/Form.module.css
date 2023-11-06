@@ -1,3 +1,6 @@
+.wrapper {
+    background-color: #8C8C8C;
+}
 .title {
     display: flex;
     justify-content: center;
@@ -106,6 +109,7 @@
 
 .cardsWrapper {
     max-width: 100%;
+    background-color: #8C8C8C;
 
     padding: 1rem;
     margin: 0 auto;
