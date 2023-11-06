@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('fileOperations', {
-  exportSite: () => ipcRenderer.invoke('file:exportSite'),
+  exportSite: (project: string) => ipcRenderer.invoke('file:exportSite', project),
   getTemplates: () => ipcRenderer.invoke('file:getTemplates'),
   getTemplate: (name: string) => ipcRenderer.invoke('file:getTemplate', name),
   getProjects: () => ipcRenderer.invoke('file:getProjects'),

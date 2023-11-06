@@ -1,13 +1,15 @@
 import { BrowserWindow, dialog } from 'electron';
 import path from 'node:path';
 import fs from 'fs';
-import { readdir, mkdir, writeFile, readFile } from 'fs/promises';
+import { readdir, mkdir, writeFile, readFile, unlink } from 'fs/promises';
 import { getWebComponentsJs, getWebComponentsCss,  webComponentProperties } from 'skytech-web-components';
+import format from 'html-format';
 import Common from './Common';
 
 export default class FileOperations {
     private static projectPath = path.join(__dirname,'projects_data');
     private static templatePath = path.join(__dirname,'template_data');
+
 
     public static getWebComponentProperties() {
         return webComponentProperties;
@@ -19,16 +21,6 @@ export default class FileOperations {
             css: getWebComponentsCss()
             
         }
-    }
-
-    public static exportSite(win: BrowserWindow | null) {
-        const window: BrowserWindow = win ?? new BrowserWindow();
-
-        return dialog.showOpenDialog(window, {
-            title: 'Save Project In',
-            buttonLabel: 'Save',
-            properties: ['openDirectory']
-        })
     }
 
     public static async getTemplates() {
@@ -201,5 +193,86 @@ export default class FileOperations {
         }
 
         return updated;
+    }
+
+    public static async exportSite(win: BrowserWindow | null, project: string) {
+        const window: BrowserWindow = win ?? new BrowserWindow();
+        let exported = false;
+
+         const choosenPath = await dialog.showOpenDialog(window, {
+            title: 'Export Project In',
+            buttonLabel: 'Save',
+            properties: ['openDirectory']
+        });
+
+        if (!choosenPath.canceled && !fs.existsSync(path.join(choosenPath.filePaths[0], project))) {
+            const newPath = path.join(choosenPath.filePaths[0], project);
+
+            await mkdir(newPath);
+
+            let projectJson = await readFile(`${path.join(this.projectPath, project)}.json`)
+                        .then((p) => JSON.parse(p.toString()));
+                
+            if (projectJson) {
+                let allPagesCreated = true;
+
+                for (const page of projectJson.pages) {
+                    const htmlComponents = [];
+                        
+                    for (const component of page.components) {
+                        let html: any;
+
+                        if (component.type === 'component') {
+                            html = Common.formatComponent(component);
+                        } else {
+                            html = Common.formatContainer(component);
+                        }
+
+                        htmlComponents.push(html);
+                    }
+
+                    const pageData = {
+                        title: page.title,
+                        body: htmlComponents.join(' ') ?? ''
+                    };
+
+                    const htmlPage = format(Common.generateHtml(pageData));
+
+                    const htmlCreated = await writeFile(path.join(newPath, `${page.name}.html`), htmlPage)
+                        .then(() => true).catch((err) => {
+                            console.log('err: ' + err);
+                            return false;
+                        });
+
+                    if (!htmlCreated) {
+                        allPagesCreated = false;
+
+                        break;
+                    }
+                }
+                    
+                if (allPagesCreated) {
+                    exported = true;
+                }
+            }
+
+            if (!exported) {
+                dialog.showErrorBox('Export Project Error', 'There was an error reading project. Please try again.');
+            }
+        } else if (!choosenPath.canceled && fs.existsSync(path.join(choosenPath.filePaths[0], project))) {
+            dialog.showErrorBox('Export Project Error', `${project} already exist in the choosen folder. Please try again.`);
+        }
+
+        if (!exported && !choosenPath.canceled && fs.existsSync(path.join(choosenPath.filePaths[0], project))) {
+            await unlink(path.join(choosenPath.filePaths[0], project)).catch((err: any) => console.log('err: ' + err));
+        } else {
+            dialog.showMessageBox(window, {
+                title: 'Project Exported',
+                message: `${project} was successfuly created at ${path.join(choosenPath.filePaths[0], project)}.`,
+                type: 'info'
+            })
+        }
+
+        return exported;
     }
 }
