@@ -6,12 +6,16 @@
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.2); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
     cursor: default;
 }
 
 .properitesModal,
 .modalContent {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
     z-index: 101;
     background-color: #BFBFBF;
     margin: 10% auto; /* 15% from the top and centered */
