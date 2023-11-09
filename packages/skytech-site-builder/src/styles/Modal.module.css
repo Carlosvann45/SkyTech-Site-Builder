@@ -114,6 +114,7 @@
     flex-direction: row;
     justify-content: left;
     margin: 0 25px;
+    margin-bottom: 10px;
 }
 
 .tabOption {
@@ -154,4 +155,11 @@
 
 .modalInput:focus {
     outline: 1px solid #212121;
+}
+
+.labelWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }

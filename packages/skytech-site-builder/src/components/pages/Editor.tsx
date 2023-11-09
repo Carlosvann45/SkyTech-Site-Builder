@@ -125,7 +125,10 @@ function Editor() {
     <>
         <div className={navClasses.topbar}>
             <div className={navClasses.topcontainer}>
-                <img style={{ width: '35px', height: '28px', marginLeft: '4px' }} className={navClasses.hover} src={Logo} onClick={() => navigate('/websites')}/>
+                <img style={{ width: '35px', height: '28px', marginLeft: '4px' }} 
+                      className={navClasses.hover} src={Logo} 
+                      onClick={() => navigate('/websites')} 
+                      onKeyDown={() => navigate('/websites')} />
             </div>
             <div className={navClasses.topcontainer}>
                 <p className={navClasses.title}>

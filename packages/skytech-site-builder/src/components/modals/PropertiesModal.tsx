@@ -1,22 +1,44 @@
 import { useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import Info from '../../assets/icons8-info-50.png';
 import Close from '../../assets/icons8-close-30.png';
 import Done from '../../assets/icons8-done-26.png';
 import classes from '../../styles/Modal.module.css';
+import { REGEX } from '../../utils/constants';
 
 function PropertiesModal(props: any) {
   const [selected, setSelected] = useState('properties');
   const [changedProperties, setChangedProperties] = useState({} as any);
   const [component, setComponent] = useState({ title: '', properties: []} as any);
 
+
+  const StyledToolTip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(() => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: '#212121c7',
+      color: '#8C8C8C',
+      fontSize: 15
+    }
+  }));
+
   function loadInput(property: any) {
+    const props = {} as any
     
     if (property.type === 'textarea') {
+        if (property.limit) {
+            props['maxLength'] = property.limit;
+        }
+
         return (
             <textarea name={property.name} 
                       className={classes.modalInput} 
                       onChange={(e: any) => handleOnChange(e, property)}
+                      placeholder={property.example ?? ''}
                       value={changedProperties[property.name]}
-                      rows={4} cols={50}></textarea>
+                      rows={4} cols={50}
+                      {...props}></textarea>
         );
     } else if (property.type === 'option') {
         return (
@@ -32,11 +54,17 @@ function PropertiesModal(props: any) {
             </select>
         );
     } else {
-        return (<input type={property.type} 
+        if (property.limit) {
+            props['maxLength'] = property.limit;
+        }
+
+        return (<input type="text" 
                        name={property.name} 
                        className={classes.modalInput}
                        onChange={(e: any) => handleOnChange(e, property)}
-                       value={changedProperties[property.name]} />);
+                       placeholder={property.example ?? ''}
+                       value={changedProperties[property.name]}
+                       {...props} />);
     }
   }
 
@@ -46,7 +74,16 @@ function PropertiesModal(props: any) {
             component.properties.map((property: any) => {
                 return (
                     <div key={property.name} className={classes.modalField}>
-                        <label className={classes.modalLabel} htmlFor={property.name}>{property.title}</label>
+                        <div className={classes.labelWrapper}>
+                            <label className={classes.modalLabel} htmlFor={property.name}>{property.title}</label>
+                            {
+                                property.info && (
+                                    <StyledToolTip title={property.info} placement="right">
+                                      <img className={classes.icon} src={Info} alt="name info tool tip" width={20} height={20}/>
+                                    </StyledToolTip>
+                                    )
+                            }
+                        </div>
                         {loadInput(property)}
                     </div>)
             })
@@ -59,7 +96,16 @@ function PropertiesModal(props: any) {
                         column.properties.map((property: any) => {
                             return (
                                 <div key={property.name} className={classes.modalField}>
+                                <div className={classes.labelWrapper}>
                                     <label className={classes.modalLabel} htmlFor={property.name}>{property.title}</label>
+                                    {
+                                        property.info && (
+                                            <StyledToolTip title={property.info} placement="right">
+                                              <img className={classes.icon} src={Info} alt="name info tool tip" width={20} height={20}/>
+                                            </StyledToolTip>
+                                            )
+                                    }
+                                </div>
                                     {loadInput(property)}
                                 </div>)
                         }))
@@ -71,6 +117,14 @@ function PropertiesModal(props: any) {
 
   function handleOnChange(e: any, property: any) {
     const target = e.target;
+
+    
+    if (property.type === 'number') {
+        const valid = REGEX.NUMBER.test(target.value);
+        
+        if (!valid) return;
+    }
+
     const newProperties = {
         ...changedProperties,
         [property.name]: target.value
@@ -128,10 +182,12 @@ function PropertiesModal(props: any) {
                     [property.name]: property?.value ?? ''
                 }
             })
-            
+    
             setChangedProperties(newProperties);
             setComponent(props.component);
         }
+
+        setSelected('properties');
   }, [props.component, props.open]);
 
   return (
@@ -143,20 +199,21 @@ function PropertiesModal(props: any) {
                     <button type="button" className={classes.modalBtn}  onClick={() => props.setOpen(false)}>
                         <img src={Close} width="20px" height="20px" />
                     </button>
-                    <button type="button" className={classes.modalBtn}>
-                        <img src={Done} width="22px" height="22px" onClick={() => submitChanges()} />
+                    <button type="button" className={classes.modalBtn} onClick={() => submitChanges()}>
+                        <img src={Done} width="22px" height="22px" />
                     </button>
                 </div>
             </header>
             <div className={classes.headerSpacer}></div>
             <div className={classes.tabs}>
                 <div className={`${classes.tabOption} ${selected === 'properties' ? classes.tabSelected : ''}`}
-                     onClick={() => setSelected('properties')}>Properties</div>
+                     onClick={() => setSelected('properties')} onKeyDown={() => setSelected('properties')}>Properties</div>
                 {
                     component?.columns?.length > 0 && component.columns.map((column: any) => (
                         column.properties.length > 0 && (
                         <div key={column.name} 
                              onClick={() => setSelected(column.name)}
+                             onKeyDown={() => setSelected(column.name)}
                              className={`${classes.tabOption} ${selected === column.name ? classes.tabSelected : ''}`}>{column.title}</div>)
                     ))
                 }

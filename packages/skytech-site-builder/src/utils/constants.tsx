@@ -1,6 +1,7 @@
 export class REGEX {
     static TITLE = /^\w+[^\t\r\n!`~|\\@#$%^&*()<>/?"':;{}[\]+=_]+$/;
     static NAME = /^\w+[^\t\r\n!`~|\\@#$%^&*()<>/?"':;{}[\]+=]+$/;
+    static NUMBER = /^\d+$/;
 }
 
 export class ERROR {

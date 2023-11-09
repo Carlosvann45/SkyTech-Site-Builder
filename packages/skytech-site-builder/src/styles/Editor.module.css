@@ -11,6 +11,7 @@
     width: 100%;
     display: flex;
     overflow: auto;
+
 }
 
 .pagecontainer {
@@ -20,4 +21,14 @@
 
 .editHover:hover {
     cursor: pointer;
+}
+
+&::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+   }
+ 
+   &::-webkit-scrollbar-thumb {
+    background-color: #212121;
+    border-radius: 3px;
 }

@@ -198,7 +198,9 @@ function ComponentEditor(props: any) {
             <img src={Trash} width="15px" height="15px" />
         </button>
         <div className={clicked ? classes.wrapper : ''}>
+          <div style={{ minHeight: '25px' }} className={classes.hover}>
             {props.tag}
+          </div>
         </div>
         <ComponentModal 
             open={open} 
