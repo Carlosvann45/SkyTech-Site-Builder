@@ -38,6 +38,7 @@ There are four types of properties objects text, textarea, number, and option. E
     "example": "",
     "type": "text",
     "regex": "",
+    "error": "",
     "limit": 255
 }
 ```
@@ -48,6 +49,7 @@ There are four types of properties objects text, textarea, number, and option. E
 **example** - Example of what attribute is for to display as a placeholder. (optional) <br />
 **type** - Wether the propertie is a text, textarea, number, or option. <br />
 **regex** - regex to validate text input. (optional) <br /> 
+**error** - error message for regex validation. (optional but required if using regex) <br /> 
 **limit** - character limit for text input. (optional) <br /> 
 
 
@@ -169,6 +171,7 @@ There are four types of properties objects text, textarea, number, and option. E
 **example** - Example of what attribute is for to display as a placeholder. (optional) <br />
 **type** - Wether the propertie is a text, textarea, number, or option. <br />
 **regex** - regex to validate text input. (optional) <br /> 
+**error** - error message for regex validation. (optional but required if using regex) <br /> 
 **limit** - character limit for text input. (optional) <br /> 
 
 
@@ -243,29 +246,30 @@ Below is an example using the SkyTech Text Component
             "title": "Content",
             "name": "content",
             "type": "textarea",
-            "info": "Text for inside heading.",
+            "info": "Text for inside content.",
             "limit": 255
         },
         {
             "title": "Color",
             "name": "color",
             "type": "text",
-            "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
-            "info": "Color of heading text."
+            "regex": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^[A-Za-z]{3,}$|^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6})\b|(?:rgb|hsl)a?\\([^\\)]*\\)$/",
+            "error": "Color must be valid color value, rgb value, rgba value, or hsla value.",
+            "info": "Color of content."
         },
         {
             "title": "Font Size",
             "name": "fontSize",
             "type": "text",
-            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$",
-            "info": "Size of heading text in pixels, em, or rem.",
+            "regex": "/^\\d+(([p][x])|([e][m])|([r][e][m]))$/",
+            "error": "Font Size must be in pixels, ems, or rems.",
+            "info": "Size of text in pixels, em, or rem.",
             "example": "10px"
         },
         {
             "title": "Padding",
             "name": "padding",
             "type": "text",
-            "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
             "info": "Internal space around text in pixels, em, or rem. Goes in order of top, right, bottom, left or top and bottom, left and right.",
             "example": "10px 10px 10px 10px"
         },
@@ -273,39 +277,40 @@ Below is an example using the SkyTech Text Component
             "title": "Margin",
             "name": "margin",
             "type": "text",
-            "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
             "info": "External space around text. Goes in order of top, right, bottom, left or top and bottom, left and right.",
             "example": "10px"
         },
         {
             "title": "Text Align",
             "name": "textAlign",
-            "type": "text",
-            "regex": "^[l][e][f][t]|[r][i][g][h][t]|[c][e][n][t][e][r]$",
+            "type": "option",
             "info": "Aligns text left, right, or center",
-            "example": "center"
+            "values": [
+                "left",
+                "right",
+                "center"
+            ]
         },
         {
             "title": "Width",
             "name": "width",
             "type": "text",
-            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
-            "info": "Width of heading text in percentages, pixels, em, or rem.",
+            "info": "Width of text in percentages, pixels, em, or rem.",
             "example": "10px"
         },
         {
             "title": "Height",
             "name": "height",
             "type": "text",
-            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
-            "info": "Height of heading text in percentages, pixels, em, or rem.",
+            "info": "Height of text in percentages, pixels, em, or rem.",
             "example": "10px"
         },
         {
             "title": "Line Height",
             "name": "lineHeight",
             "type": "text",
-            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$",
+            "regex": "/^\\d+(([p][x])|([e][m])|([r][e][m]))$/",
+            "error": "Line Height must be in pixels, ems, or rems.",
             "info": "Line height of text in pixels, em, or rem.",
             "example": "10px"
         }
@@ -338,14 +343,14 @@ Below is an example using the SkyTech Two Column Container
                     "title": "Color",
                     "name": "colorOne",
                     "type": "text",
-                    "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+                    "regex": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^[A-Za-z]{3,}$|^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6})\b|(?:rgb|hsl)a?\\([^\\)]*\\)$/",
+                    "error": "Color must be valid color value, rgb value, rgba value, or hsla value.",
                     "info": "Background color of container."
                 },
                 {
                     "title": "Padding",
                     "name": "paddingOne",
                     "type": "text",
-                    "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
                     "info": "Internal space around container in pixels, em, or rem. Goes in order of top, right, bottom, left or top and bottom, left and right.",
                     "example": "10rem 10rem 10rem 10rem"
                 },
@@ -353,7 +358,6 @@ Below is an example using the SkyTech Two Column Container
                     "title": "Margin",
                     "name": "marginOne",
                     "type": "text",
-                    "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
                     "info": "External space around container in pixels, ems, or rems. Goes in order of top, right, bottom, left or top and bottom, left and right.",
                     "example": "10em"
                 },
@@ -361,7 +365,6 @@ Below is an example using the SkyTech Two Column Container
                     "title": "Width",
                     "name": "widthOne",
                     "type": "text",
-                    "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
                     "info": "Width of container in percentages, pixels, em, or rem.",
                     "example": "10px"
                 },
@@ -369,7 +372,6 @@ Below is an example using the SkyTech Two Column Container
                     "title": "Height",
                     "name": "heightOne",
                     "type": "text",
-                    "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
                     "info": "Height of container in percentages, pixels, em, or rem.",
                     "example": "10px"
                 }
@@ -381,16 +383,16 @@ Below is an example using the SkyTech Two Column Container
             "properties": [
                 {
                     "title": "Color",
-                    "name": "color",
+                    "name": "colorTwo",
                     "type": "text",
-                    "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+                    "regex": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^[A-Za-z]{3,}$|^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6})\b|(?:rgb|hsl)a?\\([^\\)]*\\)$/",
+                    "error": "Color must be valid color value, rgb value, rgba value, or hsla value.",
                     "info": "Background color of container."
                 },
                 {
                     "title": "Padding",
-                    "name": "padding",
+                    "name": "paddingTwo",
                     "type": "text",
-                    "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
                     "info": "Internal space around container in pixels, em, or rem. Goes in order of top, right, bottom, left or top and bottom, left and right.",
                     "example": "10rem 10rem 10rem 10rem"
                 },
@@ -398,7 +400,6 @@ Below is an example using the SkyTech Two Column Container
                     "title": "Margin",
                     "name": "marginTwo",
                     "type": "text",
-                    "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
                     "info": "External space around container in pixels, ems, or rems. Goes in order of top, right, bottom, left or top and bottom, left and right.",
                     "example": "10em"
                 },
@@ -406,7 +407,6 @@ Below is an example using the SkyTech Two Column Container
                     "title": "Width",
                     "name": "widthTwo",
                     "type": "text",
-                    "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
                     "info": "Width of container in percentages, pixels, em, or rem.",
                     "example": "10px"
                 },
@@ -414,7 +414,6 @@ Below is an example using the SkyTech Two Column Container
                     "title": "Height",
                     "name": "heightTwo",
                     "type": "text",
-                    "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
                     "info": "Height of container in percentages, pixels, em, or rem.",
                     "example": "10px"
                 }
@@ -426,14 +425,14 @@ Below is an example using the SkyTech Two Column Container
             "title": "Color",
             "name": "color",
             "type": "text",
-            "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+            "regex": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^[A-Za-z]{3,}$|^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6})\b|(?:rgb|hsl)a?\\([^\\)]*\\)$/",
+            "error": "Color must be valid color value, rgb value, rgba value, or hsla value.",
             "info": "Background color of container."
         },
         {
             "title": "Padding",
             "name": "padding",
             "type": "text",
-            "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
             "info": "Internal space around container in pixels, em, or rem. Goes in order of top, right, bottom, left or top and bottom, left and right.",
             "example": "10rem 10rem 10rem 10rem"
         },
@@ -441,7 +440,6 @@ Below is an example using the SkyTech Two Column Container
             "title": "Margin",
             "name": "margin",
             "type": "text",
-            "regex": "^((\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m])))[ ](\\d+(([p][x])|([e][m])|([r][e][m]))))$|^((\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m])))([ ]\\d+(([p][x])|([e][m])|([r][e][m]))[ ]\\d+(([p][x])|([e][m])|([r][e][m]))))$",
             "info": "External space around container in pixels, ems, or rems. Goes in order of top, right, bottom, left or top and bottom, left and right.",
             "example": "10em"
         },
@@ -449,7 +447,6 @@ Below is an example using the SkyTech Two Column Container
             "title": "Width",
             "name": "width",
             "type": "text",
-            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
             "info": "Width of container in percentages, pixels, em, or rem.",
             "example": "10px"
         },
@@ -457,7 +454,6 @@ Below is an example using the SkyTech Two Column Container
             "title": "Height",
             "name": "height",
             "type": "text",
-            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$|^[1-9][0-9]?[%]$|^100%$",
             "info": "Height of container in percentages, pixels, em, or rem.",
             "example": "10px"
         }

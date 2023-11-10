@@ -107,7 +107,7 @@ function PageForm() {
               <div className={classes.cards}>
                 {
                   templates.length > 0 && templates.map((item: any) => (
-                    <div key={item.name} className={classes.card} onClick={() => setDefaultTemplate(item)}>
+                    <div key={item.name} className={classes.card} onClick={() => setDefaultTemplate(item)} onKeyDown={() => setDefaultTemplate(item)}>
                       <img className={classes.cardicon} src={Template} />
                       <h4 className={classes.cardtitle}>{item.title}</h4>
                     </div>
