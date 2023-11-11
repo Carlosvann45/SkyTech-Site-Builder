@@ -27,9 +27,6 @@ function PropertiesModal(props: any) {
     const props = {} as any
     
     if (property.type === 'textarea') {
-        if (property.limit) {
-            props['maxLength'] = property.limit;
-        }
 
         return (
             <textarea name={property.name} 

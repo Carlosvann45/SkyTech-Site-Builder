@@ -23,7 +23,7 @@
             "title": "Font Size",
             "name": "fontSize",
             "type": "text",
-            "regex": "/^\\d+(([p][x])|([e][m])|([r][e][m]))$/",
+            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$",
             "error": "Font Size must be in pixels, ems, or rems.",
             "info": "Size of text in pixels, em, or rem.",
             "example": "10px"
