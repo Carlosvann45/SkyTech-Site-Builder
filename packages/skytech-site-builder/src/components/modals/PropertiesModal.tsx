@@ -166,13 +166,20 @@ function PropertiesModal(props: any) {
 
   function submitChanges() {
     const newProperties = [] as any;
+    let hasError = false;
 
     component.properties.forEach((property: any) => {
+        if (changedProperties[property.name].hasError) {
+            hasError = true;
+        }
+
         newProperties.push({
             ...property,
-            value: changedProperties[property.name]
+            value: changedProperties[property.name].value
         });
     });
+
+    if (hasError) return;
 
     const finalComponent = component;
 
@@ -185,9 +192,13 @@ function PropertiesModal(props: any) {
             const newColumnProperties = [] as any;
 
             column.properties.forEach((property: any) => {
+                if (changedProperties[property.name].hasError) {
+                    hasError = true;
+                }
+                
                 newColumnProperties.push({
                     ...property,
-                    value: changedProperties[property.name]
+                    value: changedProperties[property.name].value
                 });
             });
             
@@ -198,6 +209,8 @@ function PropertiesModal(props: any) {
 
         finalComponent.columns = newColumns;
     }
+
+    if (hasError) return;
 
     props.callback(finalComponent);
     props.setOpen(false)
