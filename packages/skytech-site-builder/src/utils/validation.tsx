@@ -16,7 +16,7 @@ export default class Validation {
     }
 
     public static verifyTitle(data: { title: string}) {
-        let valid: { valid: boolean, messages: string[] } = { valid: true, messages: [] };
+        const valid: { valid: boolean, messages: string[] } = { valid: true, messages: [] };
         
         if (data.title.length <= 2) {
             valid.valid = false;
@@ -34,7 +34,7 @@ export default class Validation {
     }
 
     public static verifyName(data: string) {
-        let valid: { valid: boolean, messages: string[] } = { valid: true, messages: [] };
+        const valid: { valid: boolean, messages: string[] } = { valid: true, messages: [] };
 
         if (data.length > 0) {
             if (data.length <= 2) {

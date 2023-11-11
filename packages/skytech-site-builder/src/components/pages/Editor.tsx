@@ -16,7 +16,7 @@ function Editor() {
   const [components, setComponents] = useState([]);
 
   function formatComponentTag(component: any) {
-    let nameArr = component.name.split('-');
+    const nameArr = component.name.split('-');
     let tags = {};
     if (edit) {
         tags = {
@@ -38,7 +38,7 @@ function Editor() {
   }
 
   function formatContainerTag(component: any) {
-    let nameArr = component.name.split('-');
+    const nameArr = component.name.split('-');
     let tags = {};
     if (edit) {
         tags = {

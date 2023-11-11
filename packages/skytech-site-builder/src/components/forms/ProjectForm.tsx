@@ -13,7 +13,7 @@ function ProjectForm() {
     const result = Validation.verifyTitle(project);
 
     if (result.valid) {
-      let newTitle = Common.formatTitle(project.title, false);
+      const newTitle = Common.formatTitle(project.title, false);
 
       window.fileOperations.createProject(newTitle).then((created: any) => {
         if (!created) {

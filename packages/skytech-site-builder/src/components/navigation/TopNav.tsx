@@ -65,7 +65,7 @@ function TopNav() {
       
       setButtonText(`Create ${txt}`);
       setSelected(Common.formatTitle(dir, true));
-    }, [window.location.pathname]);
+    });
   
     return (
       <div className={classes.topbar}>

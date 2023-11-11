@@ -28,7 +28,7 @@ function SideNav() {
     }
     
     setSelected(option);
-  }, [window.location.pathname]);
+  });
 
   function handleClick(path: string) {
     navigate(`/${path}`)

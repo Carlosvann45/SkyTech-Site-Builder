@@ -4,7 +4,7 @@ import ContainerPreview from './ContainerPreview';
 function ColumnPreview(props: any) {
 
     function formatComponentTag(component: any) {
-        let nameArr = component.name.split('-');
+        const nameArr = component.name.split('-');
         let tags = {};
     
         for (const property of component.properties) {
@@ -20,7 +20,7 @@ function ColumnPreview(props: any) {
       }
     
       function formatContainerTag(component: any) {
-        let nameArr = component.name.split('-');
+        const nameArr = component.name.split('-');
         let tags = {};
     
         for (const property of component.properties) {

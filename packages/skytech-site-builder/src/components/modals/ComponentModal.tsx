@@ -13,7 +13,7 @@ function ComponentModal(props: any) {
   useEffect(() => {
     window.fileOperations.getWebComponentProperties().then((properties: any) => {
         const allComponents = [...properties.components, ...properties.containers];
-        let actualGroups: any = {};
+        const actualGroups: any = {};
         
         allComponents.forEach((item) => {
             if(!actualGroups[item.group]){
@@ -34,8 +34,8 @@ function ComponentModal(props: any) {
         <div className={classes.modalContent}>
             <header className={classes.modalHeader}>
                 <h3 className={classes.modalTitle}>Components</h3>
-                <button type="button" className={classes.modalBtn}>
-                    <img src={Close} width="20px" height="20px" onClick={() => props.setOpen(false)} />
+                <button type="button" className={classes.modalBtn} onClick={() => props.setOpen(false)}>
+                    <img src={Close} width="20px" height="20px" />
                 </button>
             </header>
             <div className={classes.headerSpacer}></div>
@@ -47,7 +47,7 @@ function ComponentModal(props: any) {
                             <div className={classes.components}>
                                 {
                                     groups[group].values.map((component: string) => (
-                                        <p key={component} className={classes.component} onClick={async () => await handleAndClose(component)}>{component}</p>
+                                        <p key={component} className={classes.component} onClick={async () => await handleAndClose(component)} onKeyDown={async () => await handleAndClose(component)}>{component}</p>
                                     ))
                                 }
                             </div>

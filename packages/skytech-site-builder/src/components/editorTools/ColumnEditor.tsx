@@ -31,7 +31,7 @@ function ColumnEditor(props: any) {
     }
 
     function formatComponentTag(component: any) {
-        let nameArr = component.name.split('-');
+        const nameArr = component.name.split('-');
         let tags = {
                 class: classes.editHover
             };
@@ -49,7 +49,7 @@ function ColumnEditor(props: any) {
       }
     
       function formatContainerTag(component: any) {
-        let nameArr = component.name.split('-');
+        const nameArr = component.name.split('-');
         let tags = {
                 class: classes.editHover
             };
