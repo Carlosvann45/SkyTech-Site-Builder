@@ -36,7 +36,7 @@ function PropertiesModal(props: any) {
                       className={classes.modalInput} 
                       onChange={(e: any) => handleOnChange(e, property)}
                       placeholder={property.example ?? ''}
-                      value={changedProperties[property.name]}
+                      value={changedProperties[property.name].value}
                       rows={4} cols={50}
                       {...props}></textarea>
         );
@@ -45,13 +45,14 @@ function PropertiesModal(props: any) {
             <select name={property.name} 
                     className={classes.modalInput}
                     onChange={(e: any) => handleOnChange(e, property)}
-                    value={changedProperties[property.name]}>
+                    value={changedProperties[property.name].value}>
             {
                 property.values.map((value: any) => (
                     <option key={value} value={value}>{value}</option>
                 ))
             }
             </select>
+            
         );
     } else {
         if (property.limit) {
@@ -63,7 +64,7 @@ function PropertiesModal(props: any) {
                        className={classes.modalInput}
                        onChange={(e: any) => handleOnChange(e, property)}
                        placeholder={property.example ?? ''}
-                       value={changedProperties[property.name]}
+                       value={changedProperties[property.name].value}
                        {...props} />);
     }
   }
@@ -117,20 +118,34 @@ function PropertiesModal(props: any) {
 
   function handleOnChange(e: any, property: any) {
     const target = e.target;
+    let newProperties = changedProperties;
+    console.log(newProperties)
+    if (newProperties.regex && !incorrectInput(newProperties, target.value)) {
+        newProperties = {
+            ...newProperties,
+            hasError: true
+        }
+    } else if (property.hasError) {
+        delete newProperties.hasError
+    }
 
-    
     if (property.type === 'number') {
         const valid = REGEX.NUMBER.test(target.value);
         
         if (!valid) return;
     }
 
-    const newProperties = {
-        ...changedProperties,
+    newProperties = {
+        ...newProperties,
         [property.name]: target.value
     }
 
     setChangedProperties(newProperties);
+  }
+
+  function incorrectInput(property: any, value: any) {
+    const regex = new RegExp(property.regex);
+    return regex.test(value);
   }
 
   function submitChanges() {
@@ -175,11 +190,20 @@ function PropertiesModal(props: any) {
   useEffect(() => {
         if (props?.component?.title) {
             let newProperties = {};
+            let regexProps = {}
 
             props.component.properties.forEach((property: any) => {
+                if (property.regex) {
+                    regexProps = {
+                        regex: property.regex
+                    }
+                }
                 newProperties = {
                     ...newProperties,
-                    [property.name]: property?.value ?? ''
+                    ...regexProps,
+                    [property.name]: {
+                        value: property?.value ?? ''
+                    }
                 }
             })
     
