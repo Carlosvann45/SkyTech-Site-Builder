@@ -5,12 +5,25 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
-    "build:installer": "electron-builder",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "homepage": "./",
   "build": {
     "appId": "com.skytech.site.builder.app",
+    "includeSubNodeModules": "true",
+    "directories": {
+      "output": "dist"
+    },
+    "extraFiles": [
+      "./dist/assets/**"
+    ],
+    "files": [
+      "./dist/**/*",
+      "./dist-electron/**/*",
+      "main.js",
+      "preload.js"
+    ],
     "win": {
       "target": ["nsis"],
       "icon": "./icons/skytech-site-builder.ico"
@@ -20,8 +33,13 @@
       "installerIcon": "./icons/skytech-site-builder.ico",
       "uninstallerIcon": "./icons/skytech-site-builder.ico",
       "uninstallDisplayName": "skytech-site-builder-uninstaller",
-      "license": "LICENSE.MD",
+      "license": "../../LICENSE.MD",
       "allowToChangeInstallationDirectory": false
+    },
+    "publish": {
+      "provider": "github",
+      "repo": "skytech-site-builder",
+      "owner": "Carlos Santiago"
     }
   },
   "dependencies": {
