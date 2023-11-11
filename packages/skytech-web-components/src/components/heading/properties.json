@@ -15,7 +15,7 @@
             "title": "Color",
             "name": "color",
             "type": "text",
-            "regex": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^[A-Za-z]{3,}$|^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6})\b|(?:rgb|hsl)a?\\([^\\)]*\\)$/",
+            "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^[A-Za-z]{3,}$|^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6})\b|(?:rgb|hsl)a?\\([^\\)]*\\)$",
             "error": "Color must be valid color value, rgb value, rgba value, or hsla value.",
             "info": "Color of heading text."
         },
@@ -23,7 +23,7 @@
             "title": "Font Size",
             "name": "fontSize",
             "type": "text",
-            "regex": "/^\\d+(([p][x])|([e][m])|([r][e][m]))$/",
+            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$",
             "error": "Font Size must be in pixels, ems, or rems.",
             "info": "Size of heading text in pixels, em, or rem.",
             "example": "10px"
@@ -92,7 +92,7 @@
             "title": "Line Height",
             "name": "lineHeight",
             "type": "text",
-            "regex": "/^\\d+(([p][x])|([e][m])|([r][e][m]))$/",
+            "regex": "^\\d+(([p][x])|([e][m])|([r][e][m]))$",
             "error": "Line Height must be in pixels, ems, or rems.",
             "info": "Line height of heading text in pixels, em, or rem.",
             "example": "10px"

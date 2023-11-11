@@ -16,7 +16,7 @@
             "title": "Color",
             "name": "color",
             "type": "text",
-            "regex": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^[A-Za-z]{3,}$|^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6})\b|(?:rgb|hsl)a?\\([^\\)]*\\)$/",
+            "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$|^[A-Za-z]{3,}$|^(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6})\b|(?:rgb|hsl)a?\\([^\\)]*\\)$",
             "error": "Color must be valid color value, rgb value, rgba value, or hsla value.",
             "info": "Background color of container."
         },
