@@ -163,3 +163,18 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.errorInput {
+    color: darkred;
+    border: solid 1px darkred;
+}
+
+.errorInput:focus {
+    outline: 1px solid darkred;
+}
+
+.errorText {
+    color: darkred;
+    margin: 0;
+}
+
