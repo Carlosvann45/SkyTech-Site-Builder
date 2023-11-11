@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from '../../styles/Navigation.module.css';
-import Logo from '../../assets/logo_grey_transparent.png';
+import Logo from '../../assets/skytech-site-builder-light.png';
 import Common from '../../utils/common';
 
 function TopNav() {
@@ -70,7 +70,7 @@ function TopNav() {
     return (
       <div className={classes.topbar}>
         <div className={classes.topcontainer}>
-            <img style={{ width: '35px', height: '28px', marginTop: '5px', marginLeft: '4px' }} src={Logo} />
+            <img style={{ width: '25px', height: '20px', margin: '5px' }} src={Logo} />
             <p className={classes.title}>SkyTech Site Builder</p>
         </div>
         <div className={classes.topcontainer}>

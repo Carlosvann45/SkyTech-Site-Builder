@@ -25,6 +25,7 @@ function createWindow() {
     icon: __dirname + '/images/favicon.ico',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      devTools: false
     },
   })
 
@@ -41,7 +42,6 @@ function createWindow() {
   }
 
   win.setMenu(null);
-  win.setTitle('Test');
   win.webContents.openDevTools();
 }
 

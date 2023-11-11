@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ComponentEditor from '../editorTools/ComponentEditor';
 import ContainerEditor from '../editorTools/ContainerEditor';
-import Logo from '../../assets/logo_grey_transparent.png';
+import Logo from '../../assets/skytech-site-builder-light.png';
 import navClasses from '../../styles/Navigation.module.css';
 import classes from '../../styles/Editor.module.css';
 import Common from '../../utils/common';
@@ -125,7 +125,7 @@ function Editor() {
     <>
         <div className={navClasses.topbar}>
             <div className={navClasses.topcontainer}>
-                <img style={{ width: '35px', height: '28px', marginLeft: '4px' }} 
+                <img style={{ width: '25px', height: '20px', margin: '5px' }} 
                       className={navClasses.hover} src={Logo} 
                       onClick={() => navigate('/websites')} 
                       onKeyDown={() => navigate('/websites')} />
@@ -135,7 +135,7 @@ function Editor() {
                     { `${pageData?.type === 'template' ? 'Template: ' : 'Page: '}` + Common.formatTitle(pageData.name, true)}
                 </p>
             </div>
-            <div className={navClasses.topcontainer}>
+            <div className={navClasses.switchcontainer}>
                 <p className={navClasses.switchText}>Edit</p>
                 <input type="checkbox" name="switch" id="switch" className={navClasses.input} onClick={() => setEdit(!edit)}/>
                 <label htmlFor="switch" className={navClasses.label}></label>
