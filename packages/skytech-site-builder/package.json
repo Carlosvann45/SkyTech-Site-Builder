@@ -25,7 +25,9 @@
       "preload.js"
     ],
     "win": {
-      "target": ["nsis"],
+      "target": [
+        "nsis"
+      ],
       "icon": "./icons/skytech-site-builder.ico"
     },
     "nsis": {
@@ -53,7 +55,7 @@
     "react-notifications": "^1.7.4",
     "react-router-dom": "^6.16.0",
     "react-toastify": "^9.1.3",
-    "skytech-web-components": "^1.0.27",
+    "skytech-web-components": "^1.0.28",
     "vite-tsconfig-paths": "^4.2.1"
   },
   "devDependencies": {
