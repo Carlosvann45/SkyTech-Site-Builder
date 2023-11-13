@@ -59,7 +59,7 @@ function PropertiesModal(props: any) {
         return (<>
         <input type="text" 
                name={property.name} 
-               className={`${classes.modalInput} ${changedProperties[property.name].hasError ? classes.errorInput : ''}`}
+               className={`${classes.modalInput} ${changedProperties[property.name]?.hasError ? classes.errorInput : ''}`}
                onChange={(e: any) => handleOnChange(e, property)}
                placeholder={property.example ?? ''}
                value={changedProperties[property.name].value}
@@ -98,7 +98,7 @@ function PropertiesModal(props: any) {
                             return (
                                 <div key={property.name} className={classes.modalField}>
                                 <div className={classes.labelWrapper}>
-                                    <label className={classes.modalLabel} htmlFor={property.name}>{property.title}</label>
+                                    <label className={`${classes.modalLabel} ${changedProperties[property.name].hasError ? classes.errorText : ''}`} htmlFor={property.name}>{property.title}</label>
                                     {
                                         property.info && (
                                             <StyledToolTip title={property.info} placement="right">
@@ -233,7 +233,34 @@ function PropertiesModal(props: any) {
                         ...regexProps
                     }
                 }
-            })
+            });
+
+            if (props.component.columns) {
+                props.component.columns.forEach((column: any) => {
+                    if (column.properties.length > 0) {
+                        column.properties.forEach((property: any) => {
+                            let regexProps = {};
+            
+                            if (property.regex) {
+                                regexProps = {
+                                    regex: property.regex
+                                }
+                            }
+            
+                            newProperties = {
+                                ...newProperties,
+                                [property.name]: {
+                                    value: property?.value ?? '',
+                                    ...regexProps
+                                }
+                            }
+                        });
+                    }
+                })
+            }
+
+            console.log(newProperties);
+            console.log(props.component)
     
             setChangedProperties(newProperties);
             setComponent(props.component);
