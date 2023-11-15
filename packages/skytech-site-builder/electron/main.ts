@@ -1,6 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
-import url from 'url';
 import fs from 'fs';
 import FileOperations from './utils/FileOperations'
 
@@ -37,13 +36,8 @@ function createWindow() {
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL)
   } else {
-    // win.loadFile(process.env.ELECTRON_START_URL ?? path.join(__dirname, '../index.html'));
+    win.loadFile(process.env.ELECTRON_START_URL ?? path.join(process.env.DIST, 'index.html'));
     // win.loadFile(path.join(process.env.DIST, 'index.html'))
-    win.loadURL(url.format({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file:',
-      slashes: true
-        }));
   }
 
   win.setMenu(null);
