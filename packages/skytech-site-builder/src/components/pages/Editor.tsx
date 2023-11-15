@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ComponentEditor from '../editorTools/ComponentEditor';
 import ContainerEditor from '../editorTools/ContainerEditor';
 import Logo from '../../assets/skytech-site-builder-light.png';
@@ -11,6 +11,7 @@ import ContainerPreview from '../preview/ContainerPreview';
 
 function Editor() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [edit, setEdit] = useState(true);
   const [pageData, setPageData] = useState({ name: 'Editor', type: 'page', components: [] });
   const [components, setComponents] = useState([]);
@@ -97,10 +98,10 @@ function Editor() {
   }
 
   useEffect(() => {
-    const pathArr = window.location.pathname.split('/');
-
-    if (pathArr[2] === 'template') {
-        const template = pathArr[pathArr.length - 1];
+    const pathArr = location.pathname.split('/');
+    
+    if (pathArr.includes('template')) {
+        const template = location.state.template ?? '';
 
         window.fileOperations.getTemplate(template).then((json: any) => {
             setPageData(json);
@@ -108,8 +109,8 @@ function Editor() {
         });
         
     } else {
-        const page = pathArr[pathArr.length - 1];
-        const project = pathArr[pathArr.length - 2];
+        const page = location.state.page ?? '';
+        const project = location.state.project ?? '';
         
         window.fileOperations.getPages(project).then((p: any) => {
             const newPageData = p.find((p: any) => p.name === page);

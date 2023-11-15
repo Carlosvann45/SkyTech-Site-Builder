@@ -121,7 +121,6 @@ function PropertiesModal(props: any) {
     let newProperties = changedProperties;
     let valueProperties = newProperties[property.name];
 
-    console.log(property.name)
     if (valueProperties.regex && !incorrectInput(valueProperties, target.value)) {
         valueProperties = {
             ...valueProperties,
@@ -155,9 +154,7 @@ function PropertiesModal(props: any) {
 
     const regex = new RegExp(property.regex);
     const result = regex.test(value);
-    console.log(regex);
-    console.log(value);
-    console.log(result);
+
     return result;
   }
 
@@ -258,9 +255,6 @@ function PropertiesModal(props: any) {
                     }
                 })
             }
-
-            console.log(newProperties);
-            console.log(props.component)
     
             setChangedProperties(newProperties);
             setComponent(props.component);

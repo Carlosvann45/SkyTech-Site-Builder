@@ -8,6 +8,14 @@ function Templates() {
   const navigate = useNavigate();
   const [templates, setTemplates] = useState([] as any);
 
+  function navigateToEditor(template: any) {
+    navigate('/editor/template', {
+      state: {
+        template: template.name
+      }
+    });
+  }
+
   useEffect(() => {
     window.fileOperations.getTemplates().then((templateArr: any) => {
       setTemplates(templateArr);
@@ -19,7 +27,7 @@ function Templates() {
       <div className={classes.templates}>
         {
           templates.length > 0 && templates.map((template: any) => (
-            <div key={template.name} className={classes.card} onClick={() => navigate(`/editor/template/${template.name}`)}>
+            <div key={template.name} className={classes.card} onClick={() => navigateToEditor(template)} onKeyDown={() => navigateToEditor(template)}>
               <img className={classes.cardicon} src={Template} />
               <h4 className={classes.cardtitle}>{Common.formatTitle(template.title, true)}</h4>
             </div>

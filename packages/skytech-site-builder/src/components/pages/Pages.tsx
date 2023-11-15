@@ -1,25 +1,30 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import classes from '../../styles/Pages.module.css';
 import Page from '../../assets/icons8-page-64.png';
 import Common from '../../utils/common';
 
 function Pages() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [project, setProject] = useState('');
   const [pages, setPages] = useState([]);
 
   function navigateToEditor(page: string) {
-    navigate(`/editor/page/${project}/${page}`);
+    navigate('/editor/page', {
+      state: {
+        project,
+        page
+      }
+    });
   }
 
   useEffect(() => {
-    const pathArr = window.location.pathname.split('/');
-    const newProject = pathArr[pathArr.length - 1]
+    const actualProject = location.state.project ?? '';
     
-    setProject(newProject);
+    setProject(actualProject);
     
-    window.fileOperations.getPages(newProject).then((p: any) => {
+    window.fileOperations.getPages(actualProject).then((p: any) => {
       setPages(p);
     });
   }, [])
@@ -29,7 +34,7 @@ function Pages() {
       <div className={classes.websites}>
         {
           pages.length !== 0 && pages.map((page: any) => (
-            <div key={page.name} className={classes.card} onClick={() => navigateToEditor(page.name)}>
+            <div key={page.name} className={classes.card} onClick={() => navigateToEditor(page.name)} onKeyDown={() => navigateToEditor(page.name)}>
               <img className={classes.cardicon} src={Page} />
               <h4 className={classes.cardtitle}>{Common.formatTitle(page.title, true)}</h4>
             </div>

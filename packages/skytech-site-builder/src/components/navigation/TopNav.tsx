@@ -1,67 +1,64 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import classes from '../../styles/Navigation.module.css';
 import Logo from '../../assets/skytech-site-builder-light.png';
 import Common from '../../utils/common';
 
 function TopNav() {
     const navigate = useNavigate();
+    const location = useLocation();
     const [selected, setSelected] = useState('');
     const [buttonText, setButtonText] = useState('Create');
 
     function handleCreateClick() {
-        const place = window.location.pathname.split('/')
+        const place = location.pathname.split('/')
 
         if (place.length > 2) {
           if (place[2] === 'pages') {
-            const pathArr = window.location.pathname.split('/');
-            const project = pathArr[pathArr.length - 1];
+            const project = location.state.project ?? '';
 
-            navigate(`/${place[1]}/page_form/${project}`);
+            navigate('/websites/page_form/', {
+              state: {
+                project
+              }
+            });
           } else if (place[2] === 'templates') {
-            navigate(`/${place[1]}/template_form`);
+            navigate('/websites/template_form');
           }
         } else {
-            navigate(`/${place[1]}/folder_form`);
+            navigate('/websites/folder_form');
         }
     }
 
     function showCreateButton(): boolean {
-      const path = window.location.pathname;
-      const whitelist = [
-        '/websites',
-        '/websites/templates'
+      const path = location.pathname;
+      const blacklist = [
+        '/websites/components',
+        '/websites/export'
       ];
 
-      return !whitelist.includes(path.trim()) && path.split('/')[2] !== 'pages';
+      return blacklist.includes(path.trim()) && path.split('/')[2] !== 'pages';
     }
   
     useEffect(() => {
-      const options = window.location.pathname.split('/');
+      const options = location.pathname.split('/');
       let txt = 'Project';
       let dir = 'Websites';
 
-      if (options[2]) {
-        if (options[2] === 'template_form') {
-          dir = 'Creating Template';
-        } else if (options[2] === 'page_form') {
-          dir = 'Creating page: ' + options[3];
-        } else if (options[2] === 'folder_form') {
-          dir = 'Creating Project';
-        } else if (options[3]) {
-          dir = options[3];
-        } else {
-          dir = options[2];
-        }
-      } else if (options[3]) {
-        dir = options[3];
-      } 
-
       if (options.includes('pages')) {
         txt = 'Page';
+        dir = 'Template';
+      } else if (options.includes('page_form')) {
+        dir = 'Page Form';
       } else if (options.includes('templates')) {
         txt = 'Template';
-      }
+        dir = 'Template';
+      } else if (options.includes('template_form')) {
+        dir = 'Template Form';
+      } else if (options.includes('folder_form')) {
+        dir = 'Project Form';
+      } 
+      
       
       setButtonText(`Create ${txt}`);
       setSelected(Common.formatTitle(dir, true));

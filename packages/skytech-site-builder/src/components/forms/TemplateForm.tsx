@@ -33,7 +33,11 @@ function TemplateForm() {
         if (!created) {
           Common.toast('error', finalTemplate.name ? ERROR.NAME_EXISTS : ERROR.TITLE_EXISTS);
         } else {
-          navigate(`/editor/template/${finalTemplate.name}`);
+          navigate('/editor/template', {
+            state: {
+              template: finalTemplate.name
+            }
+          });
         }
       });
     } else {
@@ -154,7 +158,7 @@ function TemplateForm() {
             <div className={classes.cards}>
               {
                 containers.length > 0 && containers.map((item: any) => (
-                  <div key={item.name} className={classes.card} onClick={() => handleContainerClick(item)}>
+                  <div key={item.name} className={classes.card} onClick={() => handleContainerClick(item)} onKeyDown={() => handleContainerClick(item)}>
                     <img className={classes.cardicon} src={Component} />
                     <h4 className={classes.cardtitle}>{item.title}</h4>
                   </div>

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Sites from './components/pages/Sites';
 import Templates from './components/pages/Templates';
 import MainLayout from './outlets/MainLayout';
@@ -13,26 +13,25 @@ import TemplateForm from './components/forms/TemplateForm';
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route path="editor" element={<EditorLayout />}>
-          <Route path="page/:project/:page" element={<Editor />} />
-          <Route path="template/:name" element={<Editor />} />
+          <Route path="page" element={<Editor />} />
+          <Route path="template" element={<Editor />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
         <Route path="*" element={<MainLayout />}>
-          <Route path="websites" element={<Sites />} />
           <Route path="websites/folder_form" element={<ProjectForm />} />
-          <Route path="websites/pages/:project" element={<Pages />} />
-          <Route path="websites/page_form/:project" element={<PageForm />} />
+          <Route path="websites/pages" element={<Pages />} />
+          <Route path="websites/page_form/" element={<PageForm />} />
           <Route path="websites/templates" element={<Templates />} />
           <Route path="websites/template_form" element={<TemplateForm />} />
           <Route path="websites/components" element={<Components />} />
           <Route path="websites/export" element={<Export />} />
-          <Route path="*" element={<Navigate to="/websites" />} />
+          <Route path="*" element={<Sites />} />
         </Route>
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
 

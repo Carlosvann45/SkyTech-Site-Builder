@@ -9,11 +9,11 @@ import { Helmet } from "react-helmet";
  * @returns PageLayout Page
  */
 const EditorLayout = () => {
-    const [webComponentScripts, setWebComponentSripts] = useState({ js: '' });
+    const [webComponentScripts, setWebComponentScripts] = useState({ js: '' });
 
     useEffect(() => {
       window.fileOperations.getWebComponentFiles().then((files: any) => {
-          setWebComponentSripts(files);
+        setWebComponentScripts(files);
       })
     }, [])
 

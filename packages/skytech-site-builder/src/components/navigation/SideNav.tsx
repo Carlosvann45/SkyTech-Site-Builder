@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import classes from '../../styles/Navigation.module.css';
@@ -10,23 +10,24 @@ import Export from '../../assets/icons8-export-48.png';
 
 function SideNav() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selected, setSelected] = useState('');
 
   useEffect(() => {
-    const options = window.location.pathname.split('/');
-    const cond1 = options[2] === 'page_form' || options[2] === 'folder_form' || options[2] === 'pages';
+    const options = location.pathname.split('/');
+    const cond1 = options.includes('page_form') || options.includes('folder_form') || options.includes('pages');
     let option = '';
 
     if (!cond1 && options[2]) {
-      if (options[2] === 'template_form') {
+      if (options.includes('template_form')) {
         option = 'templates';
       } else {
         option = options[2];
       }
     } else {
-      option = options[1];
+      option = 'websites';
     }
-    
+
     setSelected(option);
   });
 

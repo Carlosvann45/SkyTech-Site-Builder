@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import Validation from '../../utils/validation';
@@ -11,14 +11,14 @@ import Template from '../../assets/icons8-template-100.png';
 
 function PageForm() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [errors, setErrors] = useState({ titleError: false, nameError: false })
   const [page, setPage] = useState({ title: '', name: '' });
   const [defaultTemplate, setDefaultTemplate] = useState({} as any);
   const [templates, setTemplates] = useState([]);
 
   function handleClick() {
-    const pathArr = window.location.pathname.split('/');
-    const project = pathArr[pathArr.length - 1]
+    const project = location.state.project ?? '';
     const finalPage = page;
     const result = Validation.verifyForm(finalPage) ;
     
@@ -35,7 +35,12 @@ function PageForm() {
         if (!created) {
           Common.toast('error', finalPage.name ? ERROR.NAME_EXISTS : ERROR.TITLE_EXISTS);
         } else {
-          navigate(`/editor/page/${project}/${finalPage.name}`);
+          navigate('/editor/page', {
+            state: {
+              project,
+              page: finalPage.name
+            }
+          });
         }
       });
     } else {

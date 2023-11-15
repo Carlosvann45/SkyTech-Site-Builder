@@ -9,7 +9,11 @@ function Sites() {
   const [projects, setProjects] = useState([]);
 
   function goToPages(project: string) {
-    navigate(`/websites/pages/${project}`)
+    navigate('/websites/pages', {
+      state: {
+        project
+      }
+    })
   }
 
   useEffect(() => {
@@ -23,7 +27,7 @@ function Sites() {
       <div className={classes.websites}>
         {
           projects.length !== 0 && projects.map((project) => (
-            <div key={project} className={classes.card} onClick={() => goToPages(project)}>
+            <div key={project} className={classes.card} onClick={() => goToPages(project)} onKeyDown={() => goToPages(project)}>
               <img className={classes.cardicon} src={Folder} />
               <h4 className={classes.cardtitle}>{Common.formatTitle(project, true)}</h4>
             </div>
