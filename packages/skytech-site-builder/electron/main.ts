@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
 import fs from 'fs';
+import { mkdir } from 'fs/promises';
 import FileOperations from './utils/FileOperations'
 
 // The built directory structure
@@ -75,12 +76,42 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
-})
+});
+
+function createDataFolder(mainFolder: any, subFolder: any) {
+  let appDataFolder = __dirname as any;
+
+  switch(process.platform) {
+      case 'darwin':
+         appDataFolder = path.join(process.env.HOME as any, 'Library', 'Application Support');
+          break;
+      case 'win32':
+          appDataFolder = process.env.APPDATA;
+          break;
+      case 'linux':
+          appDataFolder = process.env.HOME;
+          break;
+  }
+
+  if (!fs.existsSync(path.join(appDataFolder, mainFolder))) {
+      return (async () => {
+          await mkdir(path.join(appDataFolder, mainFolder));
+          await mkdir(path.join(appDataFolder, mainFolder, subFolder));
+          return path.join(appDataFolder, mainFolder, subFolder);
+      })();
+  } else if (!fs.existsSync(path.join(appDataFolder, mainFolder, subFolder))) {
+      return (async () => {
+          await mkdir(path.join(appDataFolder, mainFolder, subFolder));
+          return path.join(appDataFolder, mainFolder, subFolder);
+      })();
+  } else {
+      return path.join(appDataFolder, mainFolder, subFolder);
+  }
+}
 
 app.whenReady().then(() => {
-  if (!fs.existsSync(__dirname + '/projects_data')) {
-    fs.mkdirSync(path.join(__dirname, 'projects_data'));
-  }
+  createDataFolder('skytech-site-builder', 'projects_data');
+  createDataFolder('skytech-site-builder', 'template_data');
   createWindow();
   createHandlers();
 })

@@ -7,9 +7,26 @@ import format from 'html-format';
 import Common from './Common';
 
 export default class FileOperations {
-    private static projectPath = path.join(__dirname,'projects_data');
-    private static templatePath = path.join(__dirname,'template_data');
+    private static projectPath = path.join(FileOperations.getAppFolder(), 'skytech-site-builder', 'projects_data') as any;
+    private static templatePath = path.join(FileOperations.getAppFolder(), 'skytech-site-builder', 'template_data') as any;
 
+    public static getAppFolder() {
+        let folder = __dirname as any;
+
+        switch(process.platform) {
+            case 'darwin':
+                folder = path.join(process.env.HOME as any, 'Library', 'Application Support');
+                break;
+            case 'win32':
+                folder = process.env.APPDATA;
+                break;
+            case 'linux':
+                folder = process.env.HOME;
+                break;
+        }
+
+        return folder;
+    }
 
     public static getWebComponentProperties() {
         return webComponentProperties;
