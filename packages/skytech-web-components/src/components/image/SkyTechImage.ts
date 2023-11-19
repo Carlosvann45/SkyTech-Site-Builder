@@ -1,46 +1,52 @@
-import { LitElement, html, css, unsafeCSS } from 'lit';
-import { customElement, property } from 'lit/decorators.js'
+import { LitElement, html, css, unsafeCSS } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 /**
  * Class for image web component
  */
-@customElement('skytech-image')
+@customElement("skytech-image")
 export class SkyTechImage extends LitElement {
   @property({ type: String, attribute: true })
-  source = '';
+  source = "";
   @property({ type: String, attribute: true })
-  alt = '';
+  alt = "";
   @property({ type: String, attribute: true })
-  margin = 'inherit';
+  margin = "inherit";
   @property({ type: String, attribute: true })
-  padding = 'inherit';
+  padding = "inherit";
   @property({ type: String, attribute: true })
-  width = 'inherit';
+  width = "inherit";
   @property({ type: String, attribute: true })
-  height = 'inherit';
+  height = "inherit";
   @property({ type: String, attribute: true })
-  imgWidth = 'fit-content';
+  imgWidth = "fit-content";
   @property({ type: String, attribute: true })
-  imgHeight = 'fit-content';
-
+  imgHeight = "fit-content";
 
   render() {
     return html`
-    <style>${this.generateStyles()}</style>
-    <div class="skytech-image">
-        <img alt="${this.alt}" src="${this.source}" width="${this.imgWidth}" height="${this.imgHeight}" />
-    </div>
-    `
+      <style>
+        ${this.generateStyles()}
+      </style>
+      <div class="skytech-image">
+        <img
+          alt="${this.alt}"
+          src="${this.source}"
+          width="${this.imgWidth}"
+          height="${this.imgHeight}"
+        />
+      </div>
+    `;
   }
 
   generateStyles() {
     return css`
-    div.skytech-image {
-      margin: ${unsafeCSS(this.margin)};
-      padding: ${unsafeCSS(this.padding)};
-      width: ${unsafeCSS(this.width)};
-      height: ${unsafeCSS(this.height)};
-    }
+      div.skytech-image {
+        margin: ${unsafeCSS(this.margin)};
+        padding: ${unsafeCSS(this.padding)};
+        width: ${unsafeCSS(this.width)};
+        height: ${unsafeCSS(this.height)};
+      }
     `;
   }
 }

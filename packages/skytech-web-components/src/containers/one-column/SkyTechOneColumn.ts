@@ -1,41 +1,43 @@
-import { LitElement, html, css, unsafeCSS } from 'lit';
-import { customElement, property } from 'lit/decorators.js'
+import { LitElement, html, css, unsafeCSS } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 /**
  * Class for one column container
  */
-@customElement('skytech-one-column')
+@customElement("skytech-one-column")
 export class SkyTechOneColumn extends LitElement {
   @property({ type: String, attribute: true })
-  color = 'inherit';
+  color = "inherit";
   @property({ type: String, attribute: true })
-  margin = 'inherit';
+  margin = "inherit";
   @property({ type: String, attribute: true })
-  padding = 'inherit';
+  padding = "inherit";
   @property({ type: String, attribute: true })
-  width = 'inherit';
+  width = "inherit";
   @property({ type: String, attribute: true })
-  height = 'inherit';
+  height = "inherit";
 
   render() {
     return html`
-    <style>${this.generateStyles()}</style>
-    <slot class="skytech-one-column" name="skytech-column-one"></slot>
+      <style>
+        ${this.generateStyles()}
+      </style>
+      <slot class="skytech-one-column" name="skytech-column-one"></slot>
     `;
   }
 
   generateStyles() {
     return css`
-    slot.skytech-one-column {
-      display: flex;
-      flex-direction: column;  
-    
-      background-color: ${unsafeCSS(this.color)};
-      margin: ${unsafeCSS(this.margin)};
-      padding: ${unsafeCSS(this.padding)};
-      width: ${unsafeCSS(this.width)};
-      height: ${unsafeCSS(this.height)};
-    }
+      slot.skytech-one-column {
+        display: flex;
+        flex-direction: column;
+
+        background-color: ${unsafeCSS(this.color)};
+        margin: ${unsafeCSS(this.margin)};
+        padding: ${unsafeCSS(this.padding)};
+        width: ${unsafeCSS(this.width)};
+        height: ${unsafeCSS(this.height)};
+      }
     `;
   }
 }
