@@ -1,22 +1,42 @@
+/**
+ * @name Common
+ * @description Class for common function to use in th electron backend
+ */
 export default class Common {
-    public static disableComponent(component: any, disable: boolean) {
-        component.disabled = disable;
+  /**
+   * @name disableComponent
+   * @description takes in a component and a boolean value on wheter to disable the component and assignts it to
+   * the component or container and columns
+   * @param component web component json
+   * @param disable disable value for disabling component
+   * @returns a disabled component
+   */
+  public static disableComponent(component: any, disable: boolean) {
+    component.disabled = disable;
 
-        if (component?.columns) {
-            component.columns = component.columns.map((column: any) => {
-                if (column.components.length > 0) {
-                    column.components = column.components?.map((c: any) => this.disableComponent(c, disable));
-                }
-
-                return column;
-            });
+    if (component?.columns) {
+      component.columns = component.columns.map((column: any) => {
+        if (column.components.length > 0) {
+          column.components = column.components?.map((c: any) =>
+            this.disableComponent(c, disable),
+          );
         }
 
-        return component;
+        return column;
+      });
     }
 
-    public static generateHtml(data: any) {
-        return `<!DOCTYPE html>
+    return component;
+  }
+
+  /**
+   * @name generateHtml
+   * @description takes html data and creates a html page
+   * @param data html datat to add to html page
+   * @returns string html
+   */
+  public static generateHtml(data: any) {
+    return `<!DOCTYPE html>
         <html lang="en">
           <head>
             <meta charset="UTF-8">
@@ -30,53 +50,68 @@ export default class Common {
           </body>
         </html>
         `;
-    }
+  }
 
-    public static formatComponent(component: any) {
-        const tagArr = component.name.split('-');
-        const propertiesArr = [] as any;
+  /**
+   * @name formatComponent
+   * @description formats component html tag with correct properties
+   * @param component component json
+   * @returns formated component tag
+   */
+  public static formatComponent(component: any) {
+    const tagArr = component.name.split("-");
+    const propertiesArr = [] as any;
 
-        component.properties.forEach((property: any) => {
-            propertiesArr.push(`${property.name}="${property.value}"`);
-        })
+    component.properties.forEach((property: any) => {
+      propertiesArr.push(`${property.name}="${property.value}"`);
+    });
 
-        tagArr.pop();
+    tagArr.pop();
 
-        return `<${tagArr.join('-')} ${propertiesArr.join(' ')}></${tagArr.join('-')}>`
-    }
+    return `<${tagArr.join("-")} ${propertiesArr.join(" ")}></${tagArr.join(
+      "-",
+    )}>`;
+  }
 
-    public static formatContainer(container: any) {
-        const tagArr = container.name.split('-');
-        const propertiesArr = [] as any;
-        const componentArr = [] as any;
+  /**
+   * @name formatContainer
+   * @description formats container html tag with correct properties
+   * @param container container json
+   * @returns formated container tag
+   */
+  public static formatContainer(container: any) {
+    const tagArr = container.name.split("-");
+    const propertiesArr = [] as any;
+    const componentArr = [] as any;
 
-        container.properties.forEach((property: any) => {
-            propertiesArr.push(`${property.name}="${property.value}"`);
+    container.properties.forEach((property: any) => {
+      propertiesArr.push(`${property.name}="${property.value}"`);
+    });
+
+    container.columns.forEach((column: any) => {
+      if (column.properties.length > 0) {
+        column.properties.forEach((property: any) => {
+          propertiesArr.push(`${property.name}="${property.value}"`);
         });
+      }
 
-        container.columns.forEach((column: any) => {
-            if (column.properties.length > 0) {
-                column.properties.forEach((property: any) => {
-                    propertiesArr.push(`${property.name}="${property.value}"`);
-                });
-            }
+      if (column.components.length > 0) {
+        column.components.forEach((component: any) => {
+          component.properties.push({ name: "slot", value: column.name });
 
-            if (column.components.length > 0) {
-                column.components.forEach((component: any) => {
-                    component.properties.push({ name: 'slot', value: column.name });
-
-                    if (component.type === 'component') {
-                        componentArr.push(this.formatComponent(component));
-                    } else {
-                        componentArr.push(this.formatContainer(component));
-                    }
-                });
-            }
+          if (component.type === "component") {
+            componentArr.push(this.formatComponent(component));
+          } else {
+            componentArr.push(this.formatContainer(component));
+          }
         });
+      }
+    });
 
-        tagArr.pop();
+    tagArr.pop();
 
-        return `<${tagArr.join('-')} ${propertiesArr.join(' ')}>${componentArr.join('\n')}</${tagArr.join('-')}>`
-
-    }
+    return `<${tagArr.join("-")} ${propertiesArr.join(" ")}>${componentArr.join(
+      "\n",
+    )}</${tagArr.join("-")}>`;
+  }
 }

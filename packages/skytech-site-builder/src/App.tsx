@@ -1,16 +1,21 @@
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Sites from './components/pages/Sites';
-import Templates from './components/pages/Templates';
-import MainLayout from './outlets/MainLayout';
-import EditorLayout from './outlets/EditorLayout';
-import Components from './components/pages/Components';
-import Export from './components/pages/Export';
-import ProjectForm from './components/forms/ProjectForm';
-import Pages from './components/pages/Pages';
-import PageForm from './components/forms/PageForm';
-import Editor from './components/pages/Editor';
-import TemplateForm from './components/forms/TemplateForm';
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
+import Sites from "./components/pages/Sites";
+import Templates from "./components/pages/Templates";
+import MainLayout from "./outlets/MainLayout";
+import EditorLayout from "./outlets/EditorLayout";
+import Components from "./components/pages/Components";
+import Export from "./components/pages/Export";
+import ProjectForm from "./components/forms/ProjectForm";
+import Pages from "./components/pages/Pages";
+import PageForm from "./components/forms/PageForm";
+import Editor from "./components/pages/Editor";
+import TemplateForm from "./components/forms/TemplateForm";
 
+/**
+ * @name App
+ * @description handlses routing all pages to show correct page on app load
+ * @returns Component
+ */
 function App() {
   return (
     <HashRouter>
