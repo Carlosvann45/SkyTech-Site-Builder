@@ -23,6 +23,11 @@ export class SkyTechButton extends LitElement {
   @property({ type: String, attribute: true })
   height = "inherit";
 
+  /**
+   * @name render
+   * @description renders html for web component
+   * @returns generated web component html
+   */
   render() {
     return html`
     <style>${this.generateStyles()}</style>
@@ -30,6 +35,11 @@ export class SkyTechButton extends LitElement {
     `;
   }
 
+  /**
+   * @name generateStyles
+   * @description handles generating styles for skytech button
+   * @returns user generated styles
+   */
   generateStyles() {
     return css`
       p.skytech-button {

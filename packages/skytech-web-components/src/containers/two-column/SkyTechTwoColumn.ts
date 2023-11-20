@@ -37,6 +37,11 @@ export class SkyTechTwoColumn extends LitElement {
   @property({ type: String, attribute: true })
   heightTwo = "inherit";
 
+  /**
+   * @name render
+   * @description renders html for web component
+   * @returns generated web component html
+   */
   render() {
     return html`
       <style>
@@ -49,6 +54,11 @@ export class SkyTechTwoColumn extends LitElement {
     `;
   }
 
+  /**
+   * @name generateStyles
+   * @description handles generating styles for skytech one column
+   * @returns user generated styles
+   */
   generateStyles() {
     return css`
       div.skytech-two-column {

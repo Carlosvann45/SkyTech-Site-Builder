@@ -29,6 +29,11 @@ export class SkyTechHeading extends LitElement {
   @property({ type: String, attribute: true })
   lineHeight = "inherit";
 
+  /**
+   * @name render
+   * @description renders html for web component
+   * @returns generated web component html
+   */
   render() {
     let filler;
 
@@ -62,6 +67,11 @@ export class SkyTechHeading extends LitElement {
     `;
   }
 
+  /**
+   * @name generateStyles
+   * @description handles generating styles for skytech heading
+   * @returns user generated styles
+   */
   generateStyles() {
     return css`
       h1.skytech-heading,

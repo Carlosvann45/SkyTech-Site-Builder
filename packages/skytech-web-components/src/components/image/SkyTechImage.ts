@@ -23,6 +23,11 @@ export class SkyTechImage extends LitElement {
   @property({ type: String, attribute: true })
   imgHeight = "fit-content";
 
+  /**
+   * @name render
+   * @description renders html for web component
+   * @returns generated web component html
+   */
   render() {
     return html`
       <style>
@@ -39,6 +44,11 @@ export class SkyTechImage extends LitElement {
     `;
   }
 
+  /**
+   * @name generateStyles
+   * @description handles generating styles for skytech image
+   * @returns user generated styles
+   */
   generateStyles() {
     return css`
       div.skytech-image {
